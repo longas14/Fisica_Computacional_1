@@ -1,0 +1,940 @@
+\documentclass[12pt]{article}
+
+% ---------- IDIOMA ----------
+\usepackage{polyglossia}
+\setdefaultlanguage{spanish}
+% --- Cambiar "Cuadro" por "Tabla" ---
+\addto\captionsspanish{\renewcommand{\tablename}{Tabla}}
+
+% ---------- FUENTES ----------
+\usepackage{fontspec}
+\setmainfont{TeX Gyre Termes}
+
+% ---------- PAQUETES MATEMÁTICOS Y FÍSICOS ----------
+\usepackage{amsmath,amssymb}
+\usepackage{amsfonts}
+\usepackage{physics}
+
+% ---------- GRÁFICOS Y COLORES ----------
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usetikzlibrary{shapes, arrows, positioning, calc}
+\usetikzlibrary{arrows.meta} 
+\usetikzlibrary{shapes.geometric} 
+\usetikzlibrary{decorations.markings}
+
+% ---------- CÓDIGO (LISTINGS) ----------
+\usepackage{listings}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.95,0.95,0.95}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.96,0.96,0.96}
+
+\lstdefinestyle{pythonstyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\small,          
+    breakatwhitespace=false,         
+    breaklines=true,                     
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                        
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4,
+    language=Python                      
+}
+\lstset{style=pythonstyle}
+
+% ---------- DISEÑO Y ESTILO ----------
+\usepackage{geometry}
+\geometry{letterpaper, margin=2cm, headheight=15pt}
+\usepackage{fancyhdr} 
+\usepackage{lastpage} 
+\usepackage{wrapfig}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{framed}
+\usepackage{etoolbox}
+
+% ---------- TCOLORBOX ----------
+\usepackage[most,skins,theorems]{tcolorbox}
+
+% --- Caja para Definiciones Formales ---
+\newtcolorbox{definicion}[1][]{
+  enhanced,
+  colback=blue!5!white,
+  colframe=blue!75!black,
+  fonttitle=\bfseries,
+  title={Definición: #1},
+  arc=2mm,
+  boxrule=0.8pt,
+  drop shadow=black!10!white
+}
+
+% --- Caja para Tareas ---
+\newtcolorbox{problemas}[1][]{
+  enhanced,
+  colback=violet!6!white,       
+  colframe=violet!45!white,     
+  coltitle=violet!40!black,     
+  fonttitle=\bfseries,
+  title={Problemas: #1},
+  arc=2.5mm,                    
+  boxrule=0.8pt,
+  drop shadow=black!8!white     
+}
+
+% --- Caja Libre Verde Menta ---
+\newtcolorbox{cajaflex}[1][]{
+  enhanced,
+  colback=teal!5!white,       
+  colframe=teal!50!black,     
+  coltitle=teal!10!white,     
+  fonttitle=\bfseries,
+  code={\ifblank{#1}{}{\tcbset{title={#1}}}},
+  arc=2.5mm,                  
+  boxrule=0.8pt,
+  drop shadow=black!8!white   
+}
+
+% ---------- TABLAS Y ELEMENTOS EXTRA ----------
+\usepackage{booktabs}   
+\usepackage{pifont}     
+\usepackage{array}      
+\usepackage{caption}    
+
+\newcommand{\lapiz}{\ding{46}\ }
+
+% ---------- ENLACES Y PDF ----------
+\usepackage{hyperref}
+
+\definecolor{myblue}{RGB}{20, 20, 120}
+\definecolor{myred}{RGB}{220, 30, 30}
+\definecolor{mygreen}{RGB}{0, 130, 60}
+
+% Personalización de nombres para \autoref
+\def\tableautorefname{Tabla}
+\def\figureautorefname{Figura}
+\def\equationautorefname{Ecuación}
+\def\sectionautorefname{Sección}
+
+% ---------- CONFIGURACIÓN DE ENCABEZADOS (ITM) ----------
+\newcommand{\logo}{\includegraphics[height=3cm]{escudoitm}}
+\newcommand{\escola}{Facultad de Ciencias Exactas y Aplicadas}
+\newcommand{\disc}{Física Computacional 1}
+\newcommand{\auth}{Robinson Longas Bedoya}
+\newcommand{\emaill}{\url{robinsonlongas@itm.edu.co}}
+\newcommand{\email}{\url{robinsonlongas3586@correo.itm.edu.co}}
+\newcommand{\cabec}{Física Computacional 1}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    citecolor=blue,
+    pdftitle={\cabec\ -- \auth},
+    pdfauthor={\auth}
+}
+
+% Configuración de estilos de página
+\pagestyle{fancy}
+\fancyhf{} 
+
+\fancypagestyle{firstpage}{
+    \fancyhead[L]{\logo}
+    \fancyhead[R]{
+        \textsf{\escola \\} 
+        \textsf{\disc \\}
+        \textsf{\auth \\}
+        \textsf{\email \\} 
+        \textsf{\emaill}     
+    }
+    \fancyfoot[R]{\scriptsize Página \thepage~de \pageref{LastPage}}
+    \renewcommand{\headrulewidth}{0pt} 
+    \renewcommand{\footrulewidth}{0.4pt} 
+}
+
+\fancyhead[L]{\textsf{\scriptsize \cabec\ -- \auth\ -- \email}}
+\fancyfoot[R]{\scriptsize Página \thepage~de \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt} 
+\renewcommand{\footrulewidth}{0.4pt} 
+
+\setlength{\parskip}{0.3em}
+
+\begin{document}
+		\thispagestyle{firstpage}
+		\vspace*{1.5cm}
+	
+	\begin{center}
+		\rule{\textwidth}{0.4pt}
+	\end{center}
+	
+	\begin{itemize}[leftmargin=*,label=\textcolor{red}{\ensuremath{\blacktriangleright}}]
+		\item \textbf{Alfabetos, cadenas y lenguajes}
+		%\item \textbf{Maquina de Turing}
+		\item \textbf{Sistema binario}
+		\item \textbf{Representación de números reales en la computadora}
+	\end{itemize}
+	
+	\noindent
+	\textbf{\underline{Bibliografía}}
+	\begin{itemize}[leftmargin=*, label={\textcolor{blue}{$\bullet$}}]
+		\item \textit{Fundamentos de programación. sec. 1.3.3 y 1.61}, Luis Joyanes.
+		\item \textit{Introducción a la informática. sec. 2.1 y 2.2},  George Beekman.
+		\item \textit{Introducción a la programación con Python. sec 1.2}, Andrés Marzal, Isabel Gracia y Pedro García.
+		\item \textit{Computational Physics, problems solved with Python. sec 2.1 y 2.2}, Rubin H. Manuel J. Páez and Cristian C. Bordeianu.
+		\item \textit{Teoría de la Computación*}, Rodrigo de Castro Korgi.
+	\end{itemize}
+     
+	\section*{\textcolor{red}{\textit{Alfabetos, cadenas y lenguajes}}}
+
+	Desde nuestra infancia comenzamos a usar el lenguaje, mediante el uso de símbolos. 
+	En español (el idioma colonial en nuestra región), por ejemplo, el abecedario
+	$$\{a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z\}$$ 
+	forma un conjunto no vacío cuyos elementos (27 en total) se llaman símbolos. 
+	Se puede construir una teoría formal matemáticamente basada en estos conceptos y 
+    utilizando la teoría de conjuntos. Acá solo 
+	mencionaremos un par de conceptos importantes para entender el sistema binario. 
+	La persona interesada en los detalles puede consultar el texto de Rodrigo de Castro Korgi.
+
+	\begin{definicion}[Alfabeto]
+	Un \textbf{alfabeto} es un conjunto finito no vacío cuyos elementos se llaman \textbf{símbolos}.
+	De manera arbitraria, un alfabeto se denota por la letra griega $\Sigma$.
+	\end{definicion}
+
+\paragraph{\textcolor{blue}{Ejemplo:}}
+Sea $\Sigma = \{a, b\}$ el alfabeto formado por dos símbolos, $a$ y $b$.
+Podemos construir una secuencia finita sobre $\Sigma$ de la siguiente manera:
+$aab, aba, bbabab$. A cada una de las secuencias finitas sobre $\Sigma$ se le llama \textbf{cadenas} 
+o \textbf{palabras} sobre $\Sigma$. La \textbf{longitud} de una cadena, $u$, es el 
+número de símbolos que la componen y se denota como $|u|$. 
+Por ejemplo, $|aba| = 3$. $|bbabab| = 6$. Note que los símbolos repetidos también 
+se cuentan. Al conjunto de todas las cadenas sobre un alfabeto se denota como $\Sigma^*$.
+En nuestro ejemplo anterior, $\Sigma^* = \{\lambda, a, b, aab, aba, bbabab, \dots\}$, 
+donde $\lambda$ es la cadena vacía.  
+
+\paragraph{\textcolor{blue}{Ejemplo:}}
+$\Sigma = \{0, 1\}$ alfabeto binario. Cadenas: $0101, 1100, 00101$.
+$$\Sigma^* = \{\lambda, 0, 1, 0101,  1100, 00101, \dots\}$$
+
+\paragraph{\textcolor{blue}{Ejemplo:}}
+$\Sigma = \{0, 1, 2, 3, 4, 5, 6, 7, 8, 9\}$ alfabeto decimal.
+Cadenas: $
+10, 20, 100, 200, 220, \dots$
+$$\Sigma^* = \{\lambda, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 100, 200, 220, \dots\}$$
+
+\paragraph{\textcolor{blue}{Ejemplo:}}
+$\Sigma = \{ |\uparrow\rangle, |\downarrow\rangle \}$ alfabeto en computación cuántica. 
+Cadenas: $|\uparrow\rangle, |\downarrow\rangle, |\uparrow\rangle |\downarrow\rangle, |\downarrow\rangle |\uparrow\rangle, \dots$
+Un estado de qubit es una superposición de los estados base 
+$|\uparrow\rangle$ y $|\downarrow\rangle$:
+\begin{align*}
+|\psi\rangle = \alpha |\uparrow\rangle + \beta |\downarrow\rangle
+\end{align*}
+
+Finalmente, sobre el alfabeto podemos construir un \textbf{lenguaje} $L$
+como un subconjunto de $\Sigma^*$. Es decir, $L\subseteq \Sigma^*$.
+Note que el lenguaje puede ser finito o infinito. 
+
+\begin{cajaflex}[Máquina de Turing]
+Sobre un alfabeto $\Sigma$ podemos definir lenguajes. Sin embargo, necesitamos una entidad que los procese. 
+En 1936, Alan Turing concibió un modelo matemático abstracto conocido como la 
+\textbf{Máquina de Turing}. Este dispositivo consta de una \textit{cinta de memoria infinita} 
+dividida en casillas (donde se escriben símbolos del alfabeto) y un \textit{cabezal} que lee, 
+escribe y se desplaza casilla a casilla. 
+\paragraph{¿Por qué es relevante?}
+Cualquier computadora moderna —sin importar su arquitectura— es equivalente en 
+potencia de cálculo a una Máquina de Turing. La máquina procesa cadenas de un lenguaje 
+de entrada (por ejemplo, el lenguaje binario $L \subseteq \{0, 1\}$) ejecutando pasos
+mecánicos finitos para transformar o reconocer dicha información.
+
+\vspace{0.1cm}
+Para una presentación formal de la máquina de Turing, 
+consulte el texto \textit{Teoría de la Computación} de Rodrigo de Castro Korgi. 
+Igualmente, para una discusión divulgativa, puede asistir este \href{https://www.youtube.com/watch?v=iaXLDz_UeYY}{video}.
+
+\vspace{0.1cm}
+Antes de terminar, quiero mencionarles que, desgraciadamente, aunque Alan Turing fue un genio de 
+las matemáticas y sus ideas tuvieron un gran impacto, fue perseguido y condenado por su orientación sexual, 
+siendo sometido a una castración química. Finalmente, se suicidó a los 41 años. 
+En la película \href{https://www.imdb.com/title/tt2084970/}{The Imitation Game} (2014) 
+se narra su historia y su contribución decisiva en la Segunda Guerra Mundial.
+\end{cajaflex}
+
+\begin{comment}
+\subsection*{Máquinas de Turing (Alan Turing, 1936)}
+
+Para procesar o reconocer las cadenas de un lenguaje $L \subseteq \Sigma^*$, necesitamos un modelo computacional. En 1936, Alan Turing propuso un modelo abstracto de máquina que no solo lee símbolos, sino que también puede **escribir** sobre una cinta infinita y **moverse en ambas direcciones**.
+
+A diferencia de un autómata finito simple (que solo lee la entrada sin modificarla), la **Máquina de Turing** es el modelo formal de lo que hoy conocemos como un algoritmo o una computadora universal.
+
+\paragraph{Ejemplo 1 (Transformación de cadenas):}
+Supongamos la cadena $u = 001010$ en el alfabeto binario $\Sigma = \{0, 1\}$. Queremos una máquina que reemplace cada $0$ por un $1$:
+\begin{itemize}
+    \item Lee $0$: lo cambia por $1$ y mueve el cabezal a la derecha.
+    \item Lee $1$: lo deja igual y mueve el cabezal a la derecha.
+    \item Resultado en la cinta: $111111$.
+\end{itemize}
+
+\paragraph{Ejemplo 2 (Conteo y verificación):}
+Para verificar si la cadena $u = 111$ contiene exactamente tres unos:
+\begin{itemize}
+    \item **Estado $q_0$:** lee el primer $1$, lo marca con $X$, se mueve a la derecha y pasa al estado $q_1$.
+    \item **Estado $q_1$:** lee el segundo $1$, lo marca con $X$, se mueve a la derecha y pasa al estado $q_2$.
+    \item **Estado $q_2$:** lee el tercer $1$, lo marca con $X$, se mueve a la derecha y pasa al estado $q_3$.
+    \item **Estado $q_3$:** encuentra el símbolo blanco ($\sqcup$) $\rightarrow$ la máquina pasa a estado de \textbf{aceptación}.
+\end{itemize}
+Contenido final de la cinta: $XXX\sqcup$.
+
+\paragraph{Otros usos de las Máquinas de Turing:}
+Las Máquinas de Turing no solo reconocen lenguajes, sino que computan funciones matemáticas completas (por ejemplo, calcular la suma $101_2 + 11_2 = 5 + 3 = 8$) o ejecutan algoritmos de ordenamiento (transformar la secuencia $5, 2, 8, 1 \rightarrow 1, 2, 5, 8$).
+
+\paragraph{Formalmente,} una Máquina de Turing de una sola cinta se define como una 7-tupla:
+\begin{align*}
+M = (Q, \Sigma, \Gamma, \delta, q_0, q_{accept}, q_{reject})
+\end{align*}
+donde:
+\begin{itemize}
+    \item $Q$: conjunto finito no vacío de estados internos.
+    \item $\Sigma$: alfabeto de entrada (no contiene el símbolo blanco $\sqcup$).
+    \item $\Gamma$: alfabeto de la cinta, donde $\Sigma \subset \Gamma$ y el símbolo blanco $\sqcup \in \Gamma$.
+    \item $\delta$: función de transición, $\delta: Q \times \Gamma \rightarrow Q \times \Gamma \times \{L, R\}$.
+    \item $q_0 \in Q$: estado inicial.
+    \item $q_{accept} \in Q$: estado de aceptación.
+    \item $q_{reject} \in Q$: estado de rechazo ($q_{reject} \neq q_{accept}$).
+\end{itemize}
+
+\end{comment}
+
+%------------ Sistema binario ----------------
+\section*{\textcolor{red}{\textit{Sistema binario}}}
+
+El computador, en su nivel más fundamental, es un sistema electrónico compuesto 
+por millones de pequeños transistores. Estos componentes solo entienden dos estados 
+físicos opuestos: hay corriente o no la hay, está encendido o está apagado (\textit{on/off}), 
+sí o no, blanco o negro.
+Para procesar esta información numéricamente, 
+representamos abstraídamente estos dos estados mediante los dígitos 
+cero ($0$) y uno ($1$). 
+Decimos entonces que el sistema funciona bajo el 
+\textbf{sistema binario}, cuyo alfabeto fundamental está definido por:
+%
+\begin{align*}
+\Sigma = \{0, 1\}
+\end{align*}
+%
+Cada uno de estos dígitos dentro del sistema se denomina un 
+\textbf{bit} (\textit{binary digit}) y representa la unidad mínima de información en 
+computación clásica.
+
+Con el alfabeto binario podemos formar cadenas de cualquier longitud. Sin embargo, 
+centraremos nuestra discusión en la cadena de 8 bits, por ejemplo $01011110$. 
+A esta secuencia se le llama \textbf{byte}. El término correcto es octeto, pero se termina 
+imponiendo el término en inglés.
+
+Supongamos que tenemos la cadena $11111111$ (todos prendidos), podemos tener
+\begin{align*}
+\begin{matrix}
+1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 \\
+\downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow & \downarrow \\
+2^7 & 2^6 & 2^5 & 2^4 & 2^3 & 2^2 & 2^1 & 2^0
+\end{matrix}
+\end{align*}
+Se tienen entonces $ 128 + 64 + 32 + 16 + 8 + 4 + 2 + 1 = 255$ significados diferente.
+Si todos están apagados $\rightarrow 00000000 = 0$. Luego, tenemos el rango $[0,255]$ 
+de valores diferentes entre apagado y prendido. Cualquiera de esos valores puede ser
+representado por un byte. Note que $2^8 = 256$.
+
+¿Qué significa entonces la cadena $01100110$ para la computadora? No tenemos una respuesta 
+única para esta pregunta. Depende de las convenciones. Puede ser una letra, un número o 
+lo que sea. 
+
+Pensemos primero en números. Tal vez en nuestro día a día no lo tengamos en 
+cuenta, pero usamos una convención para representar los números: el sistema decimal.
+El alfabeto decimal está dado por $\Sigma = \{0, 1, 2, 3, 4, 5, 6, 7, 8, 9\}$.  
+De tal forma que la cadena $40_{10}$ representa el número $40$, 
+pues 
+$$40_{10} = 4\times 10^1 + 0 \times 10^0$$ 
+Así, el sistema decimal es el que usamos
+todos los días, tal vez sin pensar en esas reglas. Por ejemplo el número $86409$
+$$86409_{10} = 8\times 10^4 + 6\times 10^3 + 4\times 10^2+ 0\times 10^1+ 9\times 10^0$$ 
+
+Ahora bien, si queremos representar ese mismo número $40$ pero en su sistema 
+binario con cadenas de longitud $8$, ¿qué hacemos? Dividimos por $2$
+
+\paragraph{\textcolor{blue}{Ejemplo:}} Vamos a representar por ejemplo el número $40$ 
+en binario de $8$ bits:
+
+\begin{align*}
+\frac{40}{2} = & ~20 \quad \text{con residuo} \quad  0 \\
+\frac{20}{2} = & ~10 \quad \text{con residuo} \quad  0 \\
+\frac{10}{2} = & ~5 \quad \text{con residuo} \quad  0 \\
+\frac{5}{2} =  & ~2 \quad \text{con residuo} \quad  1 \\
+\frac{2}{2} =  & ~1 \quad \text{con residuo} \quad  0 \\
+\frac{1}{2} =  & ~0 \quad \text{con residuo} \quad  1 
+\end{align*}
+Luego, tomamos los residuos en orden inverso $40 = 101000$. Pero esta cadena es seis bits 
+y la necesitamos de 8 bits. Para ello, agregamos ceros a la izquierda, es decir,
+$40 = 00101000$. Note que
+\begin{align*}
+00101000 &= 0 \times 2^7 + 0 \times 2^6 + 1 \times 2^5 + 0 \times 2^4 + 1 \times 2^3 
++ 0 \times 2^2 + 0 \times 2^1 + 0 \times 2^0 \\
+&= 0 + 0 + 32 + 0 + 8 + 0 + 0 + 0 
+ = 40
+\end{align*}
+
+\paragraph{\textcolor{blue}{Ejemplo:}}
+
+\begin{align*}
+4 = 00000100\,; \qquad
+3 = 00000011 \,; \qquad
+11 = 00001011
+\end{align*}
+
+En la \autoref{tab:binario-8bits} se muestran algunos números enteros positivos en 
+la representación decimal y binario de 8 bits, separadas de a 4 bits (Nibble).
+
+\begin{table}[htbp]
+\centering
+\vspace{0.2cm}
+\begin{tabular}{r c c}
+\toprule
+\textbf{Cantidad} & \textbf{\begin{tabular}[c]{@{}c@{}}Representación\\ decimal\end{tabular}} & \textbf{\begin{tabular}[c]{@{}c@{}}Representación binaria\\ (8 bits)\end{tabular}} \\
+\midrule
+& 0 & \texttt{0000 0000} \\
+\lapiz & 1 & \texttt{0000 0001} \\
+\lapiz \lapiz & 2 & \texttt{0000 0010} \\
+\lapiz \lapiz \lapiz & 3 & \texttt{0000 0011} \\
+\lapiz \lapiz \lapiz \lapiz & 4 & \texttt{0000 0100} \\
+\lapiz \lapiz \lapiz \lapiz \lapiz & 5 & \texttt{0000 0101} \\
+\lapiz \lapiz \lapiz \lapiz \lapiz \lapiz & 6 & \texttt{0000 0110} \\
+\lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz & 7 & \texttt{0000 0111} \\
+\lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz & 8 & \texttt{0000 1000} \\
+\lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz & 9 & \texttt{0000 1001} \\
+\lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz & 10 & \texttt{0000 1010} \\
+\lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz & 11 & \texttt{0000 1011} \\
+\lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz & 12 & \texttt{0000 1100} \\
+\lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz & 13 & \texttt{0000 1101} \\
+\lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz & 14 & \texttt{0000 1110} \\
+\lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz \lapiz & 15 & \texttt{0000 1111} \\
+\bottomrule
+\end{tabular}
+\caption{En el sistema numérico binario de 8 bits, cada número entero 
+está representado por un patrón de un byte (8 dígitos binarios).}
+\label{tab:binario-8bits}
+\end{table}
+
+Supongamos ahora que queremos escribir los números enteros negativos. 
+Con 8 bits, podemos representar desde el 0 hasta el 255, pero todos positivos. 
+Si queremos los negativos, entonces nos quedarían solo 128, es decir, $[-127,127]$ (un bit
+para el cero).
+Por ejemplo, para representar el $-5$, tenemos la opción más simple, usar el primer bit
+para el signo, 0 para positivo y 1 para negativo. Esto es $5 = 00000101$ y  $-5 = 1000 0101$.
+Sin embargo, esto tiene un problema: existen dos cero $0 = 00000000$ y $-0=10000000$.
+La solución a este problema es la siguiente: tome el $5 = 00000101$ y lo niegas $11111010$ y 
+luego le sumas el 1 en binario 
+\[
+\begin{array}{r}
+  11111010 \\
++ 00000001 \\
+\hline
+  11111011
+\end{array}
+\] 
+El resultado obtenido será el número $-5$. 
+
+\begin{cajaflex}[Unidades de medida]
+Recordemos que 1 byte son 8 bits. Por otro lado, el prefijo
+\textbf{kilo} significa 1000. Pero las computadoras trabajan con potencias de 2. 
+\begin{align*}
+	512 \text{ bytes} &= 2^9 \text{ bytes} \\
+	1 \text{ Kilobyte} =1 \text{ KB} &= 2^{10} \text{ bytes} = 1024 \text{ bytes} \\
+	1 \text{ Megabyte} =1 \text{ MB} &= 2^{20} \text{ bytes} = 1024 \text{ KB} = 1\,048\,576 \text{ bytes} \\
+	1 \text{ Gigabyte} =1 \text{ GB} &= 2^{30} \text{ bytes} = 1024 \text{ MB} \\
+	1 \text{ Terabyte} =1 \text{ TB} &= 2^{40} \text{ bytes} = 1024 \text{ GB} 
+\end{align*}
+\end{cajaflex}
+
+A finales de los años 70 comenzaron a popularizarse las computadoras de 16 bits. 
+Un ejemplo muy conocido de esta generación (aunque apareció algunos años después, en 1990)
+fue el Super Nintendo, cuya CPU era de 16 bits.
+¿Cuántos números enteros diferentes puede representar un computador de 16 bits?
+\begin{align*}
+&\text{Cada bit toma dos valores distintos: 0 o 1}  \implies  2^{16} = 65536  \\ 
+&\text{Lo que significa que hay 65536 patrones distintos} \\ 
+&\implies \text{La mitad toma valores negativos y la otra mitad valores postivos} 32768 \\
+& \implies  \text{ hay 32768 números negativos, desde −32768 hasta −1} \\
+& \implies  \text{ hay 32768 números positivos, desde 0 hasta 32767} \implies [-32768, 32767]\\
+&\text{Como el número de direcciones diferentes es:} 65536,
+\text{se tiene 65536 bytes=} 64 \text{ Kilobytes} 
+\end{align*}
+
+
+%¿Cuántos bits se necesitan para representar los números del 0 al 18?
+%\begin{align*}
+%&\text{Las combinaciones } 2^n \text{ me dan con } n \text{ bits.} \\
+%&\text{Luego } 2^4 = 16 \implies 0, 1, \dots, 15 \\
+%&2^5 = 32 \implies 0, \dots, 31 \\
+%&\text{Quedan libres el } 17, 18, \dots, 31. \\
+%&18 : 00010010 \implies 2^4 + 2^1 = 16 + 2 = 18
+%\end{align*}
+
+%\paragraph{Tarea:} Estudiar los de 32 y 64 bits.
+%\begin{align*}
+%2^{32} &\approx 4 \text{ gigabytes} \\
+%\text{Pero en 64 bits } \rightarrow 2^{64} &\approx 18\,446\,744\,073\,709\,551\,616
+%\end{align*}
+
+%---- SASCII codigo--------------------------------------------------
+\section*{\textcolor{red}{\textit{ Los símbolos}}}
+
+Ya sabiendo como se representan los números enteros. Nos preguntamos entonces como el 
+computador entiende las letras y los símbolos. Por ejemplo, la palabra Hola.
+Para ello, inicialmente se creó el código 
+ASCII ({\it American Standard Code for Information Iterchange})
+
+\begin{table}[ht]
+\centering
+\caption{Código ASCII en base decimal. Note que fue diseñada para 7 bits,
+es decir, números entre 0 y 127.}
+\small
+\begin{tabular}{rrrrrrrr}
+\toprule
+0  nul & 1  soh & 2  stx & 3  etx & 4  eot & 5  enq & 6  ack & 7  bel \\
+8  bs  & 9  ht  & 10 nl  & 11 vt  & 12 np  & 13 cr  & 14 so  & 15 si  \\
+16 dle & 17 dc1 & 18 dc2 & 19 dc3 & 20 dc4 & 21 nak & 22 syn & 23 etb \\
+24 can & 25 em  & 26 sub & 27 esc & 28 fs  & 29 gs  & 30 rs  & 31 us  \\
+32 sp  & 33 !   & 34 "   & 35 \#  & 36 \$  & 37 \%  & 38 \&  & 39 '   \\
+40 (   & 41 )   & 42 *   & 43 +   & 44 ,   & 45 -   & 46 .   & 47 /   \\
+48 0   & 49 1   & 50 2   & 51 3   & 52 4   & 53 5   & 54 6   & 55 7   \\
+56 8   & 57 9   & 58 :   & 59 ;   & 60 <   & 61 =   & 62 >   & 63 ?   \\
+64 @   & 65 A   & 66 B   & 67 C   & 68 D   & 69 E   & 70 F   & 71 G   \\
+72 H   & 73 I   & 74 J   & 75 K   & 76 L   & 77 M   & 78 N   & 79 O   \\
+80 P   & 81 Q   & 82 R   & 83 S   & 84 T   & 85 U   & 86 V   & 87 W   \\
+88 X   & 89 Y   & 90 Z   & 91 [   & 92 $\backslash$ & 93 ] & 94 \^{} & 95 \_ \\
+96 `   & 97 a   & 98 b   & 99 c   & 100 d  & 101 e  & 102 f  & 103 g  \\
+104 h  & 105 i  & 106 j  & 107 k  & 108 l  & 109 m  & 110 n  & 111 o  \\
+112 p  & 113 q  & 114 r  & 115 s  & 116 t  & 117 u  & 118 v  & 119 w  \\
+120 x  & 121 y  & 122 z  & 123 \{ & 124 |  & 125 \} & 126 $\sim$ & 127 del \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Supongamos que quiero escribir ``Hola''.  A la letra H le corresponde el número decimal 72, 
+a la o le corresponde el 111, a la l le corresponde el 108 y a la a le corresponde el 97. Convertimos 
+cada número decimal a binario y obtenemos la siguiente representación en binario de 8 bits:
+\begin{align*}
+\text{H} &\leftrightarrow 72 \implies 01001000:\; 0 \times 2^7 + 1 \times 2^6 + 0 \times 2^5 
++ 0 \times 2^4 + 1 \times 2^3 + 0 \times 2^2 + 0 \times 2^1 + 0 \times 2^0  \\
+\text{o} &\leftrightarrow 111 \implies 01101111:\; 0 \times 2^7 + 1 \times 2^6 + 1 \times 2^5 
++ 0 \times 2^4 + 1 \times 2^3 + 1 \times 2^2 + 0 \times 2^1 + 1 \times 2^0  \\
+\text{l} &\leftrightarrow 108 \implies 01101100:\; 0 \times 2^7 + 1 \times 2^6 + 1 \times 2^5 
++ 0 \times 2^4 + 1 \times 2^3 + 1 \times 2^2 + 0 \times 2^1 + 0 \times 2^0  \\
+\text{a} &\leftrightarrow 97 \implies 01100001:\; 0 \times 2^7 + 1 \times 2^6 + 1 \times 2^5 
++ 0 \times 2^4 + 1 \times 2^3 + 0 \times 2^2 + 0 \times 2^1 + 1 \times 2^0  
+\end{align*}
+Así, en binario de 8 bits, la palabra ``Hola'' se escribe como (note que la H mayúscula y la h minúscula
+tienen diferente asignación): $01000000$  $01101111$ $01101100$ $01100001$.
+
+Si prestamos atención a la tabla, podemos notar que es excluyente, diseñada, 
+como su nombre lo dice, para incluir solamente caracteres de la lengua inglesa.
+Por ejemplo, piensa en la letra ñ. Escribir ñiño en el computador, 
+hace algunos años era una tortura, así como $\pi$ o las tildes.
+Además, ¿Qué ocurre entonces si deseamos escribir en ruso? ¿O mandarín? o utilizar otros
+símbolos que no estén allí. Para resolver esto se crea Unicode y posteriormente UTF-8.
+
+%---- Representación de un número flotante#############################################################
+\section*{\textcolor{red}{\textit{ Representación de un número flotante (float)}}}
+
+Hasta el momento, hemos centrado la discusión en los números enteros. 
+¿Qué pasa entonces si queremos representar magnitudes reales o muy grandes, 
+como la velocidad de la luz, 
+$c = 2.99792458 \times 10^8 \;\mathrm{m\,s}^{-1}$?
+
+\noindent Primero, notemos que una misma cantidad puede ser expresada de diferentes formas equivalentes; por ejemplo,
+$c = 0.299792458 \times 10^9 \;\mathrm{m\,s}^{-1}$, donde hemos desplazado el punto hacia la izquierda 
+y ajustado la potencia de $10$. Por esta flexibilidad para desplazar la posición decimal, este esquema se denomina 
+\textbf{representación de punto flotante}.
+
+\noindent  En esta representación:
+\begin{itemize}
+    \item El conjunto de dígitos significativos se conoce como \textbf{mantisa} (o fracción).
+    \item La potencia a la que se eleva la base determina el \textbf{exponente}.
+    \item El \textbf{signo} indica si el número es positivo o negativo.
+\end{itemize}
+
+Esta concatenación de información (Signo, Exponente y Mantisa) es lo que la computadora 
+almacena en memoria. Dado que el hardware no puede guardar infinitos dígitos reales, 
+su representación en el computador es siempre finita y discreta; a estos números representables 
+los llamamos \textbf{números de máquina}. Si un cálculo excede el rango representable por la
+arquitectura, se producen dos tipos de límites de precisión:
+\begin{itemize}
+    \item \textbf{Overflow (desbordamiento):} Ocurre cuando la magnitud de un número es mayor que el valor máximo que el hardware puede almacenar. En este caso, el sistema retorna infinito ($\pm\infty$).
+    \item \textbf{Underflow (subdesbordamiento):} Ocurre cuando la magnitud de un número es tan cercana a cero que no es posible representarlo con la precisión del sistema, por lo que el hardware lo aproxima automáticamente a cero ($0.0$).
+\end{itemize}
+
+En los inicios de la computación, cada fabricante y lenguaje utilizaba su propia arquitectura 
+para representar números de punto flotante. Sin embargo, alrededor de 1987 el 
+\textit{Institute of Electrical and Electronics Engineers} 
+estandarizó este formato mediante la norma IEEE 754. 
+
+En la representación de doble precisión (64 bits), cualquier número real se expresa como:
+\begin{align*}
+X = (-1)^S \cdot 2^{C - 1023} \cdot (1 + f)
+\end{align*}
+
+donde la distribución de los 64 bits en memoria es la siguiente:
+\begin{itemize}
+    \item $S$: \textbf{Bit de signo} (1 bit) $\rightarrow$ Posición $63$.
+    \item $C$: \textbf{Exponente con sesgo} (11 bits) $\rightarrow$ Posiciones $62$ a $52$.
+    \item $f$: \textbf{Mantisa o fracción} (52 bits) $\rightarrow$ Posiciones $51$ a $0$.
+\end{itemize}
+
+Note que el total de bits es 64 (doble precisión). La mantisa se define como la secuencia
+$$f =  b_1 \left(\frac{1}{2^1}\right) + b_2 \left(\frac{1}{2^2}\right) 
++ b_3 \left(\frac{1}{2^3}\right) + \cdots $$
+
+%\paragraph{Ejemplo: pasar de 57 a binario}
+%Divisiones sucesivas entre 2:
+%\begin{align*}
+%57 &= 111001_2 \\
+%&= 2^5 + 2^4 + 2^3 + 2^0 = 32 + 16 + 8 + 1 = 57
+%\end{align*}
+
+\paragraph{\textcolor{blue}{Ejemplo:}} Miremos qué número representa la siguiente secuencia de 64 bits:
+\begin{align*}
+&\underbrace{0}_{S} \quad \underbrace{10000000011}_{C} \quad \underbrace{1011100100010000000000000000000000000000000000000000}_{f} \\[0.5em]
+&S = 0 \implies (-1)^0 = 1 \\[0.3em]
+&C = 1 \cdot 2^{10} + 0 \cdot 2^9 + \dots + 1 \cdot 2^1 + 1 \cdot 2^0 = 1024 + 2 + 1 = 1027 \\[0.3em]
+&f = 1\left(\frac{1}{2}\right)^1 + 0\left(\frac{1}{2}\right)^2 + 1\left(\frac{1}{2}\right)^3 + 1\left(\frac{1}{2}\right)^4 + 1\left(\frac{1}{2}\right)^5 + 1\left(\frac{1}{2}\right)^8 + 1\left(\frac{1}{2}\right)^{12} \\[0.3em]
+&X = (-1)^0 \cdot 2^{1027 - 1023} \cdot \left[ 1 + \left( \frac{1}{2} + \frac{1}{8} + \frac{1}{16} + \frac{1}{32} + \frac{1}{256} + \frac{1}{4096} \right) \right] \\[0.3em]
+&X = 1 \cdot 2^4 \cdot \left[ 1 + 0.722900390625 \right] = 16 \cdot 1.722900390625 = \mathbf{27.56640625}
+\end{align*}
+
+\paragraph{\textcolor{blue}{Ejemplo:}}Representar el número decimal $X = -13.625$ en 
+el estándar IEEE 754 de 64 bits (doble precisión).
+
+\vspace{0.5em}
+
+\noindent \textbf{Paso 1: Determinar el bit de signo ($S$)}
+\begin{itemize}
+    \item Como $X = -13.625$ es un número negativo:
+    \[
+    S = 1 \implies (-1)^1 = -1
+    \]
+\end{itemize}
+
+\noindent \textbf{Paso 2: Convertir el valor absoluto $|X| = 13.625$ a binario}
+
+Dividimos este procedimiento en dos partes: la parte entera ($13$) y la parte fraccionaria ($0.625$).
+
+\begin{enumerate}[label=\alph*)]
+    \item \textit{Parte entera ($13_{10}$):}    
+    Dividimos sucesivamente entre $2$ guardando el cociente y anotando el residuo hasta llegar a cociente $0$:
+    \begin{align*}
+    13/2 &= 6 \quad \text{con residuo } 1 \\
+    6/2 &= 3 \quad \text{con residuo } 0 \\
+    3/2 &= 1 \quad \text{con residuo } 1\\
+    1/2 &= 0 \quad \text{con residuo } 1
+    \end{align*}
+    Luego, tomamos los residuos en orden inverso (del último al primero) 
+    para obtener la representación binaria $13 = 00001101$
+
+    \item \textit{Parte fraccionaria ($0.625_{10}$):}    
+    Multiplicamos la parte decimal por $2$ repetidamente. La parte entera del resultado 
+    será el dígito binario (0 o 1), y continuaremos multiplicando solo la parte 
+    fraccionaria resultante hasta que la parte fraccionaria llegue 
+    a cero o hasta alcanzar la precisión deseada:
+    \begin{align*}
+    0.625 \times 2 &= \mathbf{1}.25 \implies \text{Extraemos el } \mathbf{1} \quad (\text{posición } 2^{-1} = 0.5) \\
+    0.250 \times 2 &= \mathbf{0}.50 \implies \text{Extraemos el } \mathbf{0} \quad (\text{posición } 2^{-2} = 0.25) \\
+    0.500 \times 2 &= \mathbf{1}.00 \implies \text{Extraemos el } \mathbf{1} \quad (\text{posición } 2^{-3} = 0.125)
+    \end{align*}
+    
+    Como la parte fraccionaria llegó a cero ($0.00$), 
+    el proceso termina. Leyendo las partes enteras de arriba hacia abajo:
+    $    0.62510= 0.101 $. Posteriormente, unimos la parte entera y la fraccionaria 
+    para obtener la representación binaria exacta: $|X| = 13.625 = 1101.101$
+\end{enumerate}
+
+\vspace{0.5em}
+
+\noindent \textbf{Paso 3: Normalización en notación científica binaria}
+
+Movemos el punto decimal $3$ posiciones hacia la izquierda para dejar un solo $1$ 
+a la izquierda del punto ($1.f \times 2^e$):
+$ 1101.101 = 1.101101 \times 2^3 $. Así, identificamos:
+\begin{itemize}
+    \item \textbf{Exponente real ($e$):} $e = 3$.
+    \item \textbf{Mantisa o Fracción ($f$):} La secuencia que queda a la derecha del punto es $.101101$.
+\end{itemize}
+
+\vspace{0.5em}
+
+\noindent \textbf{Paso 4: Cálculo del Exponente con Sesgo ($C$) en 11 bits}
+
+Para representar exponentes positivos y negativos, le sumamos el sesgo (*bias*) de $1023$ correspondiente a $64$ bits:
+\[
+C = e + 1023 = 3 + 1023 = \mathbf{1026_{10}}
+\]
+
+Ahora convertimos el número decimal $1026$ a un bloque binario de 11 bits mediante divisiones por $2$:
+\begin{align*}
+1026/ 2 &= 513 \quad \text{residuo} 0 \\
+513 / 2 &= 256 \quad \text{residuo } 1  \\
+256 / 2 &= 128 \quad \text{residuo } 0  \\
+128 / 2 &= 64 \quad \text{residuo } 0 \\
+64/ 2 &= 32 \quad \text{residuo} 0 \\
+32/ 2 &= 16 \quad \text{residuo} 0 \\
+16/ 2 &= 8 \quad \text{residuo } 0 \\
+8 /2 &= 4 \quad \text{residuo } 0 \\
+4 /2 &= 2 \quad \text{residuo } 0 \\
+2 /2 &= 1 \quad \text{residuo } 0 \\
+1 /2 &= 0 \quad \text{residuo } 1 
+\end{align*}
+
+Leyendo de abajo hacia arriba obtenemos la secuencia de 11 bits:
+$C = 1026 = 10000000010$
+
+\vspace{0.5em}
+
+\noindent \textbf{Paso 5: Ensamblar la cadena final de 64 bits}
+
+\begin{itemize}
+    \item \textbf{Bit de signo ($S$, 1 bit):} $1$
+    \item \textbf{Exponente ($C$, 11 bits):} $10000000010$
+    \item \textbf{Mantisa ($f$, 52 bits):} Tomamos los $6$ bits significativos obtenidos en la normalización ($101101$) y rellenamos los $46$ bits restantes con ceros a la derecha:
+    \[
+    f = 101101\underbrace{0000000000000000000000000000000000000000000000}_{46 \text{ ceros}}
+    \]
+\end{itemize}
+
+\noindent \textbf{Resultado final en memoria de la computadora:}
+\[
+\underbrace{1}_{S \; (1\text{ bit})} \quad \underbrace{10000000010}_{C \; (11\text{ bits})} \quad \underbrace{1011010000000000000000000000000000000000000000000000}_{f \; (52\text{ bits})}
+\]
+
+
+Pensemos ahora por ejemplo en un procesador de 64 bits, cual es el máximo  y el mínimo valor 
+que puede representar. 
+
+\paragraph{Límites de la representación (Doble precisión - 64 bits)}
+
+\subparagraph{1. El Número Máximo Posible (Límite de overflow)}
+Para obtener el valor finito más grande posible, configuramos:
+\begin{itemize}
+    \item \textbf{Signo ($S = 0$):} Positivo.
+    \item \textbf{Exponente ($C = 2046$):} El mayor valor permitido antes de $\infty$.
+    Note que la cadena $11111111111$ ($2047$) está reservada por el hardware para avisar que 
+    ocurrió una división por cero (+Inf, -Inf) o un cálculo indeterminado (NaN).
+    \item \textbf{Mantisa ($f = 111\dots11$):} Todos los 52 bits en $1$.
+\end{itemize}
+
+\noindent \textbf{Distribución de bits en memoria:}
+\[
+\underbrace{0}_{S \; (1\text{ bit})} \quad \underbrace{11111111110}_{C \; (11\text{ bits})} \quad \underbrace{1111111111111111111111111111111111111111111111111111}_{f \; (52\text{ bits})}
+\]
+
+\noindent \textbf{El cálculo nos da:}
+\begin{itemize}
+    \item Exponente real: $C - 1023 = 2046 - 1023 = 1023$.
+    \item Mantisa: $1 + f = 1 + \sum_{i=1}^{52} 2^{-i} = 2 - 2^{-52}$.
+\end{itemize}
+
+\[
+X_{\text{máx}} = (+1) \cdot 2^{1023} \cdot \left( 2 - 2^{-52} \right) \approx \mathbf{1.7976931348623157 \times 10^{308}}
+\]
+
+\noindent Cualquier cálculo que supere este valor genera un \textbf{Overflow} y la 
+máquina devuelve \texttt{+Inf}.
+
+\vspace{1em}
+
+\subparagraph{2. El Número Mínimo Positivo Normalizado (Límite underflow)}
+Para obtener el número positivo más pequeño posible sin perder la precisión de la mantisa
+ normalizada ($1+f$), configuramos:
+\begin{itemize}
+    \item \textbf{Signo ($S = 0$):} Positivo.
+    \item \textbf{Exponente ($C = 1$):} El menor exponente válido ($C = 0$ se reserva para números denormalizados y el cero).
+    \item \textbf{Mantisa ($f = 000\dots00_2$):} Todos los 52 bits en $0$.
+\end{itemize}
+
+\noindent \textbf{Distribución de bits en memoria:}
+\[
+\underbrace{0}_{S \; (1\text{ bit})} \quad \underbrace{00000000001}_{C \; (11\text{ bits})} \quad \underbrace{0000000000000000000000000000000000000000000000000000}_{f \; (52\text{ bits})}
+\]
+
+\noindent \textbf{El cálculo da:}
+\begin{itemize}
+    \item Exponente real: $C - 1023 = 1 - 1023 = -1022$.
+    \item Mantisa: $1 + f = 1 + 0 = 1$.
+\end{itemize}
+
+\[
+X_{\text{mín}} = (+1) \cdot 2^{-1022} \cdot (1 + 0) = 2^{-1022} \approx \mathbf{2.2250738585072014 \times 10^{-308}}
+\]
+
+\noindent Cualquier valor positivo menor a este límite sufre de \textbf{Underflow} y el hardware lo aproxima automáticamente a $0.0$.
+
+\begin{problemas}[]
+	\begin{enumerate}
+		\item Consulta qué otros sistemas de numeración se usan y cuáles ya no se usan.
+			  En particular, consulta el sistema de numeración usado por la cultura Maya.
+		\item Escriba el número $-15$ en formato binario de $8$ bits.
+		\item Escriba el número $57$ en formato binario de $8$ bits.
+		\item ¿Cuál son los límites de overflow y de underflow para una computadora con 16/bits y 
+         con 32/bits?
+		\item ¿Cuáles son los límites de overflow y de underflow para una computadora con 16/bits y 
+         con 32/bits?
+         \item ¿Cuántos bits se necesitan para representar los números del 0 al 18, ambos inclusive?
+		\item Escriba su nombre completo en binario.
+        \item Obtenga la cadena binaria completa de 64 bits 
+        (Signo $S$, Exponente $C$ y Mantisa $f$) bajo el estándar IEEE 754 para el número real:
+        $X = -0.1$.
+        \item Los sistemas de cómputo utilizan cadenas binarias para identificar (direccionar) cada posición de memoria RAM. Suponga que a cada dirección le corresponde exactamente 1 byte de información.
+            \begin{enumerate}[label=\alph*)]
+            \item En un sistema de 16 bits (como la consola Super Nintendo o las primeras PC), ¿cuántas direcciones distintas se pueden generar y cuál es la memoria RAM máxima (en Kilobytes) que se puede direccionar?
+            \item En un sistema de 32 bits, calcule cuántas direcciones distintas se generan y demuestre por qué la memoria RAM máxima que puede direccionar este sistema es de exactamente $4\text{ GB}$.
+            \end{enumerate}
+        \item En un experimento de física computacional se evalúa la función $f(x) = \sqrt{x + 1} - \sqrt{x}$ para un valor muy grande $x = 10^{16}$.
+            \begin{enumerate}[label=\alph*)]
+            \item Muestre por qué la evaluación directa de $f(x)$ en precisión doble (IEEE 754) produce pérdida severa de dígitos significativos (cancelación catastrófica).
+            \item Proponga una reformulación algebraica de $f(x)$ que evite este problema numérico y calcule el valor numérico estable que la computadora obtendría.
+            \end{enumerate}
+\end{enumerate}
+
+\end{problemas}
+
+% -----------------------------------------------------------------
+% SOLUCIÓN DEL ÚLTIMO pROBLEMA 
+% -----------------------------------------------------------------
+
+\begin{comment}
+\textbf{Solución del Problema:}
+
+\begin{enumerate}[label=\alph*)]
+    \item \textbf{Evaluación directa y cancelación catastrófica:}
+    El estándar IEEE 754 de precisión doble ofrece 53 bits de mantisa efectiva, equivalentes a aproximadamente $15\text{--}17$ dígitos decimales significativos.
+    
+    Analíticamente, para $x = 10^{16}$:
+    \[
+    \sqrt{x} = 10^8 = 100\,000\,000
+    \]
+    Usando la expansión en serie de Taylor $(1+\epsilon)^{1/2} \approx 1 + \frac{\epsilon}{2}$:
+    \[
+    \sqrt{10^{16} + 1} = 10^8 \sqrt{1 + 10^{-16}} \approx 10^8 \left(1 + \frac{1}{2 \times 10^{16}}\right) = 100\,000\,000.000000005
+    \]
+    Para representar el número $100\,000\,000.000000005$ se requieren 17 dígitos decimales de precisión. Debido al límite de redondeo de la mantisa IEEE 754, el término residuo $5 \times 10^{-9}$ se pierde por redondeo al bit menos significativo (\textit{underflow} relativo):
+    \[
+    \text{fl}(\sqrt{10^{16} + 1}) = 100\,000\,000.0
+    \]
+    Al realizar la resta directa en la memoria del computador:
+    \[
+    \text{fl}(f(10^{16})) = \text{fl}(\sqrt{10^{16} + 1}) - \text{fl}(\sqrt{10^{16}}) = 100\,000\,000.0 - 100\,000\,000.0 = 0.0
+    \]
+    Dado que el valor real es $5 \times 10^{-9}$, la resta sustractiva produce un error relativo del $100\%$, conocido como \textbf{cancelación catastrófica}.
+
+    \item \textbf{Reformulación algebraica estable:}
+    Multiplicando y dividiendo por el expresión conjugada:
+    \[
+    f(x) = (\sqrt{x + 1} - \sqrt{x}) \cdot \frac{\sqrt{x + 1} + \sqrt{x}}{\sqrt{x + 1} + \sqrt{x}} = \frac{(x + 1) - x}{\sqrt{x + 1} + \sqrt{x}} = \frac{1}{\sqrt{x + 1} + \sqrt{x}}
+    \]
+    Al evaluar esta nueva expresión equivalente en la máquina para $x = 10^{16}$:
+    \[
+    \text{fl}(f(10^{16})) = \text{fl}\left(\frac{1}{\sqrt{10^{16} + 1} + \sqrt{10^{16}}}\right) \approx \frac{1}{10^8 + 10^8} = \frac{1}{2 \times 10^8} = 5 \times 10^{-9}
+    \]
+    Esta reformulación convierte la resta inestable en una suma en el denominador, manteniendo intactos los dígitos significativos en el computador.
+\end{enumerate}
+\end{comment}
+
+%%%% 32 y 16 BITS
+
+\begin{comment}
+
+\paragraph{Comparación de límites según la precisión}
+
+\subparagraph{1. Precisión Simple (32 bits): Sesgo $B = 127$}
+\begin{itemize}
+    \item \textbf{Distribución:} $1$ bit signo, $8$ bits exponente, $23$ bits mantisa.
+    \item \textbf{Máximo ($x_{\text{máx}}$):} $S=0, C=254, f=111\dots11_2$
+    \[
+    x_{\text{máx}} = 2^{127} \cdot \left( 2 - 2^{-23} \right) \approx \mathbf{3.4028 \times 10^{38}}
+    \]
+    \item \textbf{Mínimo positivo ($x_{\text{mín}}$):} $S=0, C=1, f=000\dots00_2$
+    \[
+    x_{\text{mín}} = 2^{-126} \cdot (1 + 0) \approx \mathbf{1.1755 \times 10^{-38}}
+    \]
+\end{itemize}
+
+\subparagraph{2. Media Precisión (16 bits): Sesgo $B = 15$}
+\begin{itemize}
+    \item \textbf{Distribución:} $1$ bit signo, $5$ bits exponente, $10$ bits mantisa.
+    \item \textbf{Máximo ($x_{\text{máx}}$):} $S=0, C=30, f=1111111111_2$
+    \[
+    x_{\text{máx}} = 2^{15} \cdot \left( 2 - 2^{-10} \right) = \mathbf{65504}
+    \]
+    \item \textbf{Mínimo positivo ($x_{\text{mín}}$):} $S=0, C=1, f=0000000000_2$
+    \[
+    x_{\text{mín}} = 2^{-14} \cdot (1 + 0) \approx \mathbf{6.1035 \times 10^{-5}}
+    \]
+\end{itemize}
+
+\end{comment}
+
+\begin{comment}
+\subsection*{Máquina de Turing (Alan Turing, 1936)}
+
+Un autómata finito son máquinas abstractas que procesan cadenas de entrada, las cuales son aceptadas o rechazadas.
+
+\paragraph{Ejemplo:}
+Cadena de entrada $u = 001010$. La función de transición: cambiar todos los ceros por unos $\implies 111111$.
+\begin{itemize}
+    \item Encuentra cero: cambia, mueve a la derecha.
+    \item Encuentra un cero: lo cambia.
+\end{itemize}
+
+\paragraph{Ejemplo:}
+Queremos saber si la cadena $u = 111$ tiene exactamente tres unos.
+\begin{itemize}
+    \item Estado $q_0$: encuentra 1, lo marca con X.
+    \item Estado $q_1$: encuentra 1, lo marca con X.
+    \item Estado $q_2$: encuentra 1, lo marca con X.
+    \item Estado $q_3$: llega a un espacio $\rightarrow$ acepta.
+\end{itemize}
+Resultado: $XXX\square$.
+
+\paragraph{Ejemplo:} Supongamos sumar $101 + 11 = 5 + 3$.
+
+\paragraph{Ejemplo: ordenar números}
+Entrada: $5, 2, 8, 1$
+\begin{align*}
+5, 2, 8, 1 \rightarrow 2, 5, 8, 1 \rightarrow 2, 5, 1, 8 \rightarrow 2, 1, 5, 8 \rightarrow 1, 2, 5, 8
+\end{align*}
+
+\paragraph{Formalmente,} un autómata finito está definido por 5 parámetros:
+\begin{align*}
+M = (\Sigma, Q, q_0, F, \delta)
+\end{align*}
+donde:
+\begin{itemize}
+    \item $\Sigma$: alfabeto.
+    \item $Q = \{q_0, q_1, \dots\}$: conjunto de estados internos.
+    \item $q_0$: estado inicial.
+    \item $F$: conjunto de estados finales o de aceptación ($F \neq \emptyset$).
+    \item $\delta$: función de transición del autómata.
+\end{itemize}
+\end{comment}
+
+
+\label{LastPage}
+\end{document}
+

@@ -1,0 +1,25 @@
+# Entornos virtuales 
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+*.venv/
+
+# Archivos privados
+2026-2/
+
+# Archivos temporales de sistema y editores
+.DS_Store
+*.swp
+*~
+*.aux
+*.log
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.out
+*.toc
+*.nav
+*.snm
+*.bbl
+*.blg
+
