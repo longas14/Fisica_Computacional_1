@@ -1,0 +1,541 @@
+\documentclass[12pt]{article}
+
+% ---------- IDIOMA ----------
+\usepackage{polyglossia}
+\setdefaultlanguage{spanish}
+% --- Cambiar "Cuadro" por "Tabla" ---
+\addto\captionsspanish{\renewcommand{\tablename}{Tabla}}
+
+% ---------- FUENTES ----------
+\usepackage{fontspec}
+\setmainfont{TeX Gyre Termes}
+
+% ---------- PAQUETES MATEMÁTICOS Y FÍSICOS ----------
+\usepackage{amsmath,amssymb}
+\usepackage{amsfonts}
+\usepackage{physics}
+
+% ---------- GRÁFICOS Y COLORES ----------
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usetikzlibrary{shapes, arrows, positioning, calc}
+\usetikzlibrary{arrows.meta} 
+\usetikzlibrary{shapes.geometric} 
+\usetikzlibrary{decorations.markings}
+
+% ---------- CÓDIGO (LISTINGS) ----------
+\usepackage{listings}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.95,0.95,0.95}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.96,0.96,0.96}
+
+\lstdefinestyle{pythonstyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\small,          
+    breakatwhitespace=false,         
+    breaklines=true,                     
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                        
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4,
+    language=Python                      
+}
+\lstset{style=pythonstyle}
+
+% ---------- DISEÑO Y ESTILO ----------
+\usepackage{geometry}
+\geometry{letterpaper, margin=2cm, headheight=15pt}
+\usepackage{fancyhdr} 
+\usepackage{lastpage} 
+\usepackage{wrapfig}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{framed}
+\usepackage{etoolbox}
+
+% ---------- TCOLORBOX ----------
+\usepackage[most,skins,theorems]{tcolorbox}
+
+% --- Caja para Definiciones Formales ---
+\newtcolorbox{definicion}[1][]{
+  enhanced,
+  colback=blue!5!white,
+  colframe=blue!75!black,
+  fonttitle=\bfseries,
+  title={Definición: #1},
+  arc=2mm,
+  boxrule=0.8pt,
+  drop shadow=black!10!white
+}
+
+% --- Caja para Tareas ---
+\newtcolorbox{problemas}[1][]{
+  enhanced,
+  colback=violet!6!white,       
+  colframe=violet!45!white,     
+  coltitle=violet!40!black,     
+  fonttitle=\bfseries,
+  title={Problemas: #1},
+  arc=2.5mm,                    
+  boxrule=0.8pt,
+  drop shadow=black!8!white     
+}
+
+% --- Caja Libre Verde Menta ---
+\newtcolorbox{cajaflex}[1][]{
+  enhanced,
+  colback=teal!5!white,       
+  colframe=teal!50!black,     
+  coltitle=teal!10!white,     
+  fonttitle=\bfseries,
+  code={\ifblank{#1}{}{\tcbset{title={#1}}}},
+  arc=2.5mm,                  
+  boxrule=0.8pt,
+  drop shadow=black!8!white   
+}
+
+% ---------- TABLAS Y ELEMENTOS EXTRA ----------
+\usepackage{booktabs}   
+\usepackage{pifont}     
+\usepackage{array}      
+\usepackage{caption}    
+
+\newcommand{\lapiz}{\ding{46}\ }
+
+% ---------- ENLACES Y PDF ----------
+\usepackage{hyperref}
+
+\definecolor{myblue}{RGB}{20, 20, 120}
+\definecolor{myred}{RGB}{220, 30, 30}
+\definecolor{mygreen}{RGB}{0, 130, 60}
+
+% Personalización de nombres para \autoref
+\def\tableautorefname{Tabla}
+\def\figureautorefname{Figura}
+\def\equationautorefname{Ecuación}
+\def\sectionautorefname{Sección}
+
+% ---------- CONFIGURACIÓN DE ENCABEZADOS (ITM) ----------
+\newcommand{\logo}{\includegraphics[height=3cm]{escudoitm}}
+\newcommand{\escola}{Facultad de Ciencias Exactas y Aplicadas}
+\newcommand{\disc}{Física Computacional 1}
+\newcommand{\auth}{Robinson Longas Bedoya}
+\newcommand{\emaill}{\url{robinsonlongas@itm.edu.co}}
+\newcommand{\email}{\url{robinsonlongas3586@correo.itm.edu.co}}
+\newcommand{\cabec}{Física Computacional 1}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    citecolor=blue,
+    pdftitle={\cabec\ -- \auth},
+    pdfauthor={\auth}
+}
+
+% Configuración de estilos de página
+\pagestyle{fancy}
+\fancyhf{} 
+
+\fancypagestyle{firstpage}{
+    \fancyhead[L]{\logo}
+    \fancyhead[R]{
+        \textsf{\escola \\} 
+        \textsf{\disc \\}
+        \textsf{\auth \\}
+        \textsf{\email \\} 
+        \textsf{\emaill}     
+    }
+    \fancyfoot[R]{\scriptsize Página \thepage~de \pageref{LastPage}}
+    \renewcommand{\headrulewidth}{0pt} 
+    \renewcommand{\footrulewidth}{0.4pt} 
+}
+
+\fancyhead[L]{\textsf{\scriptsize \cabec\ -- \auth\ -- \email\ -- \emaill}}
+\fancyfoot[R]{\scriptsize Página \thepage~de \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt} 
+\renewcommand{\footrulewidth}{0.4pt} 
+
+\setlength{\parskip}{0.3em}
+
+\begin{document}
+\thispagestyle{firstpage}
+\vspace*{1.5cm}
+
+\begin{center}
+    \rule{\textwidth}{0.4pt}
+\end{center}
+
+\begin{itemize}[leftmargin=*,label=\textcolor{red}{\ensuremath{\blacktriangleright}}]
+    \item \textbf{ Ubuntu por medio de WSL}
+    \item \textbf{ Comandos básicos}
+\end{itemize}
+
+\noindent
+\textbf{\underline{Bibliografía}}
+\begin{itemize}[leftmargin=*, label={\textcolor{blue}{$\bullet$}}]
+    \item \textit{The Linux command line. A complete introduction}, William Shotts.
+\end{itemize}
+
+% Estilos TikZ corregidos (con align=center)
+\tikzset{
+    startstop/.style={rectangle, rounded corners, minimum width=2.5cm, minimum height=0.8cm, align=center, draw=black, fill=red!10},
+    io/.style={trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=2.5cm, minimum height=0.8cm, align=center, draw=black, fill=blue!10},
+    process/.style={rectangle, minimum width=3cm, minimum height=0.8cm, align=center, draw=black, fill=orange!10},
+    decision/.style={diamond, aspect=2, minimum width=2.5cm, minimum height=0.8cm, align=center, draw=black, fill=green!10},
+    arrow/.style={thick,->,>=stealth}
+}
+
+\section*{\textcolor{red}{\textit{WSL}}}
+
+La programación científica se hace más productiva y agradable con un entorno más adecuado. 
+En esta dirección, el sistema operativo Linux ofrece un conjunto de herramientas y utilidades que facilitan 
+la programación, la simulación y el cálculo científico. Además, permiten tener control total sobre el 
+sistema operativo y la posibilidad de personalizar el entorno de desarrollo según las necesidades que tengamos. 
+Sin mencionar que, con solo un par de comandos, podemos instalar lo que necesitemos para programar, 
+sin necesidad de tener que buscar archivos sospechosos \lstinline|.exe| en internet. 
+
+\noindent En la clase de hoy vamos a habilitar el entorno Linux en Windows utilizando
+WSL (\textit{Windows Subsystem for Linux}) e instalar una distribución de Linux. 
+Aunque, personalmente recomiendo instalar directamente una distribución de Linux en una partición de
+del disco duro.
+
+\paragraph{\textcolor{blue}{0.0 Habilitar la virtualización}}
+Antes de instalar WSL, es necesario asegurarse de que la virtualización 
+esté habilitada en el sistema. 
+Esta opción permite que Windows ejecute entornos como Linux de manera eficiente.
+
+\paragraph{\textcolor{blue}{0.1 Verificar si la virtualización está habilitada}}
+
+\begin{itemize}
+    \item Presiona \texttt{Ctrl + Shift + Esc} para abrir el Administrador de tareas.
+    \item Ir a la pestaña \textbf{Rendimiento}.
+    \item Seleccionar \textbf{CPU}.
+    \item Busca el campo \textbf{Virtualización}.
+\end{itemize}
+Si el campo de virtualización aparece como \textbf{Habilitado}, podemos continuar con el paso 1. 
+Si aparece como \textbf{Deshabilitado}, debemos activarlo desde la BIOS/UEFI.
+
+\paragraph{\textcolor{blue}{0.2 Habilitar la virtualización en la BIOS/UEFI}}
+
+\begin{itemize}
+    \item Reinicia el computador.
+    \item Durante el arranque, presiona la tecla correspondiente para entrar a la BIOS (comúnmente \texttt{F2}, \texttt{F10}, \texttt{DEL} o \texttt{ESC}).
+    \item Busca una opción relacionada con:
+    \begin{itemize}
+        \item \textit{Intel Virtualization Technology (VT-x)}
+        \item \textit{AMD-V}
+    \end{itemize}
+    \item Activa esta opción (\textbf{Enabled}).
+    \item Guarda los cambios y reinicia el sistema.
+\end{itemize}
+
+\paragraph{\textcolor{blue}{0.3 Verificación final}}
+Después de reiniciar, vuelve al Administrador de tareas y 
+confirma que la virtualización aparece como \textbf{Habilitada}.
+
+\paragraph{\textcolor{blue}{1.0 Habilitar WSL}}
+\begin{itemize}
+    \item Presiona la tecla de Windows
+    \item Escribe \texttt{PowerShell}
+    \item Haz clic derecho y selecciona \textbf{``Ejecutar como administrador''}
+    \item Ejecuta el siguiente comando para habilitar WSL y la característica de máquina virtual:
+\begin{lstlisting}
+wsl --install
+\end{lstlisting}
+\end{itemize}
+
+\paragraph{\textcolor{blue}{2.0 Instalar la distro}}
+\begin{itemize}
+    \item Listamos todas las distros disponibles con el comando:
+\begin{lstlisting}
+wsl --list --online
+\end{lstlisting}
+    \item Instalamos Ubuntu con el comando:
+\begin{lstlisting}[language=bash]
+wsl --install -d distro 
+\end{lstlisting}
+    \item Acá creamos el usuario y asignamos una clave. Ya queda lista la instalación. 
+    Ahora reiniciamos el pc y nos debe aparecer el logo de ubuntu. 
+    Lo ponemos como acceso directo en el escritorio e ingresamos a él. 
+    Inmediatamente se nos abre una consola.
+\end{itemize}
+
+Para verificar la instalación, podemos ejecutar el siguiente comando en PowerShell:
+\begin{lstlisting}
+wsl
+\end{lstlisting}
+Si todo está correcto, se abrirá el entorno Linux. También puedes verificar las distribuciones instaladas:
+\begin{lstlisting}
+wsl -l -v
+\end{lstlisting}
+Si quieres cerrar WSL completamente, puedes usar:
+\begin{lstlisting}
+wsl --shutdown
+\end{lstlisting}
+
+\section*{\textcolor{red}{\textit{Comandos básicos en bash}}}
+
+Antes de comenzar a instalar paquetes y herramientas, es recomendable actualizar el sistema para 
+asegurarnos de tener las últimas versiones y correcciones de seguridad.
+\begin{lstlisting}
+sudo apt update
+sudo apt upgrade -y
+\end{lstlisting}
+El comando sudo permite ejecutar las órdenes como administrador/a. El comando update 
+actualiza la lista de paquetes disponibles y el comando upgrade los actualiza. -y se usa para decir sí a todo. 
+
+
+Al abrir Ubuntu en WSL, nos ubicamos por defecto en su directorio personal, 
+conocido como \textit{home}. Para verificar en donde estamos parados, se puede ejecutar:
+\begin{lstlisting}
+pwd
+\end{lstlisting}
+La salida será similar a:
+\begin{lstlisting}
+/home/usuario
+\end{lstlisting}
+El directorio \texttt{/home/longas} es el espacio personal de trabajo. Aquí es donde creamos archivos y 
+carpetas y donde se guardan las configuraciones del usuario.
+
+Para ver los archivos y carpetas en el directorio actual:
+\begin{lstlisting}
+ls
+\end{lstlisting}
+nos muestra el contenido del directorio,
+\begin{lstlisting}
+Desktop  Documents  Downloads  Dropbox  guardar_okular.sh  HEPtools  Library  
+Music  Pictures  Public  restaurar_okular.sh  Software  Templates  Videos
+\end{lstlisting}
+Para ver más detalles, podemos usar:
+\begin{lstlisting}
+ls -la
+\end{lstlisting}    
+cuya salida es más o menos algo como:
+\begin{lstlisting}
+-rw-------. 1 longas longas 15707 Aug  5 16:17 .bash_history
+-rw-r--r--. 1 longas longas    18 Jul 22  2025 .bash_logout
+-rw-r--r--. 1 longas longas   425 Dec 26  2025 .bash_profile
+-rw-r--r--. 1 longas longas   837 Dec 26  2025 .bashrc
+drwxr-xr-x. 1 longas longas  1876 Aug  5 11:26 Desktop
+drwxr-xr-x. 1 longas longas    78 Jul 15 07:45 Documents
+drwxr-xr-x. 1 longas longas  3616 Aug  5 11:26 Downloads
+drwx------. 1 longas longas   366 Aug  5 11:11 .dropbox
+drwx------. 1 longas longas  3694 Aug  5 11:11 Dropbox
+drwxrwxr-x. 1 longas longas    88 Aug  4 05:47 .dropbox-dist
+-rw-r--r--. 1 longas longas   561 Jan 20  2026 .emacs
+drwx------. 1 longas longas    28 May 19 15:38 .emacs.d
+-rw-r--r--. 1 longas longas    52 Feb 27 09:02 .gitconfig
+-rwxr-xr-x. 1 longas longas   229 Jun 14 09:13 guardar_okular.sh
+drwxr-xr-x. 1 longas longas   756 Apr 16 07:06 HEPtools
+drwxr-xr-x. 1 longas longas    30 Dec 25  2025 .ipython
+drwxr-xr-x. 1 longas longas    38 Dec 28  2025 .juliaup
+drwxr-xr-x. 1 longas longas    16 Mar 16 07:13 .jupyter
+\end{lstlisting} 
+Este comando muestra los archivos ocultos, que comienzan con un punto (\texttt{.}) y suelen usarse para 
+configuraciones del sistema o del usuario. En la salida anterior, la primera columna indica los permisos 
+del archivo, la segunda columna indica el número de enlaces, la tercera y cuarta columnas indican el
+propietario y el grupo del archivo, la quinta columna indica el tamaño del archivo en bytes, 
+la sexta columna indica la fecha y hora de la última modificación, 
+y la séptima columna indica el nombre del archivo o carpeta. El comando  \lstinline|ls| se puede combinar
+con otras opciones, acá les dejo el resumen,
+\begin{lstlisting}
+ls         # Vista simple
+ls -a      # Incluye archivos ocultos
+ls -l      # Detalle completo (permisos, tamaño, fecha)
+ls -la     # Todo + ocultos + detalle
+ls -lt     # Ordenado por fecha (recientes arriba)
+ls -ltr    # Ordenado por fecha inverso (recientes abajo)
+ls -lh     # Tamaño en MB/GB inteligibles
+\end{lstlisting}
+
+Cabe anotar que también es posible acceder a los archivos de Windows. 
+Por ejemplo, el disco \texttt{C:} se encuentra en:
+\begin{lstlisting}
+/mnt/c
+\end{lstlisting}
+Por lo tanto, la carpeta:
+\begin{lstlisting}
+C:\Users\usuario
+\end{lstlisting}
+corresponde en Linux a:
+\begin{lstlisting}
+/mnt/c/Users/usuario
+\end{lstlisting}
+Cuando abrimos el power shell de windows e iniciamos wsl, la instrucción no nos 
+lleva a nuestro home de linux, sino al home de windows.
+Si queremos pasar a nuestro "verdadero" home, debemos dar el comando \lstinline|cd|.
+Se recomienda trabajar dentro del directorio \texttt{/home/usuario} para evitar problemas 
+de rendimiento y permisos.
+
+Continuando con los comandos básicos, podemos crear un directorio con:
+\begin{lstlisting}
+mkdir nombre_directorio
+\end{lstlisting}
+Para cambiar de directorio:
+\begin{lstlisting}
+cd nombre_directorio
+\end{lstlisting}
+Para regresar al directorio anterior:
+\begin{lstlisting}
+cd ..
+\end{lstlisting}
+Para eliminar un archivo:
+\begin{lstlisting}
+rm nombre_archivo
+\end{lstlisting}
+Para eliminar un directorio con contenido:
+\begin{lstlisting}
+rm -r nombre_directorio
+\end{lstlisting}
+Para copiar un archivo:
+\begin{lstlisting}
+cp archivo_origen archivo_destino
+\end{lstlisting}
+Para mover un archivo:
+\begin{lstlisting}
+mv archivo_origen archivo_destino
+\end{lstlisting}    
+
+Existen una cantidad de comandos útiles en Linux; de hecho, podemos usar un lenguaje llamado 
+\textit{shell scripting}, con su propia sintaxis. Por ejemplo, abrimos un editor de texto 
+\begin{lstlisting}
+emacs mundo.sh
+\end{lstlisting}  
+y escribimos 
+\begin{lstlisting}
+#!/bin/bash
+echo "hola mundo cruel"
+\end{lstlisting}  
+guardamos y cerramos el editor.
+\begin{lstlisting}
+ctrl + x + s
+ctrl + x + c
+\end{lstlisting} 
+Luego damos permisos de ejecución al archivo:
+\begin{lstlisting}
+chmod u+x mundo.sh
+\end{lstlisting}
+y ejecutamos en la terminal:
+\begin{lstlisting}
+./mundo.sh
+\end{lstlisting}
+Sin embargo, en el curso no vamos a profundizar en el tema de \textit{shell scripting}, pues no es el objetivo. 
+Es bueno saber que existe y que es muy útil para automatizar tareas.
+
+
+
+
+\paragraph{\textcolor{blue}{Instalación de herramientas básicas}}
+
+Una vez que el sistema está actualizado, el siguiente paso es instalar las herramientas 
+necesarias para programación, compilación y trabajo científico.
+Si ejecutamos el siguiente comando:
+\begin{lstlisting}
+sudo apt install build-essential git python3 python3-pip gcc gfortran -y
+\end{lstlisting}
+Instalaremos un conjunto de herramientas necesarias para la programación científica.
+\begin{itemize}
+    \item \textbf{build-essential}: herramientas básicas de compilación (make, g++, etc.)
+    \item \textbf{git}: sistema de control de versiones
+    \item \textbf{python3}: lenguaje de programación Python
+    \item \textbf{python3-pip}: gestor de paquetes de Python
+    \item \textbf{gcc}: compilador de C
+    \item \textbf{gfortran}: compilador de Fortran
+\end{itemize}
+Si queremos comprobar que las herramientas están correctamente instaladas:
+\begin{lstlisting}
+gcc --version
+gfortran --version
+python3 --version
+git --version
+\end{lstlisting}
+Posteriormente, podemos instalar librerías científicas en Python para trabajo numérico y científico. Sin embargo,
+lo haremos en lo se conoce como entornos virtuales, que nos permiten tener diferentes versiones de 
+librerías y paquetes para distintos proyectos sin conflictos, 
+\begin{lstlisting}
+sudo apt install python3-venv -y
+\end{lstlisting}
+
+Finalmente, procedemos a instalar una distribución completa de \LaTeX:
+\begin{lstlisting}
+sudo apt install texlive-full -y
+\end{lstlisting}
+que instala
+\begin{itemize}
+    \item Compiladores (\texttt{pdflatex}, \texttt{xelatex}, etc.)
+    \item Paquetes matemáticos (\texttt{amsmath}, \texttt{amssymb})
+    \item Soporte para figuras, tablas y bibliografía
+    \item Clases de documentos y estilos adicionales
+\end{itemize}
+Esto garantiza que prácticamente cualquier documento \LaTeX{} pueda compilarse 
+sin errores por falta de paquetes, aunque tiene la desventaja de que ocupa varios GB de espacio en disco y 
+puede tardar varios minutos en instalarse dependiendo de la velocidad de la conexión a internet.
+Si se desea algo más liviano es suficiente 
+\begin{lstlisting}
+sudo apt install texlive-latex-base texlive-latex-recommended 
+texlive-latex-extra texlive-lang-spanish texlive-lang-english
+\end{lstlisting}
+Una vez finalizada la instalación, se puede verificar ejecutando:
+\begin{lstlisting}
+pdflatex --version
+\end{lstlisting}
+En la actualidad, existen editores en línea como \href{https://www.overleaf.com/project}{Overleaf}, pero, tener \LaTeX{} instalado localmente 
+permite trabajar sin conexión y con mayor control del entorno.
+
+
+\begin{problemas}[]
+    \begin{enumerate}
+    \item Cree el directorio \lstinline|Ejercicios| en su directorio personal (\textit{home}).
+    
+    \item Dentro de \lstinline|Ejercicios|, cree los siguientes directorios: \lstinline|Computadores|, \lstinline|Personal|, \lstinline|Basura|, \lstinline|Universidad|, \lstinline|Imagenes|, \lstinline|Documentos| y \lstinline|Tareas|.
+    
+    \item Dentro del directorio \lstinline|Tareas|, cree los subdirectorios \lstinline|Tareas_1| y \lstinline|Tarea_2|.
+    
+    \item En la raíz del directorio \lstinline|Ejercicios|, cree los siguientes archivos con el contenido indicado:
+    \begin{itemize}
+        \item \lstinline|libreta_telefonica.txt|: Nombre y teléfono de 3 amigos.
+        \item \lstinline|materias.txt|: Lista de las materias matriculadas durante el semestre.
+        \item \lstinline|carta|: Un mensaje corto a un amigo.
+        \item \lstinline|cancion.1|, \lstinline|cancion.2|, \lstinline|cancion.3|: Una estrofa de una canción conocida en cada archivo.
+        \item \lstinline|temario.clase1|: Temario general de la primera clase del curso.
+        \item \lstinline|animales|: El nombre de 5 animales.
+    \end{itemize}
+    
+    \item Borre el directorio \lstinline|Tarea_2|.
+    
+    \item Copie los archivos de canciones en el directorio \lstinline|Basura|.
+    
+    \item Borre los archivos de canciones del directorio \lstinline|Ejercicios|.
+    
+    \item Copie todos los archivos con extensión \lstinline|.txt| en el directorio \lstinline|Documentos|.
+    
+    \item Mueva el archivo \lstinline|materias.txt| al directorio \lstinline|Universidad|.
+    
+    \item Mueva el archivo \lstinline|animales| al directorio \lstinline|Basura|.
+    
+    \item Consultar el comando \lstinline|less| y utilizarlo para revisar el contenido del archivo \lstinline|temario.clase1|.
+    
+    \item Mueva todo el directorio \lstinline|Documentos| a la carpeta \lstinline|Basura|.
+\end{enumerate}
+\end{problemas}
+
+
+
+
+
+
+\label{LastPage}
+\end{document}

@@ -1,0 +1,810 @@
+\documentclass[12pt]{article}
+
+% ---------- IDIOMA ----------
+\usepackage{polyglossia}
+\setdefaultlanguage{spanish}
+% --- Cambiar "Cuadro" por "Tabla" ---
+\addto\captionsspanish{\renewcommand{\tablename}{Tabla}}
+
+% ---------- FUENTES ----------
+\usepackage{fontspec}
+\setmainfont{TeX Gyre Termes}
+
+% ---------- PAQUETES MATEMÁTICOS Y FÍSICOS ----------
+\usepackage{amsmath,amssymb}
+\usepackage{amsfonts}
+\usepackage{physics}
+
+% ---------- GRÁFICOS Y COLORES ----------
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usetikzlibrary{shapes, arrows, positioning, calc}
+\usetikzlibrary{arrows.meta} 
+\usetikzlibrary{shapes.geometric} 
+\usetikzlibrary{decorations.markings}
+
+% ---------- CÓDIGO (LISTINGS) ----------
+\usepackage{listings}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.95,0.95,0.95}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.96,0.96,0.96}
+
+\lstdefinestyle{pythonstyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\small,          
+    breakatwhitespace=false,         
+    breaklines=true,                     
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                        
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4,
+    language=Python                      
+}
+\lstset{style=pythonstyle}
+
+% ---------- DISEÑO Y ESTILO ----------
+\usepackage{geometry}
+\geometry{letterpaper, margin=2cm, headheight=15pt}
+\usepackage{fancyhdr} 
+\usepackage{lastpage} 
+\usepackage{wrapfig}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{framed}
+\usepackage{etoolbox}
+
+% ---------- TCOLORBOX ----------
+\usepackage[most,skins,theorems]{tcolorbox}
+
+% --- Caja para Definiciones Formales ---
+\newtcolorbox{definicion}[1][]{
+  enhanced,
+  colback=blue!5!white,
+  colframe=blue!75!black,
+  fonttitle=\bfseries,
+  title={Definición: #1},
+  arc=2mm,
+  boxrule=0.8pt,
+  drop shadow=black!10!white
+}
+
+% --- Caja para Tareas ---
+\newtcolorbox{problemas}[1][]{
+  enhanced,
+  colback=violet!6!white,       
+  colframe=violet!45!white,     
+  coltitle=violet!40!black,     
+  fonttitle=\bfseries,
+  title={Problemas: #1},
+  arc=2.5mm,                    
+  boxrule=0.8pt,
+  drop shadow=black!8!white     
+}
+
+% --- Caja Libre Verde Menta ---
+\newtcolorbox{cajaflex}[1][]{
+  enhanced,
+  colback=teal!5!white,       
+  colframe=teal!50!black,     
+  coltitle=teal!10!white,     
+  fonttitle=\bfseries,
+  code={\ifblank{#1}{}{\tcbset{title={#1}}}},
+  arc=2.5mm,                  
+  boxrule=0.8pt,
+  drop shadow=black!8!white   
+}
+
+% ---------- TABLAS Y ELEMENTOS EXTRA ----------
+\usepackage{booktabs}   
+\usepackage{pifont}     
+\usepackage{array}      
+\usepackage{caption}    
+
+\newcommand{\lapiz}{\ding{46}\ }
+
+% ---------- ENLACES Y PDF ----------
+\usepackage{hyperref}
+
+\definecolor{myblue}{RGB}{20, 20, 120}
+\definecolor{myred}{RGB}{220, 30, 30}
+\definecolor{mygreen}{RGB}{0, 130, 60}
+
+% Personalización de nombres para \autoref
+\def\tableautorefname{Tabla}
+\def\figureautorefname{Figura}
+\def\equationautorefname{Ecuación}
+\def\sectionautorefname{Sección}
+
+% ---------- CONFIGURACIÓN DE ENCABEZADOS (ITM) ----------
+\newcommand{\logo}{\includegraphics[height=3cm]{escudoitm}}
+\newcommand{\escola}{Facultad de Ciencias Exactas y Aplicadas}
+\newcommand{\disc}{Física Computacional 1}
+\newcommand{\auth}{Robinson Longas Bedoya}
+\newcommand{\emaill}{\url{robinsonlongas@itm.edu.co}}
+\newcommand{\email}{\url{robinsonlongas3586@correo.itm.edu.co}}
+\newcommand{\cabec}{Física Computacional 1}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    citecolor=blue,
+    pdftitle={\cabec\ -- \auth},
+    pdfauthor={\auth}
+}
+
+% Configuración de estilos de página
+\pagestyle{fancy}
+\fancyhf{} 
+
+\fancypagestyle{firstpage}{
+    \fancyhead[L]{\logo}
+    \fancyhead[R]{
+        \textsf{\escola \\} 
+        \textsf{\disc \\}
+        \textsf{\auth \\}
+        \textsf{\email \\} 
+        \textsf{\emaill}     
+    }
+    \fancyfoot[R]{\scriptsize Página \thepage~de \pageref{LastPage}}
+    \renewcommand{\headrulewidth}{0pt} 
+    \renewcommand{\footrulewidth}{0.4pt} 
+}
+
+\fancyhead[L]{\textsf{\scriptsize \cabec\ -- \auth\ -- \email\ -- \emaill}}
+\fancyfoot[R]{\scriptsize Página \thepage~de \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt} 
+\renewcommand{\footrulewidth}{0.4pt} 
+
+\setlength{\parskip}{0.3em}
+
+\begin{document}
+\thispagestyle{firstpage}
+\vspace*{1.5cm}
+
+\begin{center}
+    \rule{\textwidth}{0.4pt}
+\end{center}
+
+\begin{itemize}[leftmargin=*,label=\textcolor{red}{\ensuremath{\blacktriangleright}}]
+    \item \textbf{ Operadores, condiciones y bucles}
+    \item \textbf{Elementos de pseudocódigo y diagramas de flujo}
+\end{itemize}
+
+\noindent
+\textbf{\underline{Bibliografía}}
+\begin{itemize}[leftmargin=*, label={\textcolor{blue}{$\bullet$}}]
+    \item \textit{Introducción a la programación con Python. Sec. 1.4}, Andrés Marzal, Isabel Gracia y Pedro García.
+    \item \textit{Fundamentos de programación. Cap. 2}, Luis Joyanes.
+    \item \textit{Métodos numéricos para ingenieros. Sec. 2.2}, Steven C. Chapra and Raymond P. Canale.
+\end{itemize}
+
+% Estilos TikZ corregidos (con align=center)
+\tikzset{
+    startstop/.style={rectangle, rounded corners, minimum width=2.5cm, minimum height=0.8cm, align=center, draw=black, fill=red!10},
+    io/.style={trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=2.5cm, minimum height=0.8cm, align=center, draw=black, fill=blue!10},
+    process/.style={rectangle, minimum width=3cm, minimum height=0.8cm, align=center, draw=black, fill=orange!10},
+    decision/.style={diamond, aspect=2, minimum width=2.5cm, minimum height=0.8cm, align=center, draw=black, fill=green!10},
+    arrow/.style={thick,->,>=stealth}
+}
+
+\section*{\textcolor{red}{\textit{Operadores, Condicionales y Bucles}}}
+
+Desde los cursos básicos en Matemáticas aprendemos las operaciones básicas: sumar, restar, 
+multiplicar y dividir. Estos son \textbf{Operadores aritméticos}, los cuales representamos
+mediante símbolos. Pero estos no son los únicos operadores que existen. 
+En la programación, además de los operadores aritméticos, están 
+los operadores de comparación y los operadores lógicos. 
+
+\begin{enumerate}[label=\textbf{\alph*)}]
+    \item \textbf{Operadores aritméticos:} Se utilizan para realizar cálculos matemáticos básicos.
+    \begin{itemize}
+        \item Suma (\texttt{+}), Resta (\texttt{-}), Multiplicación (\texttt{*}), División (\texttt{/}).
+        \item Potenciación (\texttt{\^{}} o \texttt{**}).
+        \item Módulo (\texttt{\%} o \texttt{mod}): Devuelve el residuo de una división entera (por ejemplo, $7 \text{ mod } 2 = 1$).
+    \end{itemize}
+
+    \item \textbf{Operadores de comparación (relacionales):} Permiten comparar dos valores. El resultado de esta comparación siempre es un valor de verdad o booleano: \textit{Verdadero} (\texttt{True}) o \textit{Falso} (\texttt{False}).
+    \begin{itemize}
+        \item Igual a (\texttt{==}), Diferente de (\texttt{!=}).
+        \item Mayor que (\texttt{>}), Menor que (\texttt{<}).
+        \item Mayor o igual que (\texttt{>=}), Menor o igual que (\texttt{<=}).
+    \end{itemize}
+
+    \item \textbf{Operadores lógicos:} Permiten evaluar o combinar múltiples expresiones booleanas.
+    \begin{itemize}
+        \item \textbf{AND (Y / \texttt{\&\&}):} Devuelve \textit{Verdadero} únicamente si \textbf{ambas} condiciones son verdaderas.
+        \item \textbf{OR (O / \texttt{||}):} Devuelve \textit{Verdadero} si \textbf{al menos una} de las condiciones es verdadera.
+        \item \textbf{NOT (NO / \texttt{!}):} Invierte el valor de verdad (convierte \textit{Verdadero} en \textit{Falso} y viceversa).
+    \end{itemize}
+\end{enumerate}
+Normalmente las operaciones lógicas se utilizan para tomar decisiones en un programa, 
+por ejemplo,
+\paragraph{\textcolor{blue}{Ejemplos cotidianos:}}
+
+\begin{itemize}
+    \item \textbf{Ejemplo AND (Y):} 
+    \begin{center}
+    \textit{«Colombia»} \textbf{Y} \textit{«Brasil se encuentran en suramérica»} $\longrightarrow$ \textbf{True} 
+    \end{center}
+    Ambas proposiciones son verdaderas. Sin embargo:
+    \begin{center}
+    \textit{«Colombia se encuentra en norteamérica»} \textbf{Y} \textit{« Mexico se 
+    encuentra en norteamérica»} $\longrightarrow$ \textbf{False}
+    \end{center}
+    Falla una de las condiciones, por lo que todo el argumento se vuelve falso.
+
+    \item \textbf{Ejemplo OR (O):}
+    \begin{center}
+    \textit{«El Sol es una estrella»} \textbf{O} \textit{«La Luna es un planeta»} $\longrightarrow$ \textbf{True}
+    \end{center}
+    Basta con que una de las dos partes sea verdadera para que toda la expresión sea verdadera.
+\end{itemize}
+
+\noindent  Una vez que sabemos cómo construir evaluaciones lógicas con los operadores, 
+podemos controlar el flujo con el que la computadora ejecuta las instrucciones:
+
+\begin{itemize}
+    \item \textbf{Condicionales (Estructuras de selección):} Le permiten al programa decidir si ejecuta un bloque de código u otro según el resultado de una comparación. Por ejemplo, verificar si el discriminante de una ecuación es negativo ($D < 0$) para decidir si calcular raíces reales o notificar que son complejas.
+    \item \textbf{Bucles (Estructuras de repetición):} Permiten iterar (repetir) un conjunto de instrucciones de forma automática mientras se cumpla una condición o durante un número fijo de veces. Por ejemplo, evaluar una función de onda en 1000 puntos espaciales distintos.
+\end{itemize}
+
+
+\section*{\textcolor{red}{\textit{Elementos de pseudocódigo y diagramas de flujo}}}
+
+En la clase anterior estudiamos cómo las computadoras 
+representan la información en memoria, desde el sistema 
+binario para enteros hasta el estándar IEEE 754 para números flotantes. 
+Sin embargo, para solucionar un problema físico o matemático no basta con 
+almacenar datos: es necesario procesarlos mediante una secuencia ordenada y 
+finita de instrucciones, es decir, un \textbf{algoritmo}. Un algoritmo es 
+un conjunto de pasos orientado a resolver un problema específico.
+
+\noindent A la hora de programar es fundamental mantener 
+una estructura clara. En el ámbito de la física computacional 
+y el cálculo numérico, cualquier algoritmo puede construirse combinando 
+únicamente tres estructuras lógicas fundamentales:
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Secuencia:} Ejecución de instrucciones paso a paso, una tras otra.
+    \item \textbf{Selección (Condicionales):} Toma de decisiones que alteran el flujo 
+    del programa según se cumpla o no una condición (por ejemplo, verificar si el discriminante 
+    de una ecuación es negativo o si una velocidad supera la velocidad de la luz).
+    \item \textbf{Repetición (Bucles):} Iteración de un conjunto de pasos bajo ciertas 
+    condiciones (por ejemplo, calcular una propiedad física para distintos valores de una variable).
+\end{enumerate}
+
+Para diseñar y comunicar estos algoritmos antes de traducirlos a un lenguaje de programación 
+específico (como Python, C++ o Julia), empleamos dos herramientas principales: 
+los \textbf{diagramas de flujo}, que ofrecen una representación gráfica e intuitiva del proceso, 
+y el \textbf{pseudocódigo}, que utiliza una sintaxis cercana al lenguaje humano estructurado. 
+
+\begin{definicion}[Diagrama de flujo]
+Un \textbf{diagrama de flujo} es la representación visual o gráfica de un algoritmo. Utiliza símbolos estandarizados para describir los pasos del proceso:
+\begin{itemize}[leftmargin=1.5em]
+    \item \textbf{Óvalo / Óvalo alargado:} Inicio o fin del programa. 
+    \quad 
+    \tikz[baseline=-0.6ex]{
+        \node[draw=red!70!black, fill=red!10, rectangle, rounded corners=3pt, inner sep=3pt, minimum width=1.1cm, minimum height=0.4cm] {};
+    }
+
+    \item \textbf{Líneas de flujo (flechas):} Indican la secuencia de ejecución.
+    \quad 
+    \tikz[baseline=-0.6ex]{
+        \draw[thick, ->, >=stealth, black] (0,0) -- (0.8,0);
+    }
+
+    \item \textbf{Rectángulo:} Procesos, cálculos y/o manipulación de datos.
+    \quad 
+    \tikz[baseline=-0.6ex]{
+        \node[draw=orange!80!black, fill=orange!10, rectangle, inner sep=3pt, minimum width=1.0cm, minimum height=0.4cm] {};
+    }
+
+    \item \textbf{Paralelogramo:} Entrada/Salida de información.
+    \quad 
+    \tikz[baseline=-0.6ex]{
+        \node[draw=blue!80!black, fill=blue!10, trapezium, trapezium left angle=70, trapezium right angle=110, inner sep=3pt, minimum width=0.9cm, minimum height=0.35cm] {};
+    }
+
+    \item \textbf{Rombo:} Decisión o comparación.
+    \quad 
+    \tikz[baseline=-0.6ex]{
+        \node[draw=green!60!black, fill=green!10, diamond, aspect=1.8, inner sep=2pt, minimum width=0.8cm, minimum height=0.4cm] {};
+    }
+\end{itemize}
+\end{definicion}
+
+\begin{definicion}[Pseudocódigo]
+En lugar de utilizar símbolos gráficos, el \textbf{pseudocódigo} aboga por el uso de palabras y expresiones semejantes a un lenguaje de programación estructurado.
+\end{definicion}
+
+\paragraph{\textcolor{blue}{Ejemplo 1: Algoritmo cotidiano para hacer buñuelos.}}
+Supongamos que queremos preparar buñuelos y deseamos expresar el procedimiento de 
+manera clara y estructurada para que otra persona lo pueda hacer. Un posible 
+pseudocódigo sería el siguiente:
+%
+\begin{center}
+\begin{enumerate}[label=\arabic*.]
+    \item Inicio
+    \item Comprar materiales
+    \item Preparar masa
+    \item Hacer bolitas con la masa
+    \item Calentar aceite
+    \item Introducir las bolitas en el aceite
+    \item Freír
+    \item Repetir desde el paso 3
+    \item Sacar los buñuelos
+    \item Comer buñuelos
+    \item Fin
+\end{enumerate}
+\end{center}
+%
+Note que la construcción del algoritmo no es única. Depende de qué tan específico 
+se quiera ser. Note por ejemplo que el paso 8) indica repetir desde el paso 4), 
+lo cual implica que se deben hacer más bolitas. Sin embargo, algo no cuadra. ¿Qué pasa 
+si se acaba la masa? 
+¿Cómo sabe la persona que está haciendo los buñuelos que ya no hay más masa y que 
+debe parar de freír? 
+Para resolverlo, introdicimos una estructura repetitiva: \textbf{Mientras (while)}. 
+Mientras exista masas, repetir desde el paso 4). 
+\begin{enumerate}[label=\arabic*.]
+    \item Inicio
+    \item Comprar materiales
+    \item Preparar masa
+    \item Calentar aceite
+    \item Mientras quede masa hacer:
+    \begin{enumerate}[label=\alph*)]
+        \item  Hacer bolitas con la masa
+        \item Introducir las bolitas en el aceite
+        \item Freír
+        \item Sacar los buñuelos
+    \end{enumerate}
+    \item Comer buñuelos
+    \item Fin
+\end{enumerate}
+%
+La instrucción \textbf{Mientras} permite ejecutar un bloque de pasos de 
+forma cíclica apoyándose en una evaluación lógica:
+
+\begin{itemize}
+    \item \textbf{Evaluación previa:} Antes de entrar al bloque indentado 
+    (pasos a-d), la computadora (o lka persona que cocina) 
+    evalúa la condición: \textit{¿Queda masa?}
+    \item \textbf{Rama Verdadera (True):} Si la respuesta es \textbf{Sí}, se ejecutan en orden las instrucciones del bloque interno (hacer bolita, freír, sacar). Al terminar el paso d), el flujo \textbf{vuelve automáticamente a subir al paso 5} para preguntar de nuevo: \textit{¿Aún queda masa?}
+    \item \textbf{Rama Falsa (False):} En el momento en que la respuesta a la condición sea \textbf{No} (se agotó la masa), el programa rompe el bucle, omite los pasos a-d y salta directamente a la siguiente instrucción fuera del bloque (paso 6: \textit{Comer buñuelos}).
+\end{itemize}
+
+Esta es la esencia del algortimo estructurado: el bucle evalúa 
+continuamente la condición y solo se detiene cuando esta deja de cumplirse.
+Hay que tener cuidado
+con la evaluación y asegurarse de que en algún momento faltará masa, pues la 
+persona podría quedarse infinitamente haciendo bueñuelos.
+Si quieres, puedes agregar más detalles, como recuerda que los buñuelos 
+se voltean solos, o que se deben sacar cuando estén dorados. 
+Finalmente, también podemos usar la representación gráfica mediante un 
+diagrama de flujo.  
+
+\begin{center}
+\resizebox{0.6\linewidth}{!}{
+\begin{tikzpicture}[node distance=1.4cm]
+
+% Nodos principales
+\node (start) [startstop] {Inicio};
+\node (in) [io, below of=start] {Ingredientes: harina, queso,\ huevo, sal, aceite};
+\node (prep) [process, below of=in] {Mezclar y preparar la masa};
+\node (heat) [process, below of=prep] {Calentar aceite};
+\node (dec) [decision, below of=heat, yshift=-0.5cm] {¿Queda masa?};
+
+% Rama del bucle (Sí)
+\node (ball) [process, right of=dec, xshift=5.cm] {Formar bolita de masa};
+\node (fry) [process, below of=ball] {Echar en aceite y freír};
+\node (out_one) [process, below of=fry] {Sacar buñuelo};
+
+% Salida (No)
+\node (out) [io, below of=dec, yshift=-3.5cm] {Servir y comer buñuelos};
+\node (stop) [startstop, below of=out] {Fin};
+
+% Flechas del flujo principal
+\draw [arrow] (start) -- (in);
+\draw [arrow] (in) -- (prep);
+\draw [arrow] (prep) -- (heat);
+\draw [arrow] (heat) -- (dec);
+
+% Flechas del bucle (Sí)
+\draw [arrow] (dec) -- node[anchor=south] {Sí} (ball);
+\draw [arrow] (ball) -- (fry);
+\draw [arrow] (fry) -- (out_one);
+\draw [arrow] (out_one) |- ++(-3, -0.8) -- (dec);
+
+% Flecha de terminación (No)
+\draw [arrow] (dec) -- node[anchor=east] {No} (out);
+\draw [arrow] (out) -- (stop);
+
+\end{tikzpicture}
+}
+\end{center}
+
+\paragraph{\textcolor{blue}{Ejemplo 2: Algoritmo para encontrar raíces de una ecuación 
+cuadrática $ax^2 + bx + c = 0$.}}
+Recordemos que las soluciones son  $x_{1,2} = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a}$.
+
+\begin{multicols}{2}
+\noindent \textbf{Pseudocódigo:}
+\begin{enumerate}[label=\arabic*)]
+    \item Inicio
+    \item Entre $a$, $b$ y $c$
+    \item Calcular $D = b^2 - 4ac$
+    \item Si $D < 0$ entonces
+    \begin{enumerate}[label=\alph*)]
+        \item Muestre: "Las raíces son complejas"
+    \end{enumerate}
+    \item Sino
+    \begin{enumerate}[label=\alph*)]
+        \item Haga $x_1 = \dfrac{-b + \sqrt{D}}{2a}$
+        \item Haga $x_2 = \dfrac{-b - \sqrt{D}}{2a}$
+        \item Muestre $x_1, x_2$
+    \end{enumerate}
+    \item Fin Si
+    \item Terminar
+\end{enumerate}
+
+\columnbreak
+
+\noindent \textbf{Diagrama de flujo:}
+
+\begin{center}
+\resizebox{0.8\linewidth}{!}{
+\begin{tikzpicture}[node distance=1.3cm]
+
+% Nodos del flujo principal
+\node (start) [startstop] {Inicio};
+\node (in) [io, below of=start] {Entre $a, b, c$};
+\node (proc) [process, below of=in] {$D = b^2 - 4ac$};
+\node (dec) [decision, below of=proc, yshift=-0.4cm] {$D < 0$?};
+
+% Rama SÍ (Izquierda o Derecha)
+\node (comp) [process, right of=dec, xshift=3.2cm] {Las raíces son\\ complejas};
+
+% Rama NO (Abajo)
+\node (calc) [process, below of=dec, yshift=-1.5cm] {$x_1 = \dfrac{-b + \sqrt{D}}{2a}$ \\[0.3em] $x_2 = \dfrac{-b - \sqrt{D}}{2a}$};
+\node (out) [io, below of=calc, yshift=-1.5cm] {Muestre $x_1, x_2$};
+
+% Nodo final común
+\node (stop) [startstop, below of=out] {Terminar};
+
+% Flechas del flujo principal
+\draw [arrow] (start) -- (in);
+\draw [arrow] (in) -- (proc);
+\draw [arrow] (proc) -- (dec);
+
+% Flecha del SÍ (Mensaje y directo al final)
+\draw [arrow] (dec) -- node[anchor=south] {Sí} (comp);
+\draw [arrow] (comp) |- (stop);
+
+% Flecha del NO (Cálculo, muestra y final)
+\draw [arrow] (dec) -- node[anchor=east] {No} (calc);
+\draw [arrow] (calc) -- (out);
+\draw [arrow] (out) -- (stop);
+
+\end{tikzpicture}
+}
+\end{center}
+\end{multicols}
+Note que en el pseudocódigo se emplea la estructura de selección \textbf{If: Si}, 
+\textbf{Else: Sino} 
+para decidir si las raíces son complejas o reales, mientras que en el diagrama de flujo 
+se representa mediante un rombo (decisión) con dos ramas: una para el caso de raíces 
+complejas y otra para el caso de raíces reales. 
+
+La estructura condicional  \textbf{If: Si}, 
+\textbf{Else:Sino} permite
+ modificar el flujo de ejecución de un programa según el resultado de una
+ evaluación lógica (\textit{Verdadero} o \textit{Falso}).
+
+\begin{itemize}
+    \item \textbf{Evaluación de la condición (Paso 4):} El programa evalúa la expresión relacional $D < 0$. El resultado solo puede ser \textit{Verdadero} (\texttt{True}) o \textit{Falso} (\texttt{False}).
+    
+    \item \textbf{Rama Verdadero (Si $D < 0$ es True):} 
+    Se ejecuta únicamente el bloque interno indentado bajo el \textbf{Si}
+    (paso 4a: mostrar que las raíces son complejas). Una vez ejecutadas 
+    estas instrucciones, el programa salta automáticamente al final de 
+    la estructura (\textbf{Fin Si}) y continúa en el paso 7 (\textit{Terminar}), ignorando por completo la sección del \textbf{Sino}.
+
+    \item \textbf{Rama Falso (Si $D < 0$ es False):} 
+    El programa omite el paso 4a y pasa directo a ejecutar las instrucciones dentro de la sección \textbf{Sino} (pasos 5a, 5b y 5c para calcular e imprimir $x_1$ y $x_2$). Al terminar, continúa con el flujo normal.
+\end{itemize}
+Es importante añadir que las ramas \textbf{Si} y \textbf{Sino} son 
+mutuamente excluyentes.
+El programa ejecutará un camino o el otro, pero jamás ambos en una misma 
+ejecución.
+
+
+\paragraph{\textcolor{blue}{ Ejemplo 3. Calcular el peso de un cuerpo dada su masa}} 
+
+\begin{multicols}{2}
+%\noindent \textbf{Pseudocódigo:}
+\begin{enumerate}[label=\arabic*)]
+    \item Inicio
+    \item Entre la masa $m$ (kg)
+    \item Asignar $g = 9.8\text{ m/s}^2$
+    \item Calcular $w = m \cdot g$
+    \item Muestre ``El peso en N es:'', $w$
+    \item Terminar
+\end{enumerate}
+
+\columnbreak
+
+%\noindent \textbf{Diagrama de flujo:}
+
+\begin{center}
+\resizebox{0.5\linewidth}{!}{
+\begin{tikzpicture}[node distance=1.3cm]
+\node (start) [startstop] {Inicio};
+\node (in) [io, below of=start] {Entre masa $m$};
+\node (g) [process, below of=in] {$g = 9.8$};
+\node (w) [process, below of=g] {$w = m \cdot g$};
+\node (out) [io, below of=w] {Muestre $w$};
+\node (stop) [startstop, below of=out] {Terminar};
+
+\draw [arrow] (start) -- (in);
+\draw [arrow] (in) -- (g);
+\draw [arrow] (g) -- (w);
+\draw [arrow] (w) -- (out);
+\draw [arrow] (out) -- (stop);
+\end{tikzpicture}
+}
+\end{center}
+\end{multicols}
+
+\paragraph{\textcolor{blue}{Ejemplo 4. La función $\sin(x)$:}}
+Una computadora solo sabe sumar, restar, multiplicar o dividir.
+Por esta razón, el cálculo de muchas funciones complicadas en física y 
+matemática (como $\sin x$, $\cos x$ o $e^x$) se realiza mediante el uso 
+de series de potencias (series de Taylor).
+Para la función seno, la expansión alrededor de $x = 0$ está dada por 
+la suma infinita:
+\[
+    \sin(x) = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \frac{x^7}{7!} + \dots 
+    = \sum_{n=0}^{\infty} (-1)^n \frac{x^{2n+1}}{(2n+1)!}
+\]
+donde el ángulo $x$ está expresado en radianes.
+Dado que un sistema computacional no puede sumar infinitos términos, 
+en la práctica la serie se trunca sumando únicamente los primeros $N$ 
+términos, asumiendo que el residuo truncado es cuantitativamente despreciable.
+\begin{multicols}{2}
+\noindent \textbf{Pseudocódigo:}
+\begin{enumerate}[label=\arabic*)]
+    \item Inicio
+    \item Entre el ángulo, $x$, en radianes
+    \item Entre el número de términos, $N$
+    \item $S = 0$
+    \item $n = 0$
+    \item Mientras $n < N$ haga:
+    \begin{enumerate}[label=\alph*)]
+        \item $\text{termino} = (-1)^n \cdot \dfrac{x^{2n+1}}{(2n+1)!}$
+        \item $S = S + \text{termino}$
+        \item $n = n + 1$
+    \end{enumerate}
+    \item Muestre $\sin(x) \approx S$
+    \item Terminar
+\end{enumerate}
+
+\columnbreak
+
+\noindent \textbf{Diagrama de flujo:}
+
+\begin{center}
+\resizebox{0.9\linewidth}{!}{
+\begin{tikzpicture}[node distance=1.3cm]
+
+% Nodos principales
+\node (start) [startstop] {Inicio};
+\node (in) [io, below of=start] {Entre $x, N$};
+\node (init) [process, below of=in] {$S = 0$\\ $n = 0$};
+\node (dec) [decision, below of=init, yshift=-0.5cm] {$n < N$?};
+
+% Bloque dentro del bucle (Rama SÍ)
+\node (term) [process, right of=dec, xshift=3.5cm] {$\text{termino} = (-1)^n \dfrac{x^{2n+1}}{(2n+1)!}$};
+\node (sum) [process, below of=term] {$S = S + \text{termino}$};
+\node (inc) [process, below of=sum] {$n = n + 1$};
+
+% Salida (Rama NO)
+\node (out) [io, below of=dec, yshift=-3.5cm] {Muestre $S$};
+\node (stop) [startstop, below of=out] {Terminar};
+
+% Flechas principales
+\draw [arrow] (start) -- (in);
+\draw [arrow] (in) -- (init);
+\draw [arrow] (init) -- (dec);
+
+% Flechas del bucle (Sí)
+\draw [arrow] (dec) -- node[anchor=south] {Sí} (term);
+\draw [arrow] (term) -- (sum);
+\draw [arrow] (sum) -- (inc);
+\draw [arrow] (inc.west) -- ++(-1.5,0) |- (dec.east);
+
+% Flecha de salida (No)
+\draw [arrow] (dec) -- node[anchor=east] {No} (out);
+\draw [arrow] (out) -- (stop);
+
+\end{tikzpicture}
+}
+\end{center}
+\end{multicols}
+
+Note que definimos un acumulador $S$ que va guardando los términos de la suma. 
+Por ejemplo, si lo iniciamos en cero, se tiene $S=0$, luego se suma el primer 
+término $S = 0 + \text{termino}1 = 0 + x$, luego el segundo
+$S =  0 + \text{termino}1 + \text{termino}2 =  0 + x - \dfrac{x^3}{3!}$, 
+y así sucesivamente hasta que se sumen los $N$ términos. Acá es importante mencionar que la
+expresión $S =S +a$ en programación se interpreta como: "actualiza el valor de $S$ 
+sumándole $a$", no representa una igualdad matemática. La igualdad matemática se
+tiene reservada el símbolo \texttt{==}. Además, observen la diferencia entre 
+contar y acumular. la instrucción $n = n + 1$ indica que se actualiza el valor de $n$ 
+sumándole siempre 1.
+
+
+\begin{problemas}[]
+    \begin{enumerate}
+        \item Construya un algoritmo para hacer empanadas.  
+        \item Modifique el algoritmo del problema 3 y diseñe otro diagrama de flujo,
+        pero que ahora distinga si la masa ingresada es positiva, negativa 
+        o cero. Si $m \le 0$, el programa debe mostrar un mensaje de error 
+        indicando que la masa no es válida; de lo contrario, debe realizar el 
+        cálculo del peso y mostrar el resultado.
+        \item Elabore un pseudocódigo y un diagrama de flujo para calcular 
+        el valor de la suma $1 + 2 +3\dots 100$.
+        \item Elabore un pseudocódigo y un diagrama de flujo para calcular el área de un 
+        triángulo rectángulo dada su base y altura.
+        \item Elabore un pseudocódigo y un diagrama de flujo para calcular el tiempo que le
+        toma a un cuerpo alcanzar una altura $h$, siendo lanzado 
+        desde una altura $h_0$ con velocidad inicial $v_0$. Recuerde que desde la 
+        mecánica básica, sabemos que 
+        \begin{align*}
+            h = h_0 + v_0 t - \frac{1}{2}gt^2 \implies \frac{1}{2}gt^2 - v_0 t + (h - h_0) = 0 \implies t_{1,2} = \frac{v_0 \pm \sqrt{v_0^2 - 2g(h - h_0)}}{g}
+        \end{align*}
+        \textit{Indicación:} El algoritmo debe evaluar si la cantidad bajo 
+        la raíz es negativa ($v_0^2 < 2g(h - h_0)$). Si es así, 
+        debe mostrar un mensaje indicando que el objeto jamás alcanza 
+        la altura $h$. En caso contrario, debe calcular y mostrar el tiempo 
+        (o tiempos) físicamente válidos.
+
+        \item Un objeto se deja caer desde una altura $y_0$ con velocidad 
+        inicial cero. Diseñe el pseudocódigo y el diagrama de flujo que 
+        imprima segundo a segundo ($t = 0, 1, 2, \dots$) la altura del 
+        cuerpo $y(t) = y_0 - \frac{1}{2}gt^2$ mientras el 
+        objeto no haya tocado el suelo ($y \ge 0$).
+
+        \item Modifique el algoritmo del ejemplo 4 para que muestre un error si
+         el número de términos, $N$, no es un número entero positivo.
+        \item Elabore un pseudocódigo y diagrama de flujo para aproximar 
+        el valor de la suma de $N$ términos discretos:
+        \[
+            S = \sum_{i=1}^{N} \frac{1}{i^2} = 1 + \frac{1}{4} + \frac{1}{9} + \dots + \frac{1}{N^2}
+        \]
+        El algoritmo debe solicitar el número entero $N$, 
+        inicializar un acumulador en cero y sumar los términos 
+        iterativamente utilizando un bucle \textbf{while}.
+    \end{enumerate}
+\end{problemas}
+
+
+\begin{comment}
+\section*{\textcolor{red}{\textit{Problemas de cinemática y uso de subrutinas}}}
+
+\paragraph{\textcolor{blue}{Ejemplo:}} Dada la altura $h_0$ y la velocidad inicial $v_0$ de un cuerpo, calcular el tiempo $t$ que le toma alcanzar una altura $h$.
+
+
+\begin{center}
+\resizebox{0.55\linewidth}{!}{
+\begin{tikzpicture}[node distance=1.3cm]
+\node (start) [startstop] {Inicio};
+\node (in) [io, below of=start] {Entre $h, h_0, v_0$ (en SI)};
+\node (g) [process, below of=in] {$g = 9.8$};
+\node (disc) [process, below of=g] {$D = v_0^2 - 2g(h - h_0)$};
+\node (dec) [decision, below of=disc, yshift=-0.3cm] {$D < 0$?};
+\node (err) [process, right of=dec, xshift=2.5cm] {Datos no válidos};
+\node (calc) [process, below of=dec, yshift=-0.5cm] {$t_1 = \frac{v_0 + \sqrt{D}}{g}, \quad t_2 = \frac{v_0 - \sqrt{D}}{g}$};
+\node (dec2) [decision, below of=calc, yshift=-0.3cm] {$t_1, t_2 > 0$?};
+\node (out) [io, below of=dec2, yshift=-0.3cm] {Muestre $t_1, t_2$};
+\node (stop) [startstop, below of=out] {Terminar};
+
+\draw [arrow] (start) -- (in);
+\draw [arrow] (in) -- (g);
+\draw [arrow] (g) -- (disc);
+\draw [arrow] (disc) -- (dec);
+\draw [arrow] (dec) -- node[anchor=south] {Sí} (err);
+\draw [arrow] (dec) -- node[anchor=east] {No} (calc);
+\draw [arrow] (calc) -- (dec2);
+\draw [arrow] (dec2) -- node[anchor=east] {Sí} (out);
+\draw [arrow] (err) |- (stop);
+\draw [arrow] (out) -- (stop);
+\end{tikzpicture}
+}
+\end{center}
+
+%--------------------------------------------------
+\section*{\textcolor{red}{\textit{Uso de rutinas / Programación modular}}}
+
+En ocasiones es mejor trabajar con programación modular utilizando rutinas (o funciones).
+
+\paragraph{\textcolor{blue}{Ejemplo:}}
+Diseñar una rutina `masa-relativista` con parámetros de entrada $v, m_0$ que devuelva la masa relativista:
+\[
+m = \frac{m_0}{\sqrt{1 - v^2/c^2}}
+\]
+
+\begin{center}
+\resizebox{0.5\linewidth}{!}{
+\begin{tikzpicture}[node distance=1.3cm]
+\node (in) [io] {Entre $v, m_0$};
+\node (start) [startstop, below of=in] {Inicio Subrutina};
+\node (c) [process, below of=start] {$c = 3 \times 10^8$};
+\node (vprime) [process, below of=c] {$v' = v/c$};
+\node (dec) [decision, below of=vprime, yshift=-0.3cm] {$v' > 1$?};
+\node (err) [io, right of=dec, xshift=2.5cm] {Muestre ``$v > c$ no válido''};
+\node (calc) [process, below of=dec, yshift=-0.5cm] {$m = \frac{m_0}{\sqrt{1 - (v')^2}}$};
+\node (stop) [startstop, below of=calc] {Terminar};
+\node (out) [io, below of=stop] {Salida: $m$};
+
+\draw [arrow] (in) -- (start);
+\draw [arrow] (start) -- (c);
+\draw [arrow] (c) -- (vprime);
+\draw [arrow] (vprime) -- (dec);
+\draw [arrow] (dec) -- node[anchor=south] {Sí} (err);
+\draw [arrow] (dec) -- node[anchor=east] {No} (calc);
+\draw [arrow] (err) |- (stop);
+\draw [arrow] (calc) -- (stop);
+\draw [arrow] (stop) -- (out);
+\end{tikzpicture}
+}
+\end{center}
+
+\vspace{0.5cm}
+
+\paragraph{\textcolor{blue}{Ejemplo de aplicación con bucle:}} Utilizar la rutina anterior para que dada $m_0$, muestre $m$ para velocidades $0.1c, 0.2c, \dots, 0.9c$.
+
+\begin{center}
+\resizebox{0.45\linewidth}{!}{
+\begin{tikzpicture}[node distance=1.3cm]
+\node (start) [startstop] {Inicio};
+\node (in) [io, below of=start] {Entre $m_0$};
+\node (c) [process, below of=in] {$c = 3 \times 10^8$};
+\node (initv) [process, below of=c] {$v' = 0.1$};
+\node (vcalc) [process, below of=initv] {$v = v' \cdot c$};
+\node (call) [process, below of=vcalc] {Llamar a \texttt{masa-relativista}($v, m_0$) $\to m$};
+\node (out) [io, below of=call] {Muestre $v', m$};
+\node (step) [process, below of=out] {$v' = v' + 0.1$};
+\node (dec) [decision, below of=step, yshift=-0.3cm] {$v' \le 0.9$?};
+\node (stop) [startstop, below of=dec, yshift=-0.5cm] {Terminar};
+
+\draw [arrow] (start) -- (in);
+\draw [arrow] (in) -- (c);
+\draw [arrow] (c) -- (initv);
+\draw [arrow] (initv) -- (vcalc);
+\draw [arrow] (vcalc) -- (call);
+\draw [arrow] (call) -- (out);
+\draw [arrow] (out) -- (step);
+\draw [arrow] (step) -- (dec);
+\draw [arrow] (dec) -- node[anchor=east] {No} (stop);
+\draw [arrow] (dec.east) -- ++(1.5,0) |- (vcalc.east) node[near start, anchor=south] {Sí};
+\end{tikzpicture}
+}
+\end{center}
+\end{comment}
+
+
+\label{LastPage}
+\end{document}

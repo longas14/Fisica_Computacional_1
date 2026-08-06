@@ -7,6 +7,9 @@ __pycache__/
 # Archivos privados
 2026-2/
 
+# vs code
+.vscode/
+
 # Archivos temporales de sistema y editores
 .DS_Store
 *.swp
