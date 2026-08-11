@@ -1,0 +1,465 @@
+\documentclass[12pt]{article}
+
+% ---------- IDIOMA ----------
+\usepackage{polyglossia}
+\setdefaultlanguage{spanish}
+% --- Cambiar "Cuadro" por "Tabla" ---
+\addto\captionsspanish{\renewcommand{\tablename}{Tabla}}
+
+% ---------- FUENTES ----------
+\usepackage{fontspec}
+\setmainfont{TeX Gyre Termes}
+
+% ---------- PAQUETES MATEMÁTICOS Y FÍSICOS ----------
+\usepackage{amsmath,amssymb}
+\usepackage{amsfonts}
+\usepackage{physics}
+
+% ---------- GRÁFICOS Y COLORES ----------
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usetikzlibrary{shapes, arrows, positioning, calc}
+\usetikzlibrary{arrows.meta} 
+\usetikzlibrary{shapes.geometric} 
+\usetikzlibrary{decorations.markings}
+
+% ---------- CÓDIGO (LISTINGS) ----------
+\usepackage{listings}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.95,0.95,0.95}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.96,0.96,0.96}
+
+\lstdefinestyle{pythonstyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\small,          
+    breakatwhitespace=false,         
+    breaklines=true,                     
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                        
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4,
+    language=Python                      
+}
+\lstset{style=pythonstyle}
+
+% ---------- DISEÑO Y ESTILO ----------
+\usepackage{geometry}
+\geometry{letterpaper, margin=2cm, headheight=15pt}
+\usepackage{fancyhdr} 
+\usepackage{lastpage} 
+\usepackage{wrapfig}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{framed}
+\usepackage{etoolbox}
+
+% ---------- TCOLORBOX ----------       
+\usepackage[most,skins,theorems]{tcolorbox}
+
+% --- Caja para Definiciones Formales ---
+\newtcolorbox{definicion}[1][]{
+  enhanced,
+  colback=blue!5!white,
+  colframe=blue!75!black,
+  fonttitle=\bfseries,
+  title={Definición: #1},
+  arc=2mm,
+  boxrule=0.8pt,
+  drop shadow=black!10!white
+}
+
+% --- Caja para Tareas ---
+\newtcolorbox{problemas}[1][]{
+  enhanced,
+  colback=violet!6!white,       
+  colframe=violet!45!white,     
+  coltitle=violet!40!black,     
+  fonttitle=\bfseries,
+  title={Problemas: #1},
+  arc=2.5mm,                    
+  boxrule=0.8pt,
+  drop shadow=black!8!white     
+}
+
+% --- Caja Libre Verde Menta ---
+\newtcolorbox{cajaflex}[1][]{
+  enhanced,
+  colback=teal!5!white,       
+  colframe=teal!50!black,     
+  coltitle=teal!10!white,     
+  fonttitle=\bfseries,
+  code={\ifblank{#1}{}{\tcbset{title={#1}}}},
+  arc=2.5mm,                  
+  boxrule=0.8pt,
+  drop shadow=black!8!white   
+}
+
+% ---------- TABLAS Y ELEMENTOS EXTRA ----------
+\usepackage{booktabs}   
+\usepackage{pifont}     
+\usepackage{array}      
+\usepackage{caption}    
+
+\newcommand{\lapiz}{\ding{46}\ }
+
+% ---------- ENLACES Y PDF ----------
+\usepackage{hyperref}
+
+\definecolor{myblue}{RGB}{20, 20, 120}
+\definecolor{myred}{RGB}{220, 30, 30}
+\definecolor{mygreen}{RGB}{0, 130, 60}
+
+% Personalización de nombres para \autoref
+\def\tableautorefname{Tabla}
+\def\figureautorefname{Figura}
+\def\equationautorefname{Ecuación}
+\def\sectionautorefname{Sección}
+
+% ---------- CONFIGURACIÓN DE ENCABEZADOS (ITM) ----------
+\newcommand{\logo}{\includegraphics[height=3cm]{escudoitm}}
+\newcommand{\escola}{Facultad de Ciencias Exactas y Aplicadas}
+\newcommand{\disc}{Física Computacional 1}
+\newcommand{\auth}{Robinson Longas Bedoya}
+\newcommand{\emaill}{\url{robinsonlongas@itm.edu.co}}
+\newcommand{\email}{\url{robinsonlongas3586@correo.itm.edu.co}}
+\newcommand{\cabec}{Física Computacional 1}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    citecolor=blue,
+    pdftitle={\cabec\ -- \auth},
+    pdfauthor={\auth}
+}
+
+% Configuración de estilos de página
+\pagestyle{fancy}
+\fancyhf{} 
+
+\fancypagestyle{firstpage}{
+    \fancyhead[L]{\logo}
+    \fancyhead[R]{
+        \textsf{\escola \\} 
+        \textsf{\disc \\}
+        \textsf{\auth \\}
+        \textsf{\email \\} 
+        \textsf{\emaill}     
+    }
+    \fancyfoot[R]{\scriptsize Página \thepage~de \pageref{LastPage}}
+    \renewcommand{\headrulewidth}{0pt} 
+    \renewcommand{\footrulewidth}{0.4pt} 
+}
+
+\fancyhead[L]{\textsf{\scriptsize \cabec\ -- \auth\ -- \email\ -- \emaill}}
+\fancyfoot[R]{\scriptsize Página \thepage~de \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt} 
+\renewcommand{\footrulewidth}{0.4pt} 
+
+\setlength{\parskip}{0.3em}
+
+\begin{document}
+\thispagestyle{firstpage}
+\vspace*{1.5cm}
+
+\begin{center}
+    \rule{\textwidth}{0.4pt}
+\end{center}
+
+\begin{itemize}[leftmargin=*,label=\textcolor{red}{\ensuremath{\blacktriangleright}}]
+    \item \textbf{ Uso básico de git}
+    \item \textbf{ GitHub enlazado a VS Code}
+\end{itemize}
+
+\noindent
+\textbf{\underline{Bibliografía}}
+\begin{itemize}[leftmargin=*, label={\textcolor{blue}{$\bullet$}}]
+    \item 	Git Software. \textit{Git Documentation:}
+    \url{https://git-scm.com/doc}
+    \item \textit{Introducción a la documentación de GitHub: } 
+    \url{https://docs.github.com/es/get-started}
+    \item \textit{Introduction to Git and GitHub for Python Developers:} \\ 
+    \url{https://realpython.com/python-git-github-intro/}
+\end{itemize}
+
+
+\section*{\textcolor{red}{\textit{Git}}}
+
+Git es un sistema de control de versiones que permite a los 
+desarrolladores rastrear cambios en el código fuente durante 
+el desarrollo de algún código. Fue creado por Linus Torvalds en 2005 
+para ayudar en el desarrollo del kernel de Linux. 
+Git permite, a través de GitHub, sincronizar repositorios entre 
+múltiples desarrolladores trabajar en un proyecto 
+simultáneamente, manteniendo un historial completo de cambios y 
+facilitando la colaboración. Sin embargo, hay que enfatizar que no es 
+no es necesario usar GitHub para usar Git. 
+El fujo típico de trabajo con Git es el siguiente:
+\begin{enumerate}
+    \item Iniciar un repositorio local en su máquina
+\begin{lstlisting}[language=bash]
+git init
+\end{lstlisting}
+    \item Añadir los textos y archivos de código al repositorio local
+\begin{lstlisting}[language=bash]
+git add formas_diferenciales.tex 
+\end{lstlisting}
+    \item Hacer cambios en los archivos que quieras. 
+    Luego para ver qué has modificado, ejecutas
+\begin{lstlisting}[language=bash]
+git status
+\end{lstlisting}
+En este caso, git te mostrará algo como \lstinline|modified: formas_diferenciales.tex|   
+\item Añades los cambios  (puedes usar \lstinline|git add .| para añadir todos los cambios que hiciste)
+\begin{lstlisting}[language=bash]
+git add formas_diferenciales.tex 
+\end{lstlisting}
+\item Comentas los cambios para tener control de las versiones
+\begin{lstlisting}[language=bash]
+git commit -m "Se agregan ejemplos de formas diferenciales exactas al 
+archivo formas_diferenciales.tex"  
+\end{lstlisting}
+\end{enumerate}
+Con esto ya puedes modificar los archivos y saber que has cambiado o que
+versiones tienes y volver a las versiones anteriores.
+Comandos como \lstinline|git diff|,  \lstinline|git log| sirven para ello.
+
+En los proyectos, usualmente tenemos muchos archivos basura que no deseamos 
+seguir. Para ignorarlos, existe un archivo que podemos crear antes del primer 
+\lstinline|git add|. Abrimos un archivo  \lstinline|emacs .gitignore| y agregamos 
+las cosas que no queramos seguir, por ejemplo
+\begin{lstlisting}[language=bash]
+# Entornos virtuales 
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+*.venv/
+
+# Archivos privados
+2026-2/
+
+# vs code
+.vscode/
+
+# Archivos temporales de sistema y editores
+.DS_Store
+*.swp
+*~
+*.aux
+*.log
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.out
+*.toc
+*.nav
+*.snm
+*.bbl
+*.blg
+\end{lstlisting}
+
+Git permite el uso de ramas para experimentar con nuestros proyectos y sí 
+todo sale bien, juntarlo con la rama principal. 
+\begin{lstlisting}[language=bash]
+# Crear y cambiar a una nueva rama de experimento
+git checkout -b hipotesis-Rham		
+# Listar ramas existentes y verificar la posicion actual
+git branch
+\end{lstlisting}
+Una vez que el experimento ha sido validado, los cambios se 
+integran a la rama principal. 
+Si el experimento falla, la rama puede ser eliminada sin 
+dejar residuos en el código base.
+\begin{lstlisting}[language=bash]
+# Regresar a la rama principal e integrar cambios
+git checkout main
+git merge hipotesis-Rham	
+# Eliminar la rama experimental tras la fusion
+git branch -d hipotesis-Rham	
+\end{lstlisting}
+
+Por otro lado, en ocasiones es importante trabajar con varias personas
+al tiempo y que cada una haga modificaciones a los archivos de tal forma que 
+las otras personas vinculadas al proyecto los puedan tener.
+Para esto, se suele usar la plataforma GitHub y en este caso hay un par de comandos
+adicionales a tener en cuenta, \lstinline|git pull| y \lstinline|git push|.
+En nuestro curso no entraremos en los detalles del uso de git, por lo que 
+queda de interés a la persona lectora, la profundización de lo que aquí se 
+ha expuesto. Sin embargo, las tareas del curso serán entregadas por GitHub, 
+entonces explicaremos como crear una cuenta, clonar el proyecto del curso y 
+entregar las tareas.
+
+\subsubsection*{Creación de cuenta en GitHub}
+Para comenzar, ingrese a la página de GitHub \href{https://github.com}{https://github.com} 
+y haga clic en \textbf{Sign up}. Complete el formulario de registro 
+usando preferiblemente su correo institucional. 
+Siga las instrucciones en pantalla para verificar su cuenta desde 
+el enlace enviado a su correo electrónico.
+
+\subsubsection*{Vincular GitHub con Visual Studio Code}
+Para trabajar directamente desde el editor sin necesidad de ingresar 
+comandos por terminal en cada acción:
+\begin{enumerate}
+\item Abra \textbf{Visual Studio Code}.
+\item En la barra lateral izquierda, haga clic en el icono de \textbf{Cuentas} 
+(esquina inferior izquierda) o diríjase a la pestaña de 
+\textbf{Control de código fuente}. El atajo de teclado (\lstinline|Ctrl + Shift + G|).
+\item Seleccione la opción \textbf{Sign in with GitHub}.
+\item Se abrirá una ventana en su navegador web solicitando autorización para conectar VS Code con su cuenta de GitHub. Confirme el acceso.
+\end{enumerate}
+
+\section*{\textcolor{red}{\textit{Guía para la entregas de Tareas vía VS Code y GitHub}}}
+En nuestro curso, las tareas se entregarán a través de GitHub utilizando una combinación entre 
+la interfaz web y Visual Studio Code. 
+A continuación se detallan los pasos para configurar su entorno y realizar las entregas.
+
+\subsection*{1. Crear un Fork (Copia personal del repositorio del curso)}
+Un \textbf{Fork} es una fotocopia exacta del repositorio del curso en su cuenta personal. 
+Esto garantiza que usted pueda trabajar libremente sin modificar el archivo original.
+
+\begin{enumerate}[label=\arabic*)]
+    \item Ingrese al enlace del repositorio del curso 
+    \href{https://github.com/longas14/Fisica_Computacional_1}{dando clic aquí}.
+    \item En la esquina superior derecha de la página de GitHub, haga clic en el botón 
+    \textbf{Fork} y luego en \textbf{Create fork}.
+    \item Verifique que la página web ahora muestre la URL con su nombre de usuario\\
+    (ejemplo: \texttt{github.com/su\_usuario/Fisica\_Computacional\_1}).
+\end{enumerate}
+
+\subsection*{2. Clonar SU Fork en VS Code}
+\begin{enumerate}[label=\arabic*)]
+    \item En la página web de \textbf{su Fork}, haga clic en el botón verde \textbf{Code} y copie la URL que aparece bajo la pestaña \textbf{HTTPS}.
+    \item En VS Code, presione \lstinline|Ctrl + Shift + P| para abrir la paleta de comandos.
+    \item Escriba \lstinline|Git: Clone| y presione \textbf{Enter}.
+    \item Pegue la URL de su Fork y presione \textbf{Enter}.
+    \item Seleccione una carpeta en su equipo para guardar el proyecto y confirme haciendo clic en \textbf{Abrir}.
+\end{enumerate}
+
+\subsection*{3. Resolver las Tareas y Sincronizar Cambios}
+\begin{enumerate}[label=\arabic*)]
+    \item Resuelva los ejercicios editando o creando los archivos necesarios en VS Code 
+    (scripts \lstinline|.py|, documentos \lstinline|.tex|, etc.). Guarde sus avances.
+    \item Diríjase al panel de \textbf{Control de código fuente}. El atajo en teclado es 
+    (\lstinline|Ctrl + Shift + G|).
+    \item Pase el cursor sobre la sección \emph{Changes} y haga clic en el icono \textbf{+} para preparar todos los archivos modificados.
+    \item Escriba un mensaje claro en la casilla superior 
+    (ejemplo: \lstinline|"Solucion de la tarea 1"|) y presione el botón \textbf{Commit} (o \lstinline|Ctrl + Enter|).
+    \item Haga clic en el botón azul \textbf{Sync Changes} (o \textbf{Push}) para subir los cambios a su repositorio personal en GitHub.
+\end{enumerate}
+
+\subsection*{4. Realizar la Entrega Formal (Pull Request)}
+Un \textbf{Pull Request (PR)} es la notificación mediante la cual usted solicita 
+a la persona dueña del repositorio que revise los cambios que realizó en su copia.
+
+\begin{enumerate}[label=\arabic*)]
+    \item Ingrese desde el navegador a la página web de \textbf{su Fork} en GitHub.
+    \item Verá un aviso indicando que su repositorio tiene cambios por delante del original
+    \textit{This branch is 1 commit....} 
+    Haga clic en \textbf{Contribute} y luego en \textbf{Open pull request}.
+    \item Verifique los cambios que realizó, escriba la descripción y haga clic 
+    en \textbf{Create pull request}.
+    \item En el título escriba su \textbf{Nombre Completo} \\
+    (ejemplo: \texttt{Entrega Taller 1 - Leonel Messi}).
+    \item Haga clic en el botón verde \textbf{Create pull request} para completar su entrega.
+\end{enumerate}
+Con estos pasos ya queda lista la entrega de su tarea y solo resta que yo revise los cambios 
+y deje comentarios o sugerencias directamente en GitHub. Sin embargo, 
+en el transcurso del semestre se irá actualizando el repositorio del curso
+y ustedes deben actualizar su copia local, pues esto no se hace automáticamente. 
+¿Cómo se hace esto? 
+
+\subsection*{5. Sincronizar su Fork para actualizar cambios}
+
+\begin{quote}
+\textbf{\textcolor{red}{¡PRECAUCIÓN!}} Antes de descargar las actualizaciones, 
+asegúrese de guardar y hacer \textbf{Commit} de sus cambios locales en VS Code. 
+Si intenta hacer un \emph{Pull} teniendo archivos modificados localmente sin confirmar, 
+Git bloqueará la sincronización o generará un conflicto de fusión (\emph{Merge Conflict}).
+\end{quote}
+
+Para sincronizar su entorno de forma segura, siga estos pasos:
+
+\begin{enumerate}[label=\arabic*)]
+    \item \textbf{Asegurar cambios locales:} En VS Code, vaya al panel de 
+    \textbf{Control de código fuente} (\lstinline|Ctrl + Shift + G|), guarde sus avances, 
+    agregue los archivos con \textbf{+} y realice un \textbf{Commit} con un mensaje descriptivo. 
+    \begin{itemize}
+        \item \emph{Alternativa rápida:} Si no quiere guardar aún un commit de sus cambios locales incompletos, puede pausarlos ejecutando en la terminal:
+\begin{lstlisting}[language=bash]
+git stash
+\end{lstlisting}
+    \end{itemize}
+
+    \item \textbf{Sincronizar en GitHub (Nube):} Ingrese desde el navegador a la página web de \textbf{su Fork}. En la parte superior verá un aviso indicando que su rama está desactualizada. Haga clic en el botón \textbf{Sync fork} y luego seleccione \textbf{Update branch}.
+
+    \item \textbf{Descargar a VS Code (Local):} Vaya a VS Code y haga clic en el botón \textbf{Sync Changes} (o ejecute \lstinline|git pull| en la terminal).
+
+    \item \textbf{Restaurar avances (si usó Stash):} Si pausó sus cambios en el paso 1, devuélvalos a su espacio de trabajo ejecutando:
+\begin{lstlisting}[language=bash]
+git stash pop
+\end{lstlisting}
+\end{enumerate}
+
+\begin{problemas}[]
+    \begin{enumerate}
+        \item Configuración de Entorno y Datos Personales
+     \begin{enumerate}
+    \item Dentro de la carpeta raíz de su proyecto clonado, cree una nueva carpeta 
+        llamada \texttt{Estudiantes/}.
+    \item Dentro de dicha carpeta, cree un archivo de texto plano nombrado con su 
+    usuario de GitHub, por ejemplo: \texttt{longas14.txt}.
+    \item En la primera línea del archivo, escriba su **Nombre Completo**, 
+    **Documento de Identidad** y su **Correo Institucional**.
+    \item En las siguientes líneas, redacte un breve párrafo (de 3 a 5 líneas) 
+    respondiendo: \emph{¿Qué expectativa tiene sobre la aplicación de la física 
+    computacional en su formación académica?}.
+    \item Guarde el archivo, realice el proceso de \textbf{Add} y haga un 
+    **Commit** con el mensaje: \texttt{" Se añade información de estudiante: su\_usuario"}.
+\end{enumerate}
+
+\item Una computadora solo sabe sumar, restar, multiplicar o dividir. Por esta razón, el cálculo de muchas funciones complicadas en física y matemática (como $\sin x$, $\cos x$ o $e^x$) se realiza mediante el uso de series de potencias (series de Taylor). Para la función coseno, la expansión alrededor de $x = 0$ está dada por la suma infinita:
+\[
+    \cos(x) = 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \frac{x^6}{6!} + \dots = \sum_{n=0}^{\infty} (-1)^n \frac{x^{2n}}{(2n)!}
+\]
+donde el ángulo $x$ está expresado en radianes. Dado que un sistema computacional no puede sumar infinitos términos, en la práctica la serie se trunca sumando únicamente los primeros $N$ términos, asumiendo que el residuo es cuantitativamente despreciable.
+
+\begin{enumerate}
+    \item Cree una carpeta con su nombre y primer apellido, sin espacios 
+    (ejemplo: \texttt{cristiano\_ronaldo/}) dentro del directorio Tareas/ 
+    \item Dentro de \texttt{cristiano\_ronaldo/} cree un archivo de texto o markdown 
+    llamado \texttt{pseudocodigo\_coseno.txt} (o \texttt{.md}).
+    \item Elabore el pseudocódigo estructurado para aproximar $\cos(x)$ 
+    sumando los primeros $N$ términos de la serie. \textit{Sugerencia:} 
+    Estudie de nuevo la clase 3.
+    \item Verifique con \lstinline|git status| que el archivo creado aparezca en 
+    el panel de control de código fuente.
+    \item Realice el **Add**, ejecute un **Commit** con el mensaje
+     \texttt{"Solucion del taller 0: Pseudocodigo serie de Taylor para coseno"} 
+     y haga el **Push / Sync Changes** hacia su Fork en GitHub.
+    \item Ingrese a la interfaz web de su Fork y realice el 
+    \textbf{Pull Request} formal hacia el repositorio del curso 
+    con el título: \texttt{Entrega Taller 0 - [Su Nombre Completo]}.
+\end{enumerate}
+
+
+
+
+\end{enumerate}
+\end{problemas}
+
+
+
+\label{LastPage}
+\end{document}

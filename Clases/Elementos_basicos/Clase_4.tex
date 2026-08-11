@@ -65,7 +65,7 @@
 \usepackage{framed}
 \usepackage{etoolbox}
 
-% ---------- TCOLORBOX ----------
+% ---------- TCOLORBOX ----------       
 \usepackage[most,skins,theorems]{tcolorbox}
 
 % --- Caja para Definiciones Formales ---
@@ -188,15 +188,6 @@
 \begin{itemize}[leftmargin=*, label={\textcolor{blue}{$\bullet$}}]
     \item \textit{The Linux command line. A complete introduction}, William Shotts.
 \end{itemize}
-
-% Estilos TikZ corregidos (con align=center)
-\tikzset{
-    startstop/.style={rectangle, rounded corners, minimum width=2.5cm, minimum height=0.8cm, align=center, draw=black, fill=red!10},
-    io/.style={trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=2.5cm, minimum height=0.8cm, align=center, draw=black, fill=blue!10},
-    process/.style={rectangle, minimum width=3cm, minimum height=0.8cm, align=center, draw=black, fill=orange!10},
-    decision/.style={diamond, aspect=2, minimum width=2.5cm, minimum height=0.8cm, align=center, draw=black, fill=green!10},
-    arrow/.style={thick,->,>=stealth}
-}
 
 \section*{\textcolor{red}{\textit{WSL}}}
 
@@ -435,9 +426,6 @@ y ejecutamos en la terminal:
 Sin embargo, en el curso no vamos a profundizar en el tema de \textit{shell scripting}, pues no es el objetivo. 
 Es bueno saber que existe y que es muy útil para automatizar tareas.
 
-
-
-
 \paragraph{\textcolor{blue}{Instalación de herramientas básicas}}
 
 Una vez que el sistema está actualizado, el siguiente paso es instalar las herramientas 
@@ -494,6 +482,146 @@ pdflatex --version
 \end{lstlisting}
 En la actualidad, existen editores en línea como \href{https://www.overleaf.com/project}{Overleaf}, pero, tener \LaTeX{} instalado localmente 
 permite trabajar sin conexión y con mayor control del entorno.
+
+
+%####------- Vs code en ##################
+\section*{\textcolor{red}{\textit{Integración de VS Code con WSL}}}
+Vamos a usar Visual Code como editor, pero integrado a wsl. Para ello, seguimos los siguientes pasos:
+\begin{enumerate}
+    \item \textbf{Instalación de la extensión requerida:}
+    Abra Visual Studio Code en Windows, vaya al menú de extensiones (\lstinline|Ctrl + Shift + X|) y 
+    busque e instale la extensión oficial llamada \textbf{WSL} (desarrollada por Microsoft).
+
+    \item \textbf{Abrir VS Code directamente desde la terminal de WSL:}
+    En la terminal de Linux, navegue hasta la carpeta de trabajo deseada y ejecute el 
+    comando \lstinline|code .| Ejemplo:
+    \begin{lstlisting}[language=bash]
+cd ~/Ejercicios
+code .
+    \end{lstlisting}
+\end{enumerate}
+    Para confirmar que VS Code está enlazado adecuadamente con WSL
+    Verifique que en la esquina inferior izquierda de la ventana de VS Code aparezca un recuadro de 
+    color (verde o azul) con el texto \lstinline|WSL: <distribución>| (por ejemplo, \lstinline|WSL: Ubuntu|).
+    Abra la terminal dentro de VS Code usando y compruebe que la línea de comandos responda al 
+    shell de Linux (Bash) y no a PowerShell ni al Símbolo del sistema de Windows.
+
+\subsection*{Instalación de Extensiones de Python y Jupyter}
+Para desarrollar código y ejecutar \textit{Notebooks} de manera integrada, hacemos lo siguiente:
+
+\begin{enumerate}
+    \item \textbf{Asegurar la conexión a WSL:}
+    Abra VS Code desde la terminal de Linux con \lstinline|code .| para que la ventana 
+    esté conectada al entorno WSL (compruebe el indicador en la esquina inferior izquierda).
+
+    \item \textbf{Instalar la extensión de Python:}
+    \begin{itemize}
+        \item Vaya a la sección de extensiones (\lstinline|Ctrl + Shift + X|).
+        \item Busque \textbf{Python} (de Microsoft).
+        \item Haga clic en el botón \textbf{"Install in WSL: <distribución>"} (Instalar en WSL).
+         Esto habilitará el coloreado de sintaxis, el autocompletado (\textit{IntelliSense}) y la depuración de scripts \lstinline|.py|.
+    \end{itemize}
+
+    \item \textbf{Instalar la extensión de Jupyter:}
+    \begin{itemize}
+        \item Busque la extensión \textbf{Jupyter} (de Microsoft).
+        \item Asegúrese de instalarla también dentro del entorno WSL.
+        \item Esto le permitirá crear, editar y correr celdas de \textit{Jupyter Notebooks} (\lstinline|.ipynb|) directamente dentro de VS Code usando el kernel de Python instalado en Linux.
+    \end{itemize}
+\end{enumerate}
+
+\subsubsection*{Cambiar apariencia}
+\begin{lstlisting}
+Ctrl + k 
+Ctrl + T 
+\end{lstlisting}
+Allí buscas el theme que te guste
+\subsubsection*{Preferencias}
+Los atajos vienen con los usuales.  Yo en ocasiones prefiero algunos de emacs. 
+Podemos cambiarlos como queramos 
+\begin{lstlisting}
+Presiona Ctrl + Shift + P
+Escribe Preferences: Open Keyboard Shortcuts (JSON) y dale Enter.
+\end{lstlisting}
+Aparecerá un archivo como este 
+\begin{lstlisting}
+// Place your key bindings in this file to override the defaults
+[
+    {
+        "key": "ctrl+x ctrl+s",
+        "command": "workbench.action.files.save"
+    },
+    {
+        "key": "ctrl+w",
+        "command": "editor.action.clipboardCutAction",
+        "when": "editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+shift+enter",
+        "command": "editor.action.toggleColumnSelection"
+    },
+    {
+        "key": "ctrl+x ctrl+c",
+        "command": "workbench.action.closeActiveEditor"
+    }
+
+]
+\end{lstlisting}
+Eso significa que cambié el guardar archivo y el cerrar archivo. 
+Note que el signo menos es para liberar ese atajo.
+
+También podemos cambiar las preferencias de VS Code manualmente, por ejemplo
+\begin{lstlisting}
+Presiona Ctrl + Shift + P
+Escribe Preferences: Open User Settings (JSON) y dale Enter.
+\end{lstlisting}
+Aparecerá un archivo como este 
+\begin{lstlisting}
+{
+    "workbench.colorTheme": "Solarized Dark",
+    "python.defaultInterpreterPath": "/usr/bin/python3",
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.formatOnSave": true
+    },
+    "ltex.language": "auto",
+    "ltex.enabled": [
+    "latex",
+    "markdown",
+    "plaintext"
+    ],
+    "ltex.dictionary": {
+    "es": [],
+    "en-US": [],
+    "pt-BR": []
+    },
+    "editor.tabCompletion": "on",
+    "ltex.completionEnabled": true,
+    "latex-workshop.view.pdf.internal.synctex.keybinding": "double-click",
+
+    "latex-workshop.latex.tools": [
+    {
+        "name": "xelatex",
+        "command": "xelatex",
+        "args": [
+            "-synctex=1",
+            "-interaction=nonstopmode",
+            "-file-line-error",
+            "%DOC%"
+        ]
+    }
+],
+"latex-workshop.latex.recipes": [
+    {
+        "name": "xelatex ➞ view",
+        "tools": [
+            "xelatex"
+        ]
+    }
+],
+"git.autofetch": true
+}
+\end{lstlisting}
 
 
 \begin{problemas}[]
