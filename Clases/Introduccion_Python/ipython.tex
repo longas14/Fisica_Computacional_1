@@ -1,0 +1,785 @@
+\documentclass[12pt]{article}
+
+% ---------- IDIOMA ----------
+\usepackage{polyglossia}
+\setdefaultlanguage{spanish}
+% --- Cambiar "Cuadro" por "Tabla" ---
+\addto\captionsspanish{\renewcommand{\tablename}{Tabla}}
+
+% ---------- FUENTES ----------
+\usepackage{fontspec}
+\setmainfont{TeX Gyre Termes}
+
+% ---------- PAQUETES MATEMÁTICOS Y FÍSICOS ----------
+\usepackage{amsmath,amssymb}
+\usepackage{amsfonts}
+\usepackage{physics}
+
+% ---------- GRÁFICOS Y COLORES ----------
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{tikz-3dplot}
+\usetikzlibrary{shapes, arrows, positioning, calc}
+\usetikzlibrary{arrows.meta} 
+\usetikzlibrary{shapes.geometric} 
+\usetikzlibrary{decorations.markings}
+
+% ---------- CÓDIGO (LISTINGS) ----------
+\usepackage{listings}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.95,0.95,0.95}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.96,0.96,0.96}
+
+\lstdefinestyle{pythonstyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\small,          
+    breakatwhitespace=false,         
+    breaklines=true,                     
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                        
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4,
+    language=Python                      
+}
+\lstset{style=pythonstyle}
+
+% ---------- DISEÑO Y ESTILO ----------
+\usepackage{geometry}
+\geometry{letterpaper, margin=2cm, headheight=15pt}
+\usepackage{fancyhdr} 
+\usepackage{lastpage} 
+\usepackage{wrapfig}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{framed}
+\usepackage{etoolbox}
+
+% ---------- TCOLORBOX ----------
+\usepackage[most,skins,theorems]{tcolorbox}
+
+% --- Caja para Definiciones Formales ---
+\newtcolorbox{definicion}[1][]{
+  enhanced,
+  breakable, 
+  colback=blue!5!white,
+  colframe=blue!75!black,
+  fonttitle=\bfseries,
+  title={Definición: #1},
+  arc=2mm,
+  boxrule=0.8pt,
+  drop shadow=black!10!white
+}
+
+% --- Caja para Tareas ---
+\newtcolorbox{problemas}[1][]{
+  enhanced,
+  breakable, 
+  colback=violet!6!white,       
+  colframe=violet!45!white,     
+  coltitle=violet!40!black,     
+  fonttitle=\bfseries,
+  title={Problemas: #1},
+  arc=2.5mm,                    
+  boxrule=0.8pt,
+  drop shadow=black!8!white     
+}
+
+% --- Caja Libre Verde Menta ---
+\newtcolorbox{cajaflex}[1][]{
+  enhanced,
+  colback=teal!5!white,       
+  colframe=teal!50!black,     
+  coltitle=teal!10!white,     
+  fonttitle=\bfseries,
+  code={\ifblank{#1}{}{\tcbset{title={#1}}}},
+  arc=2.5mm,                  
+  boxrule=0.8pt,
+  drop shadow=black!8!white   
+}
+
+% ---------- TABLAS Y ELEMENTOS EXTRA ----------
+\usepackage{booktabs}   
+\usepackage{pifont}     
+\usepackage{array}      
+\usepackage{caption}    
+
+\newcommand{\lapiz}{\ding{46}\ }
+
+% ---------- ENLACES Y PDF ----------
+\usepackage{hyperref}
+
+\definecolor{myblue}{RGB}{20, 20, 120}
+\definecolor{myred}{RGB}{220, 30, 30}
+\definecolor{mygreen}{RGB}{0, 130, 60}
+
+% Personalización de nombres para \autoref
+\def\tableautorefname{Tabla}
+\def\figureautorefname{Figura}
+\def\equationautorefname{Ecuación}
+\def\sectionautorefname{Sección}
+
+% ---------- CONFIGURACIÓN DE ENCABEZADOS (ITM) ----------
+\newcommand{\logo}{\includegraphics[height=3cm]{escudoitm}}
+\newcommand{\escola}{Facultad de Ciencias Exactas y Aplicadas}
+\newcommand{\disc}{Física Computacional 1}
+\newcommand{\auth}{Robinson Longas Bedoya}
+\newcommand{\emaill}{\url{robinsonlongas@itm.edu.co}}
+\newcommand{\email}{\url{robinsonlongas3586@correo.itm.edu.co}}
+\newcommand{\cabec}{Física Computacional 1}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    citecolor=blue,
+    pdftitle={\cabec\ -- \auth},
+    pdfauthor={\auth}
+}
+
+% Configuración de estilos de página
+\pagestyle{fancy}
+\fancyhf{} 
+
+\fancypagestyle{firstpage}{
+    \fancyhead[L]{\logo}
+    \fancyhead[R]{
+        \textsf{\escola \\} 
+        \textsf{\disc \\}
+        \textsf{\auth \\}
+        \textsf{\email \\} 
+        \textsf{\emaill}     
+    }
+    \fancyfoot[R]{\scriptsize Página \thepage~de \pageref{LastPage}}
+    \renewcommand{\headrulewidth}{0pt} 
+    \renewcommand{\footrulewidth}{0.4pt} 
+}
+
+\fancyhead[L]{\textsf{\scriptsize \cabec\ -- \auth\ -- \email}}
+\fancyfoot[R]{\scriptsize Página \thepage~de \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt} 
+\renewcommand{\footrulewidth}{0.4pt} 
+
+\setlength{\parskip}{0.3em}
+
+\begin{document}
+		\thispagestyle{firstpage}
+		\vspace*{1.5cm}
+	
+	\begin{center}
+		\rule{\textwidth}{0.4pt}
+	\end{center}
+	
+	\begin{itemize}[leftmargin=*,label=\textcolor{red}{\ensuremath{\blacktriangleright}}]
+		\item \textbf{Lenguajes compilados e interpretados}
+		\item \textbf{Entornos virtuales}
+		\item \textbf{Ipython básico}
+	\end{itemize}
+	
+	\noindent
+	\textbf{\underline{Bibliografía}}
+	\begin{itemize}[leftmargin=*, label={\textcolor{blue}{$\bullet$}}]
+		\item \textit{Fundamentos de programación. sec. 1.8, 1.8.1 y 1.9.1-1.9.4}, Luis Joyanes.
+		\item \textit{Introducción a la programación con Python. sec 1.3 y cap. 2}, Andrés Marzal, Isabel Gracia y Pedro García.
+		\item \textit{Programming for computations - Python. sec. 2.1 y sec. 2.2}, Svein Lingen, Hans Petter Langtangen.
+		\item \textit{Python Software Foundation: venv — Creation of virtual environments}. 
+		Disponible en: \url{https://docs.python.org/3/library/venv.html}
+        \item Real Python. \textit{Python Virtual Environments: A Primer}. 
+		Disponible en :\url{https://realpython.com/python-virtual-environments-a-primer/}
+	\end{itemize}
+     
+    \section*{\textcolor{red}{\textit{Tipos de lenguajes}}}
+
+    Anteriormente, vimos que las computadoras solo entienden el lenguaje binario, es decir, cadenas asociadas
+    al alfabeto $\{0,1\}$. En particular, trabajamos con cadenas de 8 bits (bytes). A este lenguaje se le conoce 
+    como \textit{lenguaje de máquina}. Sin embargo, a la hora de dar instrucciones a la computadora, resulta
+    engorroso y propenso a errores tener que hacerlo con esas cadenas interminables de ceros y unos. 
+
+    Para solucionar esto, el primer paso histórico fue la creación del \textit{lenguaje 
+    ensamblador} (\textit{Assembly}). En lugar de escribir secuencias binarias, este lenguaje 
+    utiliza nemónicos (instrucciones en texto corto como    \texttt{MOV}, \texttt{ADD} o 
+    \texttt{JMP}) para representar directamente las operaciones del procesador. 
+
+    Para que la computadora entienda estas instrucciones, se utiliza un \textbf{ensamblador} 
+    (\textit{assembler}): un programa traductor que convierte el código escrito en lenguaje 
+    ensamblador a su equivalente en lenguaje de máquina. Tanto el lenguaje de máquina 
+    como el ensamblador son considerados \textit{lenguajes de bajo nivel}, pues están 
+    directamente atados a la arquitectura física del procesador (por ejemplo, x86, ARM) y 
+    requieren gestionar manualmente los registros de la CPU y las direcciones de memoria.
+
+    Con el tiempo, para abstraerse del hardware y escribir programas portátiles y legibles, 
+    se crearon los  \textit{lenguajes de alto nivel}. Existen numerosos lenguajes de alto nivel: 
+    Python, Java, C, C++, JavaScript, Ruby, Swift, Visual Basic, Perl, .NET, Fortran, Pascal, 
+    CUDA, entre otros. Aunque difieren en muchos detalles, 
+    todos comparten la propiedad de tener sintaxis y semántica bien definidas y no ambiguas. 
+
+    Dado que la computadora solo comprende el lenguaje de bajo nivel, 
+    cuando escribimos un programa en un lenguaje de alto nivel debemos usar un traductor 
+    para convertirlo a lenguaje de máquina. 
+    Esto se realiza principalmente mediante dos esquemas:
+    \textit{compilación} e \textit{interpretación}.
+
+  \begin{itemize}
+    \item \textbf{Lenguajes Compilados (ej. C, C++, Fortran):} 
+    El programa fuente se pasa por un software llamado \textit{compilador} (gcc, gfortran), 
+    el cual analiza todo el código y genera un archivo ejecutable binario 
+    independiente (código de máquina nativo para una arquitectura específica). 
+    \begin{itemize}
+        \item \textit{Ventaja:} Ejecución extremadamente rápida y optimizada para el procesador.
+        \item \textit{Desventaja:} Si se cambia el sistema operativo o la arquitectura, 
+        se debe recompilar. Los errores se detectan antes de la ejecución.
+    \end{itemize}
+
+    \item \textbf{Lenguajes Interpretados (ej. Ruby, Python, JavaScript):} 
+    Un programa denominado \textit{intérprete} lee el código fuente línea por línea y lo traduce e instruye 
+    al procesador en tiempo real.
+    \begin{itemize}
+        \item \textit{Ventaja:} Alta portabilidad y facilidad de depuración durante el desarrollo.
+        \item \textit{Desventaja:} Menor velocidad de ejecución, ya que el proceso de traducción ocurre 
+        mientras el programa corre.
+    \end{itemize}
+\end{itemize}
+
+\subsubsection*{El modelo híbrido de Python}
+A diferencia de los lenguajes interpretados puros, Python no lee directamente el texto del código fuente 
+en cada ejecución. En su lugar, utiliza un esquema de dos pasos:
+\begin{enumerate}
+    \item Traduce el archivo fuente (\texttt{.py}) a un código intermedio ejecutable 
+    llamado \textit{Bytecode} (\texttt{.pyc}).
+    \item La máquina virtual de Python (PVM) procesa y ejecuta dicho \textit{Bytecode}.
+\end{enumerate}
+Este enfoque permite combinar la flexibilidad de los lenguajes interpretados con una mejor
+velocidad al reejecutar módulos ya procesados.
+
+\begin{cajaflex}[Hidden Figures]
+    La película 
+    \href{https://www.imdb.com/es/title/tt4846340/}{\textit{Talentos Ocultos}}
+    (\textit{Hidden Figures}, 2016) ilustra perfectamente la 
+    transición del cálculo manual a la programación en la NASA durante los años 60. 
+    En ella se destaca el papel de Dorothy Vaughan, quien aprende de manera 
+    autodidacta \textbf{Fortran} (FORmula TRANslator) ---uno de los primeros lenguajes de alto nivel--- 
+    para programar la supercomputadora IBM 7090 y capacitar a su equipo.
+    
+    \vspace{0.1cm}
+    Más allá del reto técnico de pasar del cálculo manual a la programación en la 
+    IBM 7090 
+    usando Fortran, la película muestra cómo mujeres afroamericanas 
+    en la NASA de los años 60,  enfrentaron la intersección del machismo estructural y 
+    el racismo de la segregación (espacios, baños y herramientas de trabajo "solo para blancos"). 
+    Su historia refleja la batalla que se debió hacer (y que todavía se debe hacer) 
+    contra la exclusión social en cualquier ámbito y en particular las ciencias exactas y 
+    la computación.
+\end{cajaflex}
+
+%#####python-########################################33
+\section*{\textcolor{red}{\textit{¿Por qué Python?}}}
+
+Si existen tantos lenguajes de programación y, además, los que son compilados como C, C++ o 
+Fortran son más rápidos, ¿por qué aprender Python? 
+Hay diferentes buenas respuestas para esto, un par radican en el hecho de que su sintaxis es simple, 
+el software es libre y la comunidad que lo mantiene es muy grande. Así mismo, una serie de 
+ventajas que presenta Python son:
+
+\begin{enumerate}
+    \item Python permite expresar conceptos matemáticos y físicos complejos con muy pocas 
+    líneas de código. Su sintaxis es legible y carece de la sobrecarga de gestión manual 
+    de memoria (como punteros o asignación explícita) presente en lenguajes como C++. 
+    Esto permite a concentrarse en la \textit{física del problema} y no en el código.
+
+    \item Python cuenta con un conjunto de librerías especializadas que cubren 
+    prácticamente cualquier necesidad del análisis numérico y la modelación:
+    \begin{itemize}
+        \item \textbf{NumPy:} Manejo eficiente de vectores, matrices y álgebra lineal.
+        \item \textbf{SciPy:} Solución de ecuaciones diferenciales, integración numérica, optimización y transformada de Fourier.
+        \item \textbf{Matplotlib / Seaborn:} Visualización de datos, generación de gráficos de calidad de publicación.
+        \item \textbf{SymPy:} Cálculo simbólico (álgebra, derivadas e integrales analíticas).
+        \item \textbf{Pandas:} Manejo y estructuración de grandes volúmenes de datos experimentales.
+    \end{itemize}
+
+    \item Herramientas como \textbf{IPython} y las \textbf{Jupyter Notebooks} 
+    permiten mezclar texto ejecutable, ecuaciones en \LaTeX, gráficos en tiempo real y 
+    código interactivo.
+\end{enumerate}
+
+\section*{\textcolor{red}{\textit{Entornos virtuales}}}
+	Antes de comenzar a trabajar con Python, es recomendable crear un entorno virtual para 
+	el proyecto que deseamos realizar. Un entorno virtual es una copia aislada de Python 
+    dentro de un proyecto que permite instalar librerías sin afectar al Python del sistema. 
+	El entorno virtual permite aislar las dependencias y librerías 
+	necesarias para cada proyecto, evitando conflictos con otras instalaciones de Python 
+	en el sistema. Además, facilita la gestión de versiones y la reproducibilidad del entorno de 
+	desarrollo. 
+    
+    Para crear un entorno virtual, se ejecuta el siguiente comando  en la terminal:
+	%
+\begin{lstlisting}
+python3 -m venv .venv  
+\end{lstlisting}
+	%
+	\lstinline|python3| usa el intérprete Python 3 instalado en el sistema. 
+	El comando \lstinline|-m venv| indica que se desea crear un entorno 
+	virtual, y \lstinline|.venv| es el nombre del directorio donde se 
+	almacenará el entorno virtual (el . al inicio indica que es 
+	un directorio oculto). Confirmamos que quedó instalado el entorno 
+	virtual con el comando \lstinline|ls -la|.
+	Ingresamos al directorio \lstinline|cd .venv/| y ejecutamos el comando \lstinline|ls -la| 
+	para ver su contenido. Allí encontrarás los directorios \lstinline|bin|, \lstinline|include|, 
+	\lstinline|lib| y el archivo \lstinline|pyvenv.cfg|. En \lstinline|bin| se encuentran los ejecutables 
+	de Python y pip, en \lstinline|lib|se almacenan las librerías instaladas y se muestra la 
+	versión de Python utilizada. En \lstinline|include| se encuentran los archivos de cabecera de Python 
+	y el archivo \lstinline|pyvenv.cfg| contiene la configuración del entorno virtual.
+
+	Una vez creado el entorno virtual, es necesario activarlo para poder utilizarlo.
+	Se ejecuta el siguiente comando en la terminal:
+	%
+\begin{lstlisting}
+source .venv/bin/activate
+\end{lstlisting}
+	%
+	Note que el prompt de la terminal cambia, indicando que el entorno virtual está activo.
+	Una vez activo el entorno virtual, se pueden instalar las librerías necesarias para el proyecto
+	utilizando pip.
+	%
+\begin{lstlisting}
+pip install --upgrade pip
+pip install numpy scipy matplotlib sympy  pandas jupyter tqdm
+\end{lstlisting}
+	%
+	Luego guardamos las dependencias del proyecto en un archivo \lstinline|requirements.txt| 
+	con el comando: \lstinline|pip freeze > requirements.txt|. Si queremos recrear el entorno 
+	en otra máquina, podemos instalar las dependencias desde el archivo 
+	\lstinline|requirements.txt| con el comando: \lstinline|pip install -r requirements.txt|
+	Para desactivar el entorno virtual, se ejecuta el comando \lstinline|deactivate|.
+	Para el eliniar el entorno virtual, se ejecuta el comando \lstinline|rm -rf .venv|.
+	{\color{blue} Es importante no sincronizar el entorno virtual con el repositorio de git, 
+	para ello se recomienda agregar el directorio \lstinline|.venv| al archivo \lstinline|.gitignore|.}
+
+\begin{cajaflex}[No usar sudo]
+    Dentro del entorno, nunca es necesario usar privilegios de root.
+\end{cajaflex}
+
+
+	%####################### ipython ########################
+	\section*{\textcolor{red}{\textit{IPython}}}
+
+   	Llegó la hora de comenzar a trabajar con python. Normalmente en la consola podemos escribir
+	\lstinline|python3| y se abre el intérprete de python. Sin embargo, es más recomendable usar
+	el intérprete \lstinline|IPython|, que es una versión mejorada del intérprete de Python.
+	Para abrir el intérprete de IPython, se ejecuta el comando \lstinline|ipython3| en la terminal. 
+	Se puede salir del intérprete de IPython con el comando \lstinline|exit| o \lstinline|Ctrl+D|. 
+	En IPython se pueden ejecutar comandos del sistema operativo 
+	utilizando el prefijo \lstinline|!|. Por ejemplo, \lstinline|!ls| lista los archivos o 
+	compilar un .tex con \lstinline|!pdflatex archivo.tex|. Al ejecutarlo, podemos usarlo como 
+	una calculadora, por ejemplo: 
+	%
+\begin{lstlisting}
+Python 3.14.6 (main, Jun 11 2026, 00:00:00) [GCC 16.1.1 20260515 (Red Hat 16.1.1-2)]
+Type 'copyright', 'credits' or 'license' for more information
+IPython 9.15.0 -- An enhanced Interactive Python. Type '?' for help.
+Tip: Use the IPython.lib.demo.Demo class to load any Python script as an interactive demo.
+
+In [1]: 2+2
+Out[1]: 4
+
+In [2]: 2*3
+Out[2]: 6
+
+In [3]: 20/2
+Out[3]: 10.0
+
+In [4]: 3**2
+Out[4]: 9
+
+In [5]: 1-2+3
+Out[5]: 2
+
+In [5]: 1-(2+3)
+Out[5]: -4
+
+In [67]: a = 3     # defino a
+
+In [68]: a += 5    #incremento a en 5
+
+In [69]: a
+Out[69]: 8
+
+In [70]: b = 6    # defino b
+
+In [71]: b -=1    #le resto 1
+
+In [72]: b
+Out[72]: 5
+\end{lstlisting}
+%
+Además de su uso como calculadora, IPython tiene \textbf{Autocompletado con \texttt{Tab}:} 
+Al escribir las primeras letras de una variable, función o módulo, presionar \texttt{Tab} 
+despliega las opciones disponibles.
+\textbf{Introspección y Ayuda (\texttt{?} y \texttt{??}):} Agregar un signo de interrogación al 
+final de cualquier función muestra su documentación (\textit{docstring}). 
+Con dos signos (\texttt{??}) se intenta mostrar el código fuente interno.
+
+\subsection*{\textcolor{blue}{Precedencia de Operadores}}
+
+Al evaluar expresiones matemáticas, Python sigue el orden estándar de las operaciones 
+algebraicas (jerarquía de operaciones). Las operaciones de igual jerarquía (como suma y resta) 
+se evalúan de izquierda a derecha:
+\[
+1 - (2 + 3) = 1 - 5 = -4 \quad \text{frente a} \quad 1 - 2 + 3 = -1 + 3 = 2
+\]
+
+Sin embargo, la multiplicación (\texttt{*}) y la división (\texttt{/}) tienen mayor 
+precedencia que la suma (\texttt{+}) y la resta (\texttt{-}). 
+Para alterar el orden natural de evaluación deben utilizarse paréntesis \texttt{()}:
+
+\begin{lstlisting}
+In [1]: 2 * 5 + 3
+Out[1]: 13
+
+In [2]: 2 + 5 * 3
+Out[2]: 17
+
+In [3]: (2 + 5) * 3
+Out[3]: 21
+\end{lstlisting}
+
+\subsubsection*{Resumen de jerarquía (de mayor a menor prioridad):}
+
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Paréntesis \texttt{()}:} Rompen la jerarquía por defecto.
+    \item \textbf{Potenciación \texttt{**}:} Se evalúa de \textbf{derecha a izquierda} ($2^{3^2} = 2^9$).
+    \item \textbf{Multiplicación \texttt{*}, División \texttt{/}, División entera \texttt{//} y Módulo \texttt{\%}:} Evaluadas de izquierda a derecha.
+    \item \textbf{Suma \texttt{+} y Resta \texttt{-}:} Mención de menor prioridad, evaluadas de izquierda a derecha.
+\end{enumerate}
+
+\begin{lstlisting}
+In [4]: 2 ** 3 ** 2    # Equivale a 2**(3**2) = 2**9
+Out[4]: 512
+
+In [5]: (2 ** 3) ** 2  # Fuerzado con parentesis = 8**2
+Out[5]: 64
+\end{lstlisting}
+
+\subsection*{\textcolor{blue}{Tipos de datos}}
+
+Los tipos de datos en python se pueden ver con la función \lstinline|type|. Note que por definición, 
+la operación entre un entero y un flotante devuelve un flotante. Además, la definición de un número 
+complejo $z = 3 + 5 i $ se hace mediante el símbolo $j$ \lstinline|z = 3 + 5j| con el símbolo $j$ pegado
+al número. También puede hacerse con la función  \lstinline|z = complex(3, 5)|. Tanto la parte real 
+como la parte imaginaria son tomadas como floats. 
+%
+\begin{lstlisting}
+In [8]: x = 2                       # Entero
+
+In [13]: type(x)
+Out[13]: int
+
+In [3]: y=2.                        # Flotante
+
+In [20]: type(y)
+Out[20]: float
+
+In [21]: w = x+y
+In [22]: type(w)
+Out[22]: float
+
+In [40]: z = 3 + 5j   b             # Complejo
+In [40]: type(z.real)
+Out[40]: float
+
+In [41]: type(z.imag)
+Out[41]: float
+
+In [17]: type(True)                 # booleano
+Out[17]: bool
+
+In [42]: s= "Sociedad insociable"   # Cadena
+
+In [43]: type(s)
+Out[43]: str
+
+In [47]: 4*s
+Out[47]: 'Sociedad insociableSociedad insociableSociedad insociableSociedad insociable'
+\end{lstlisting}
+
+
+\subsection*{\textcolor{blue}{Funciones matemáticas integradas.}}
+
+Python incluye por defecto varias funciones útiles para manipular números:
+
+\begin{lstlisting}
+In [19]: abs(-15.4)       # Valor absoluto / Magnitud
+Out[19]: 15.4
+
+In [20]: round(3.14159, 2) # Redondeo a N decimales
+Out[20]: 3.14
+
+In [21]: pow(2, 4)        # Equivalente a 2**4
+Out[21]: 16
+
+In [22]: min(5, 2, 9, -1)  # Valor minimo
+Out[22]: -1
+
+In [23]: max(5, 2, 9, -1)  # Valor maximo
+Out[23]: 9
+\end{lstlisting}
+
+
+\subsection*{\textcolor{blue}{Salida de datos con \texttt{print()} y cadenas 
+formateadas (\textit{f-strings}):}}
+
+Para mostrar resultados en pantalla se utiliza la función \texttt{print()}. 
+En física es común trabajar con cantidades muy grandes o muy pequeñas, por lo que Python 
+permite definir números directamente en notación científica utilizando la letra \texttt{e} 
+(o \texttt{E}) para representar la potencia de 10. Por ejemplo, definamos la velocidad de la luz en 
+el vacío $c \approx 2.99792458 \times 10^8 \text{ m/s}$:
+
+\begin{lstlisting}
+In [31]: c = 2.99792458e8  # m/s
+
+In [32]: print(c)
+299792458.0
+
+In [33]: print("La velocidad de la luz en el vacío es:", c, "m/s")
+La velocidad de la luz en el vacío es: 299792458.0 m/s
+\end{lstlisting}
+
+La forma moderna y recomendada en Python para combinar texto y variables es 
+mediante las \textbf{\textit{f-strings}} (anteponiendo la letra \texttt{f} antes de las comillas).
+Esto, permite evaluar variables y expresiones directamente dentro de llaves \texttt{\{\}}. Es decir,
+todo lo pongas dentro de las llaves \texttt{\{\}} es reconocido como código por python.
+
+\begin{lstlisting}
+In [34]: print(f"La velocidad de la luz es c = {c} m/s")
+La velocidad de la luz es c = 299792458.0 m/s
+\end{lstlisting}
+
+Además, podemos aplicar especificadores de formato dentro de la llave utilizando dos puntos \texttt{:}
+
+\begin{lstlisting}
+# Formato en notacion cientifica con 2 decimales (:.2e)
+In [35]: print(f"Notacion cientifica: c = {c:.2e} m/s")
+Notacion cientifica: c = 3.00e+08 m/s
+
+In [54]:  print(f"Notacion cientifica: c = {c:.2E} m/s")
+Notacion cientifica: c = 3.00E+08 m/s
+
+In [57]:  print(f"Notacion cientifica: c = {c:.3E} m/s")
+Notacion cientifica: c = 2.998E+08 m/s
+
+# Formato en punto flotante con 2 decimales (:.2f)
+In [36]: print(f"Notacion flotante: c = {c:.2f} m/s")
+Notacion flotante: c = 299792458.00 m/s
+
+# Formato con separadores de miles y 2 decimales (:,.2f)
+In [37]: print(f"Con separadores: c = {c:,.2f} m/s")
+Con separadores: c = 299,792,458.00 m/s
+\end{lstlisting}
+
+Dentro de las llaves no solo va el nombre de las variables que queremos mostrar, 
+también podemos hacer operaciones 
+
+\begin{lstlisting}
+In [4]: print(f"El doble de c es {2 * c} m/s")
+El doble de c es 599580000.0 m/s
+
+In [5]: print(f"La luz recorre {c / 1000} km en un segundo")
+La luz recorre 299790.0 km en un segundo
+\end{lstlisting}
+
+También puedes usar cadenas
+
+\begin{lstlisting}
+In [6]: materia = "física computacional"
+
+In [7]: print(f"Bienvenidos a {materia.upper()}")
+Bienvenidos a FÍSICA COMPUTACIONAL
+\end{lstlisting}
+
+\subsection*{\textcolor{blue}{Importación de módulos}}
+
+Las funciones predeterminadas en Python son limitadas. Por ejemplo, por defecto no podemos 
+calcular razones trigonométricas (como seno o coseno), logaritmos ni raíces cuadradas. 
+Para ello existen los \textbf{módulos} (o librerías), los cuales no se cargan por defecto en 
+memoria para optimizar recursos.
+
+El módulo estándar para operaciones matemáticas es \textit{math}. Existen varias formas de importarlo:
+
+\begin{enumerate}
+    \item \textbf{Importación específica:} \lstinline|from math import sin| \\
+    Importa solo la función solicitada. Puede resultar engorroso si necesitamos usar decenas 
+    de funciones distintas.
+
+    \item \textbf{Importación masiva (no recomendada):} \lstinline|from math import *| \\
+    Importa todas las funciones del módulo. El problema de esta práctica 
+    (llamada \textit{contaminación del espacio de nombres}) es que si previamente habíamos 
+    definido una variable llamada \texttt{sin}, el módulo la sobrescribirá sin advertencia.
+
+    \item \textbf{Importación mediante espacio de nombres (recomendada):} \\
+    Es preferible usar \lstinline|import math| o asignarle un alias corto como 
+    \lstinline|import math as mate|.
+\end{enumerate}
+
+De esta forma, las funciones se invocan de manera segura usando la notación de punto. 
+Note que los ángulos deben ingresarse siempre en radianes:
+
+\begin{lstlisting}
+In [38]: import math
+
+# Pasar 90 grados a radianes: (90 * pi / 180)
+In [39]: math.sin(90 * math.pi / 180)
+Out[39]: 1.0
+
+In [40]: import math as mate
+
+In [41]: mate.sin(mate.pi / 2)
+Out[41]: 1.0
+
+# Tambien se puede usar la funcion integrada math.radians():
+In [42]: math.sin(math.radians(90))
+Out[42]: 1.0
+\end{lstlisting}
+
+En la siguiente tabla se muestran algunas funciones del módulo \texttt{math}. 
+
+\begin{table}[h!]
+\centering
+\small
+\begin{tabular}{l l c}
+\toprule
+\textbf{Comando en Python} & \textbf{Descripción / Uso} & \textbf{Expresión Matemática} \\
+\midrule
+
+\multicolumn{3}{l}{\textbf{\textit{1. Trigonometría y Ángulos}}} \\
+\texttt{math.sin(x)}, \texttt{cos(x)}, \texttt{tan(x)} & Seno, coseno y tangente (en radianes) & $\sin(x)$, $\cos(x)$, $\tan(x)$ \\
+\texttt{math.asin(x)}, \texttt{acos(x)}, \texttt{atan(x)} & Funciones trigonométricas inversas & $\arcsin(x)$, $\arccos(x)$, $\arctan(x)$ \\
+\texttt{math.radians(x)} / \texttt{degrees(x)} & Conversión entre grados y radianes & $\theta_{\text{rad}} \leftrightarrow \theta_{\text{deg}}$ \\
+
+\midrule
+\multicolumn{3}{l}{\textbf{\textit{2. Exponenciales, Logaritmos y Raíces}}} \\
+\texttt{math.exp(x)} & Exponencial & $e^x$ \\
+\texttt{math.log(x)} & Logaritmo natural & $\ln(x)$ \\
+\texttt{math.log10(x)} & Logaritmo en base 10 & $\log_{10}(x)$ \\
+\texttt{math.sqrt(x)} & Raíz cuadrada & $\sqrt{x}$ \\
+
+\midrule
+\multicolumn{3}{l}{\textbf{\textit{3. Redondeo y Constantes}}} \\
+\texttt{math.floor(x)} / \texttt{ceil(x)} & Redondeo hacia abajo (piso) / arriba (techo) & $\lfloor x \rfloor$, $\lceil x \rceil$ \\
+\texttt{math.pi} & Constante Pi & $\pi \approx 3.14159$ \\
+\texttt{math.e} & Base del logaritmo natural & $e \approx 2.71828$ \\
+
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection*{\textcolor{blue}{Representación y límites del Número de Máquina}}
+
+Como vimos en las clases pasadas, es crucial entender que las computadoras no trabajan con 
+números reales arbitrarios, sino con una aproximación finita, \textit{puntos flotantes} 
+(estándar IEEE 754 de 64 bits). 
+Podemos inspeccionar los límites físicos de representación numérica de nuestro procesador 
+directamente en IPython:
+
+\begin{lstlisting}
+In [10]: import sys
+
+In [11]: sys.float_info.epsilon  # Precision de maquina (\epsilon_mach)
+Out[11]: 2.220446049250313e-16
+
+In [12]: sys.float_info.max      # Límite de desbordamiento (Overflow)
+Out[12]: 1.7976931348623157e+308
+
+In [13]: sys.float_info.min      # Límite de subdesbordamiento (Underflow)
+Out[13]: 2.220446049250313e-308
+\end{lstlisting}
+
+\begin{itemize}
+    \item \textbf{Precisión de máquina ($\epsilon_{mach} \approx 2.22 \times 10^{-16}$):} 
+    Es la distancia entre el número $1.0$ y el siguiente flotante representable. Determina que en precisión doble tenemos aproximadamente $15$ a $17$ dígitos decimales de precisión.
+    \item \textbf{Efectos prácticos:} Operaciones como $1.0 + 10^{-16}$ 
+    resultarán exactamente en $1.0$ en la máquina debido a la pérdida de significancia.
+\end{itemize}
+
+
+
+
+
+
+\begin{problemas}[]
+	Resuelva los siguientes ejercicios ejecutando los comandos en su sesión de IPython y registrando las salidas correspondientes:
+
+\begin{enumerate}[leftmargin=*]
+
+    \item \textbf{Notación científica y f-strings (Tiempo que tarda la luz del Sol a la Tierra):} \\
+    La distancia media de la Tierra al Sol es $d = 1.496 \times 10^{11}\text{ m}$ y la velocidad de la luz es $c = 2.99792458 \times 10^8\text{ m/s}$. 
+    Define ambas variables en notación científica ($1.496\text{e}11$ y $2.99792458\text{e}8$). Calcula el tiempo $t = d / c$ en segundos e imprímelo en pantalla usando una \textit{f-string} con:
+    \begin{enumerate}
+        \item Formato flotante tradicional con 2 decimales (\texttt{:.2f}).
+        \item Formato en notación científica con 3 decimales (\texttt{:.3e}).
+    \end{enumerate}
+
+    \item \textbf{Números complejos y magnitud:} \\
+    En el estudio de circuitos de corriente alterna, la impedancia de un componente viene dada por $Z = 4 + 3j\ \Omega$.
+    \begin{enumerate}
+        \item Define $Z$ en IPython y muestra su parte real y su parte imaginaria mediante sus atributos \texttt{.real} y \texttt{.imag}.
+        \item Calcula la magnitud $|Z|$ usando la función integrada \texttt{abs(Z)}.
+        \item Verifica que el resultado coincide calculando $\sqrt{\text{real}^2 + \text{imag}^2}$ usando el módulo \texttt{math}.
+    \end{enumerate}
+
+    \item \textbf{Trigonometría y conversión de ángulos (Alcance de un proyectil):} \\
+    El alcance horizontal de un proyectil disparado con velocidad $v_0$ y ángulo $\theta$ respecto a la horizontal es:
+    \[
+    R = \frac{v_0^2 \sin(2\theta)}{g}
+    \]
+    Para $v_0 = 35\text{ m/s}$, $\theta = 30^\circ$ y $g = 9.81\text{ m/s}^2$:
+    \begin{enumerate}
+        \item Importa el módulo \texttt{math} y convierte $\theta$ a radianes usando \texttt{math.radians()}.
+        \item Calcula el alcance $R$ e imprime el resultado redondeado a 2 decimales.
+    \end{enumerate}
+
+    \item \textbf{Exponenciales y descomposición radiactiva:} \\
+    La cantidad de núcleos radiactivos restantes en una muestra sigue la ley $N(t) = N_0 e^{-\lambda t}$.
+    Para una muestra con $N_0 = 5000$ núcleos, tasa de decaimiento $\lambda = 0.035\text{ s}^{-1}$ y un tiempo transcurrido de $t = 12\text{ s}$:
+    \begin{enumerate}
+        \item Calcula $N(12)$ usando \texttt{math.exp()}.
+        \item Redondea el resultado al número entero más cercano hacia abajo usando \texttt{math.floor()}.
+    \end{enumerate}
+
+    \item \textbf{Logaritmos e intensidad sonora (Decibeles):} \\
+    El nivel de intensidad sonora en decibeles ($\text{dB}$) se define como:
+    \[
+    \beta = 10 \log_{10}\left(\frac{I}{I_0}\right)
+    \]
+    donde $I_0 = 10^{-12}\text{ W/m}^2$ es el umbral de audición. Si una fuente produce una intensidad $I = 2.5 \times 10^{-4}\text{ W/m}^2$, calcula el nivel de intensidad $\beta$ usando \texttt{math.log10()} y exprésalo con una \textit{f-string}.
+
+    \item \textbf{Precedencia de operadores y asociatividad de exponentes:} \\
+    Sin usar Python inicialmente, prediga el resultado de las siguientes expresiones. Luego, ejecútelas en IPython para verificar sus respuestas y explique las diferencias:
+    \begin{enumerate}
+        \item \lstinline|4 ** 3 ** 2| frente a \lstinline|(4 ** 3) ** 2|
+        \item \lstinline|10 + 20 * 3 / 5 - 2|
+        \item \lstinline|10 + 20 * (3 / (5 - 2))|
+    \end{enumerate}
+
+
+    \item \textbf{Identidad trigonométrica fundamental:} \\
+    Para un ángulo arbitrario $\theta = 75^\circ$, verifique en IPython la validez numérica de la identidad fundamental $\sin^2(\theta) + \cos^2(\theta) = 1$.
+    \textit{Nota:} Recuerde convertir el ángulo a radianes antes de evaluar las funciones.
+
+\end{enumerate}
+
+\end{problemas}
+
+
+
+\label{LastPage}
+\end{document}
+
