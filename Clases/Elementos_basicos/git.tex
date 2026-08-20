@@ -216,6 +216,16 @@ git init
 \begin{lstlisting}[language=bash]
 git add formas_diferenciales.tex 
 \end{lstlisting}
+En este momento, te debió aparecer un error. Esto se debe a que 
+antes de agregar los archivos, hay que configurar Git. 
+Para ello, ejecutas
+\begin{lstlisting}[language=bash]
+git config --global user.name "usuario"
+git config --global user.email "correo@itm.edu.co"
+\end{lstlisting}
+Como recomendación, es ideal que el correo sea el mismo con el que se
+registrarán en GitHub para que la plataforma asocie correctamente los 
+commits a su perfil.
     \item Hacer cambios en los archivos que quieras. 
     Luego para ver qué has modificado, ejecutas
 \begin{lstlisting}[language=bash]
