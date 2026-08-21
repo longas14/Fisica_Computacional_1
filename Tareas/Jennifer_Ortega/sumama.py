@@ -1,0 +1,5 @@
+print("la suya sapo")
+y = float(input("ingrese numero: "))
+x = float (input("ingrese otro numero: "))
+print ("se va a hacer chuzar")
+print("el resultado es: ", x + y)
