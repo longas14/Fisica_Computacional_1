@@ -1,0 +1,4 @@
+en este .txt crearemos un pseudocódigo que nos permita
+calcular la altura máxima de un cuerpo que es lanzado desde
+una cierta altura y a una cierta velocidad.
+Además, el algoritmo debe 
