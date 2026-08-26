@@ -1,4 +1,11 @@
 en este .txt crearemos un pseudocódigo que nos permita
 calcular la altura máxima de un cuerpo que es lanzado desde
 una cierta altura y a una cierta velocidad.
-Además, el algoritmo debe 
+Además, el algoritmo debe mostrar si la raíz es negativa (lo
+que nos da la pista de que debemos usar la fórmula del
+estudiante) y decirle al usuario la interpretación física
+de ese resultado.
+
+Pero ahora estoy en clase de química, por ende debo
+terminar de hacer este pseudocódigo y su consecuente
+código, en la casa.
