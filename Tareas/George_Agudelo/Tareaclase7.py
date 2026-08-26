@@ -1,16 +1,7 @@
-def convertir_a_binario(numero):
-    if numero == 0:
-        return "0"
-    
-    binario = ""
-    n = abs(numero)
-    
-    while n > 0:
-        residuo = n % 2
-        binario = str(residuo) + binario  
-        n = n // 2  
-        
-    return binario
+numero = int(input("Ingresa un número entero (-128 a 127): "))
 
-num = int(input("Ingresa un número entero: "))
-print(f"El número {num} en binario es: {convertir_a_binario(num)}")
+if -128 <= numero <= 127:
+    binario_8bits = format(numero & 0xFF, '08b')
+    print(f"El número {numero} en 8 bits es: {binario_8bits}")
+else:
+    print("El número está fuera del rango permitido para 8 bits con signo.")
