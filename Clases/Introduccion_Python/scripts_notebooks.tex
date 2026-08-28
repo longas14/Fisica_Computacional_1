@@ -1,0 +1,594 @@
+\documentclass[12pt]{article}
+
+% ---------- IDIOMA ----------
+% --- Paquetes para XeLaTeX y codificación moderna ---
+\usepackage{fontspec} 
+\usepackage[spanish, es-tabla]{babel} 
+% --- Cambiar "Cuadro" por "Tabla" ---
+\addto\captionsspanish{\renewcommand{\tablename}{Tabla}}
+
+% ---------- FUENTES ----------
+\setmainfont{TeX Gyre Termes}
+
+% ---------- PAQUETES MATEMÁTICOS Y FÍSICOS ----------
+\usepackage{amsmath,amssymb}
+\usepackage{amsfonts}
+\usepackage{physics}
+
+% ---------- GRÁFICOS Y COLORES ----------
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{babel} % <- Agrega esta línea
+\usepackage{tikz-3dplot}
+\usetikzlibrary{shapes, arrows, positioning, calc}
+\usetikzlibrary{arrows.meta} 
+\usetikzlibrary{shapes.geometric} 
+\usetikzlibrary{decorations.markings}
+
+% ---------- CÓDIGO (LISTINGS) ----------
+\usepackage{listings}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.95,0.95,0.95}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.96,0.96,0.96}
+
+\lstdefinestyle{pythonstyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\small,          
+    breakatwhitespace=false,         
+    breaklines=true,                     
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                        
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4,
+    language=Python                      
+}
+\lstset{style=pythonstyle}
+
+% ---------- DISEÑO Y ESTILO ----------
+\usepackage{geometry}
+\geometry{letterpaper, margin=2cm, headheight=15pt}
+\usepackage{fancyhdr} 
+\usepackage{lastpage} 
+\usepackage{wrapfig}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{framed}
+\usepackage{etoolbox}
+
+% ---------- TCOLORBOX ----------
+\usepackage[most,skins,theorems]{tcolorbox}
+
+% --- Caja para Definiciones Formales ---
+\newtcolorbox{definicion}[1][]{
+  enhanced,
+  breakable, 
+  colback=blue!5!white,
+  colframe=blue!75!black,
+  fonttitle=\bfseries,
+  title={Definición: #1},
+  arc=2mm,
+  boxrule=0.8pt,
+  drop shadow=black!10!white
+}
+
+% --- Caja para Tareas ---
+\newtcolorbox{problemas}[1][]{
+  enhanced,
+  breakable, 
+  colback=violet!6!white,       
+  colframe=violet!45!white,     
+  coltitle=violet!40!black,     
+  fonttitle=\bfseries,
+  title={Problemas: #1},
+  arc=2.5mm,                    
+  boxrule=0.8pt,
+  drop shadow=black!8!white     
+}
+
+% --- Caja Libre Verde Menta ---
+\newtcolorbox{cajaflex}[1][]{
+  enhanced,
+  colback=teal!5!white,       
+  colframe=teal!50!black,     
+  coltitle=teal!10!white,     
+  fonttitle=\bfseries,
+  code={\ifblank{#1}{}{\tcbset{title={#1}}}},
+  arc=2.5mm,                  
+  boxrule=0.8pt,
+  drop shadow=black!8!white   
+}
+
+% ---------- TABLAS Y ELEMENTOS EXTRA ----------
+\usepackage{booktabs}   
+\usepackage{pifont}     
+\usepackage{array}      
+\usepackage{caption}    
+
+\newcommand{\lapiz}{\ding{46}\ }
+
+% ---------- ENLACES Y PDF ----------
+\usepackage{hyperref}
+
+\definecolor{myblue}{RGB}{20, 20, 120}
+\definecolor{myred}{RGB}{220, 30, 30}
+\definecolor{mygreen}{RGB}{0, 130, 60}
+
+% Personalización de nombres para \autoref
+\def\tableautorefname{Tabla}
+\def\figureautorefname{Figura}
+\def\equationautorefname{Ecuación}
+\def\sectionautorefname{Sección}
+
+% ---------- CONFIGURACIÓN DE ENCABEZADOS (ITM) ----------
+\newcommand{\logo}{\includegraphics[height=3cm]{escudoitm}}
+\newcommand{\escola}{Facultad de Ciencias Exactas y Aplicadas}
+\newcommand{\disc}{Física Computacional 1}
+\newcommand{\auth}{Robinson Longas Bedoya}
+\newcommand{\emaill}{\url{robinsonlongas@itm.edu.co}}
+\newcommand{\email}{\url{robinsonlongas3586@correo.itm.edu.co}}
+\newcommand{\cabec}{Física Computacional 1}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    citecolor=blue,
+    pdftitle={\cabec\ -- \auth},
+    pdfauthor={\auth}
+}
+
+% Configuración de estilos de página
+\pagestyle{fancy}
+\fancyhf{} 
+
+\fancypagestyle{firstpage}{
+    \fancyhead[L]{\logo}
+    \fancyhead[R]{
+        \textsf{\escola \\} 
+        \textsf{\disc \\}
+        \textsf{\auth \\}
+        \textsf{\email \\} 
+        \textsf{\emaill}     
+    }
+    \fancyfoot[R]{\scriptsize Página \thepage~de \pageref{LastPage}}
+    \renewcommand{\headrulewidth}{0pt} 
+    \renewcommand{\footrulewidth}{0.4pt} 
+}
+
+\fancyhead[L]{\textsf{\scriptsize \cabec\ -- \auth\ -- \email\ -- \emaill}}
+\fancyfoot[R]{\scriptsize Página \thepage~de \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt} 
+\renewcommand{\footrulewidth}{0.4pt} 
+
+\setlength{\parskip}{0.3em}
+
+\begin{document}
+		\thispagestyle{firstpage}
+		\vspace*{1.5cm}
+	
+	\begin{center}
+		\rule{\textwidth}{0.4pt}
+	\end{center}
+	
+	\begin{itemize}[leftmargin=*,label=\textcolor{red}{\ensuremath{\blacktriangleright}}]
+		\item \textbf{Lenguajes compilados e interpretados}
+		\item \textbf{Entornos virtuales}
+		\item \textbf{Ipython básico}
+	\end{itemize}
+	
+	\noindent
+	\textbf{\underline{Bibliografía}}
+	\begin{itemize}[leftmargin=*, label={\textcolor{blue}{$\bullet$}}]
+		\item \textit{Introducción a la programación con Python. secciones 3.2, 3.3 y 3.4}, Andrés Marzal, Isabel Gracia y Pedro García.
+		\item \textit{Computational Physics, cap. 2}, Mark Newman.
+	\end{itemize}
+     
+    
+
+\section*{\textcolor{red}{\textit{Scripts (.py)}}}
+	Hasta el momento, hemos trabajado en el entorno interactivo de Python, llamado IPython.
+    Sin embargo, esto limita mucho nuestra capacidad de trabajo a la hora de programar. Por esta 
+    razón, es mejor utilizar editores de texto y construir nuestro programa allí. Existe una convención con 
+    la extensión de los ficheros (caracteres que suceden al punto), la convención es usar 
+    \lstinline|.py|. Por ejemplo, \lstinline|primer_progama.py|. 
+    
+    En algunos sistemas operativos las extensiones suelen ocultarse por defecto, pero se recomienda 
+    no hacerlo. Siempre es importante nombrar los archivos con su extensión para que tanto el editor 
+    como el sistema operativo identifiquen correctamente cómo interpretarlos.  
+
+%
+\begin{lstlisting}[captionpos=t, title=\texttt{primer\_programa.py}]
+# Nuestro primer programa en Python. Pregunta algunos datos personales
+
+# con el comando print(""), imprimimos un mensaje en cosa \n salta la linea
+print("¡Hola, espero que te encuentres muy bien!")
+
+#El comando input se utiliza para ingresar información. 
+#Por defecto la variable asigada es un string
+nombre = input("¿Cuál es tu nombre?\n")
+
+print(f"-------------------------------")
+# Uso de f-strings para la salida
+print(f"¡Mucho gusto, {nombre}!")
+
+# Conversión de datos. 
+# int() convierte la entrada a un entero
+print(f"-------------------------------")
+edad= int(input("¿Cuántos años tienes?\n"))
+print(f"-------------------------------")
+# Hacemos operaciones con ese entero 
+edad_segundos = edad * 365 * 24 * 3600 #calcula edad en segundos
+edad_minutos = edad * 365 * 24 * 60 #calcula edad en minutos
+futura_edad = edad + 5 # edad dentro de 5 años
+print(f"Tu edad en minutos es {edad_minutos}. En notación científica es {edad_minutos:.2e} minutos")
+print(f"Tu edad en segundos es {edad_segundos}. En notación científica es {edad_segundos:.2e} segundos")
+print(f"Si todo sale bien, te graduarías de Física a los {futura_edad} años.")
+print("-----------------------------------------")
+
+#EDAD DEL UNIVERSO
+# Edad del universo aproximada en años (13 800 millones de años)
+edad_universo = 13.8e9  # Notación científica en Python para float
+edad_universo_segundos = edad_universo * 365.25 * 24 * 3600 # edad universo en segundos
+
+# Calculamos el porcentaje que representa la edad de entrada respecto a la del Universo
+porcentaje = (edad / edad_universo) * 100
+
+print(f"Por otro lado, la edad del universo es de {edad_universo:.2e} años,")
+print(f"lo cual equivale a aproximadamente: {edad_universo_segundos:.2e} segundos.")
+print(f"Eso significa que has vivido aproximadamente el {porcentaje:.10f}% de la historia del universo.")
+print("-------------------------------")
+
+# EDAD DE LA TIERRA
+edad_tierra = 4.54e9   # Edad de la Tierra aproximada en años (4540 millones de años)
+edad_tierra_segundos = edad_tierra * 365.25 * 24 * 3600 # Edad de la Tierra en segundos
+
+# Calculamos el porcentaje que representa la edad de entrada respecto a la Tierra
+porcentaje_tierra = (edad / edad_tierra) * 100
+
+print(f"Además, la edad de la Tierra es de {edad_tierra:.2e} años ({edad_tierra_segundos:.2e} segundos).")
+print(f"Has presenciado aproximadamente el {porcentaje_tierra:.8f}% de la existencia de nuestro planeta.")
+print("-------------------------------")
+
+# 3. APARICIÓN DEL HOMO SAPIENS
+edad_humanidad = 300000.0  # 300 000 años aproximadamente
+edad_humanidad_segundos = edad_humanidad * 365.25 * 24 * 3600
+
+porcentaje_humano_universo = (edad_humanidad / edad_universo) * 100
+porcentaje_humano_tierra = (edad_humanidad / edad_tierra) * 100
+
+print(f"En perspectiva evolutiva, los primeros Homo sapiens aparecieron hace {edad_humanidad} años.")
+print(f"En segundos, la humanidad lleva existiendo aproximadamente {edad_humanidad_segundos:.2e} s (~10^13 s).")
+print(f"- Nuestra especie solo representa el {porcentaje_humano_tierra:.4f}% de la historia de la Tierra.")
+print(f"- Respecto al universo, la humanidad solo abarca el {porcentaje_humano_universo:.5f}% de su historia.")
+print("-------------------------------")
+print("-------------------------------")
+\end{lstlisting}
+%  
+
+Este script anterior introduce los conceptos fundamentales de interacción 
+con la consola, manejo de variables, conversión de tipos y formato de datos numéricos en Python.
+
+\begin{description}
+    \item[\textbf{1. Entrada y Salida ($\mathtt{input}$ y $\mathtt{print}$):}] 
+    La función \lstinline|print()| envía datos a la salida estándar (consola).
+    La secuencia de escape \lstinline|\n| genera un salto de línea dentro de la cadena.
+    
+    La función \lstinline|input()| detiene la ejecución del programa y espera a que se ingrese información 
+    desde el teclado. \textbf{Importante:} Toda entrada capturada por \lstinline|input()| se almacena
+     internamente como una cadena de texto (\lstinline|str|), independientemente de si el usuario ingresó 
+     números.
+
+    \item[\textbf{2. Conversión de Tipos (\textit{Casting}):}] 
+    Para realizar operaciones aritméticas con la variable \lstinline|edad|, es necesario convertir el 
+    texto recibido a un tipo numérico computable. En este caso se utiliza \lstinline|int()| 
+    para convertir la entrada en un número entero:
+    \begin{center}
+        \lstinline|edad = int(input("..."))|
+    \end{center}
+    Si intentáramos multiplicar directamente el resultado de \lstinline|input()| sin convertirlo, 
+    Python duplicaría la cadena de texto en lugar de realizar la operación matemática.
+
+    \item[\textbf{3. Tipos Flotantes ($\mathtt{float}$) y Notación Científica:}] 
+    Para magnitudes grandes como la edad del universo ($13.8 \times 10^9$ años), 
+    Python utiliza notación científica con la letra \lstinline|e|:
+    \begin{center}
+        \lstinline|edad_universo = 13.8e9| \quad $\equiv 1.38 \times 10^{10}$
+    \end{center}
+    Estas variables pertenecen al tipo de dato de punto flotante (\lstinline|float|).
+
+    \item[\textbf{4. Formato de Cadenas ($f\text{-strings}$):}] 
+    Las cadenas formateadas permitidas mediante \lstinline|f"..."| integran variables 
+    y expresiones dentro del texto entre llaves \lstinline|{}|. Además, admiten 
+    especificadores de formato para controlar la precisión:
+    \begin{itemize}
+        \item \lstinline|{variable:.2e}|: Muestra el valor en notación científica con 2 cifras decimales.
+        \item \lstinline|{variable:.10f}|: Muestra el valor en punto flotante tradicional fijando 
+        10 dígitos decimales (ideal para porcentajes astronómicos pequeños).
+    \end{itemize}
+
+    \item[\textbf{5. Uso de Comentarios ($\mathtt{\#}$):}] 
+    Las líneas que comienzan con el símbolo numeral \lstinline|#| son comentarios de una sola línea. El intérprete de Python ignora por completo estas líneas durante la ejecución. Se utilizan para:
+    \begin{itemize}
+        \item Documentar y explicar la lógica del código a otros programadores (o a uno mismo en el futuro).
+        \item Aclarar las unidades físicas empleadas en los cálculos (e.g., conversión de años a segundos).
+        \item Inhabilitar temporalmente líneas de código durante el desarrollo y depuración (\textit{debugging}).
+    \end{itemize}
+\end{description}
+
+%%%%% notebooks %%%%%%%%%%
+
+\section*{\textcolor{red}{\textit{Notebooks de Jupyter (.ipynb)}}}
+
+Hasta el momento construimos nuestro programa como un script (\lstinline|primer_programa.py|), 
+el cual se ejecuta secuencialmente de principio a fin en la terminal. 
+Sin embargo, en el ámbito de la investigación y la física computacional, también es común 
+utilizar \textbf{Jupyter Notebooks}.
+
+Un notebook es un entorno interactivo basado en la web que combina:
+\begin{itemize}
+    \item \textbf{Celdas de texto de marcas (\textit{Markdown}):} Para documentar la teoría, 
+    incluir ecuaciones en \LaTeX{}, explicaciones y gráficos.
+    \item \textbf{Celdas de código:} Para escribir y ejecutar fragmentos independientes de Python, 
+    conservando el estado de las variables en memoria.
+\end{itemize}
+
+A diferencia de un script tradicional, en un notebook podemos fragmentar el programa en celdas lógicas
+y ejecutar cada bloque por separado sin necesidad de reiniciar todo el programa.
+
+Por ejemplo, en el archivo \lstinline|volumen.ipynb| se calcula el volumen y el área de una esfera 
+a partir del radio 
+ingresado:
+\begin{equation*}
+    V = \frac{4}{3}\pi R^3\;;\;\qquad A = 4\pi R^2
+\end{equation*}
+
+% --- CELDA 1 (MARKDOWN) ---
+\noindent \textbf{[Celda 1 - Markdown]} \\
+$\large{\textbf{Cálculo del Volumen de una Esfera}} \\$
+En este notebook le pedimos al usiario/a que ingrese el radio $R$ en metros de una esfera. 
+Con ese dato calcula el volumen: $V = \dfrac{4\pi R^3}{3}$ y el área $A = 4\pi R^3$
+
+
+% --- CELDA 2 (CÓDIGO) ---
+\noindent \textbf{[Celda 2 - Código]} 
+\begin{lstlisting}
+import math  # Importamos el modulo matemático estándar de Python
+
+print("=== CÁLCULO DEL VOLUMEN DE UNA ESFERA ===")
+
+# Solicitamos el radio al usuario. 
+# Usamos float() porque el radio puede ser un número decimal (e.g., 2.5)
+radio = float(input("Ingresa el radio de la esfera R (en metros):\n"))
+
+print(f"\nRadio ingresado: {radio} m")
+\end{lstlisting}
+
+% --- CELDA 3 (MARKDOWN) ---
+\noindent \textbf{[Celda 3 - Markdown]} \\
+$V = \dfrac{4\pi R^3}{3}$ y el área $A = 4\pi R^3$
+
+
+% --- CELDA 4 (CÓDIGO) ---
+\noindent \textbf{[Celda 4 - Código]} 
+\begin{lstlisting}
+V = 4./3 * math.pi*  radio**3 # calculamos el volumen
+A = 4 * math.pi*  radio**2 # calculamos el area
+print("-------------------------------")
+print(f"El volumen de la esfera es: {V:.4f} m^3")
+print(f"En notación científica:     {V:.3e} m^3")
+print(f"El area de la esfera es: {A:.4f} m^2")
+print(f"En notación científica:     {A:.3e} m^2")
+
+print("-------------------------------")
+\end{lstlisting}
+
+\noindent Note los siguientes detalles:
+
+\begin{description}
+    \item[\textbf{1. Uso de $\mathtt{float(input())}$ :}]
+    A diferencia del programa anterior donde usábamos \lstinline|int()| para una edad 
+    contable entera, el radio es una cantidad física continua. 
+    Por ello, empleamos \lstinline|float()| para permitir números 
+    decimales (e.g., \lstinline|1.5|) y notación científica en la 
+    entrada (e.g., \lstinline|6.371e6| para el radio de la Tierra).
+
+    \item[\textbf{2. Importación del módulo $\mathtt{math}$:}]
+    Python no incluye la constante $\pi$ de forma nativa en su ámbito global. 
+    La instrucción \lstinline|import math| carga el módulo matemático estándar, 
+    permitiendo acceder a \lstinline|math.pi| con alta precisión ($15$ dígitos decimales).
+
+    \item[\textbf{3. Operador de Potencia ($\mathtt{**}$):}]
+    En Python, la exponenciación se realiza con el operador doble 
+    asterisco \lstinline|**| (e.g., \lstinline|radio ** 3|). 
+\end{description}
+
+\subsection*{Ventajas y advertencias al usar Notebooks}
+
+\begin{description}
+    \item[\textbf{Persistencia de variables en memoria:}] Una vez que ejecutas la 
+    \textbf{Celda 2}, las variables \lstinline|nombre| y \lstinline|edad| 
+    quedan almacenadas en la sesión activa del Kernel. Puedes usarlas en las celdas 4 y 
+    6 sin volver a pedirlas al usuario.
+    \item[\textbf{El orden de ejecución importa:}] A diferencia de un script secuencial, 
+    en un notebook las celdas se pueden ejecutar fuera de orden. El número a la izquierda 
+    de la celda (e.g., \lstinline|In [1]:|) indica el orden real en que el Kernel procesó el 
+    código, no la posición visual en la página.
+    \item[\textbf{Atención con \texttt{input()} en Notebooks:}] Cuando ejecutas una celda con 
+    \lstinline|input()| en VS Code o JupyterLab, aparecerá una casilla de texto especial en 
+    la parte superior del editor o justo debajo de la celda. Debes ingresar el valor y presionar 
+    Enter; de lo contrario, la celda se quedará en estado de espera 
+    infinito y no permitirá ejecutar otras celdas.
+\end{description}
+
+
+
+\begin{problemas}[]
+\begin{enumerate}[leftmargin=*]
+
+\item Elabore un programa que muestre en pantalla el enunciado de la ley de gravitación Universal de Newton.
+\item Elabore un programa que cuando se ejecute muestre en pantalla un párrafo de su canción preferida.
+
+\item \textbf{Conversión de coordenadas polares a cartesianas:}
+Suponga que la posición de un punto en el espacio bidimensional nos viene dada en coordenadas 
+polares $r, \theta$ y queremos convertirla a coordenadas cartesianas $x = r\cos\theta$, 
+$y=r\sin\theta$. Elabore un programa que:
+\begin{enumerate}
+    \item Pida ingresar los valores de $r$ y $\theta$. Cuidado, para 
+    evaluar $\theta$, recuerde que debe estar en radianes.
+    \item Convierta esos valores a coordenadas cartesianas utilizando las fórmulas estándar:
+    \begin{equation}
+        x = r \cos \theta, \qquad y = r \sin \theta.\nonumber
+    \end{equation}
+    \item Imprima los resultados.
+\end{enumerate}
+
+\item \textbf{Conversión de coordenadas cartesianas a polares:}
+Construya un programa que realice la operación contraria a la anterior. Es decir, que pida un punto en 
+coordenadas cartesianas y lo devuelva en polares. Recuerde que $r^2 = x^2 + y^2$, $\tan \theta = \dfrac{y}{x}$.
+
+\item \textbf{Altitud de un satélite:}
+Cuando se lanza un satélite a una órbita circular alrededor de la Tierra de modo que orbite 
+el planeta una vez cada $T$ segundos, la altura alcanzada por el sátelite sobre la superficie de 
+la Tierra es
+    \begin{equation*}
+        h = \left( \frac{G M T^2}{4 \pi^2} \right)^{1/3} - R,
+    \end{equation*}
+donde $G = 6.67 \times 10^{-11} \text{ m}^3 \text{kg}^{-1} \text{s}^{-2}$ es 
+la constante de gravitación universal de Newton, $M = 5.97 \times 10^{24} \text{ kg}$ es 
+la masa de la Tierra y $R = 6371 \text{ km}$ es su radio.   
+\begin{enumerate}[label=\alph*)]
+    \item Escriba un programa que solicite ingresar el valor deseado de $T$ y 
+    luego calcule e imprima la altitud correcta en metros.
+
+    \item Utilice su programa para calcular las altitudes de satélites que 
+    orbitan la Tierra una vez al día (la llamada órbita ``geoestacionaria'' o ``geosíncrona''), 
+    una vez cada 90 minutos y una vez cada 45 minutos. 
+
+\end{enumerate}
+
+\item \textbf{Velocidad de Escape:}
+La velocidad de escape ($v_e$) (rapidez mínima que debe alcanzar un cuerpo para escapar del campo gravitacional)
+para escapar del pozo gravitacional generado por una masa esférica $M$ de radio $R$ es:
+\begin{equation*}
+    v_e = \sqrt{\frac{2 G M}{R}}
+\end{equation*}
+donde $G = 6.674 \times 10^{-11} \text{ m}^3 \text{kg}^{-1} \text{s}^{-2}$ 
+es la constante de gravitación universal. Construya un script con las siguientes instrucciones:
+\begin{enumerate}
+    \item Definir la constante $G$ utilizando la sintaxis de notación científica en Python (\lstinline|6.674e-11|).
+    \item Solicitar la masa $M$ (en $\text{kg}$) y el radio $R$ (en $\text{m}$) del objeto astronómico.
+    \item Calcular $v_e$
+    \item Presentar la velocidad de escape calculada tanto en $\text{m/s}$ como en $\text{km/s}$.
+    \item \textit{Casos de estudio (Pruebas de validación):}
+    \begin{itemize}
+        \item \textbf{Planeta Tierra:} $M = 5.972 \times 10^{24} \text{ kg}$ (\lstinline|5.972e24|), $R = 6.371 \times 10^6 \text{ m}$ (\lstinline|6.371e6|). \\
+        \textit{Resultado esperado:} $\approx 11.18 \text{ km/s}$.
+        \item \textbf{Estrella de Neutrones:} $M = 2.8 \times 10^{30} \text{ kg}$ (\lstinline|2.8e30|), $R = 1.2 \times 10^4 \text{ m}$ (\lstinline|1.2e4|).
+    \end{itemize}
+\end{enumerate}
+
+\item \textbf{Órbitas planetarias:}
+La órbita en el espacio de un cuerpo alrededor de otro, como la de un planeta alrededor del Sol,
+no tiene por qué ser circular. En general adopta la forma de una elipse, con el cuerpo estando a veces más 
+cerca y a veces más lejos. Si se le da la distancia $\ell_1$ de máximo acercamiento que hace un 
+planeta al Sol, también llamada su \textit{perihelio}, y su velocidad lineal $v_1$ en el perihelio, 
+entonces cualquier otra propiedad de la órbita se puede calcular a partir de estas dos de la siguiente
+manera:
+
+\begin{enumerate}[label=\alph*)]
+    \item La segunda ley de Kepler nos dice que la distancia $\ell_2$ y la velocidad $v_2$ del planeta en su punto más distante, u \textit{afelio}, satisfacen $\ell_2 v_2 = \ell_1 v_1$. Al mismo tiempo, la energía total, cinética más gravitacional, de un planeta con velocidad $v$ y distancia $r$ al Sol está dada por
+    \begin{equation*}
+        E = \frac{1}{2} m v^2 - G \frac{m M}{r},
+    \end{equation*}
+    donde $m$ es la masa del planeta, $M = 1.9891 \times 10^{30} \text{ kg}$ es la masa del Sol y $G = 6.6738 \times 10^{-11} \text{ m}^3 \text{kg}^{-1} \text{s}^{-2}$ es la constante de gravitación de Newton. Dado que la energía debe conservarse, demuestre que $v_2$ es la raíz menor de la ecuación cuadrática
+    \begin{equation*}
+        v_2^2 - \frac{2 G M}{v_1 \ell_1} v_2 - \left[ v_1^2 - \frac{2 G M}{\ell_1} \right] = 0.
+    \end{equation*}
+    Una vez que tenemos $v_2$, podemos calcular $\ell_2$ usando la relación $\ell_2 = \ell_1 v_1 / v_2$.
+
+    \item Dados los valores de $v_1$, $\ell_1$ y $\ell_2$, otros parámetros de la órbita vienen dados por fórmulas simples que se pueden derivar de las leyes de Kepler y del hecho de que la órbita es una elipse:
+    \begin{align*}
+        \text{Semieje mayor:} \quad & a = \frac{1}{2} (\ell_1 + \ell_2), \\
+        \text{Semieje menor:} \quad & b = \sqrt{\ell_1 \ell_2}, \\
+        \text{Período orbital:} \quad & T = \frac{2 \pi a b}{\ell_1 v_1}, \\
+        \text{Excentricidad orbital:} \quad & e = \frac{\ell_2 - \ell_1}{\ell_2 + \ell_1}.
+    \end{align*}
+    Escriba un programa que solicite ingresar la distancia mínima al Sol 
+    y la velocidad en el perihelio, y luego calcule e imprima las cantidades
+     $\ell_2$, $v_2$, $T$ y $e$.
+
+    \item Pruebe su programa haciendo que calcule las propiedades de las órbitas de la Tierra 
+    (para la cual $\ell_1 = 1.4710 \times 10^{11} \text{ m}$ y
+    $v_1 = 3.0287 \times 10^4 \text{ m s}^{-1}$) y del cometa 
+    Halley ($\ell_1 = 8.7830 \times 10^{10} \text{ m}$ y $v_1 = 5.4529 \times 10^4 \text{ m s}^{-1}$). 
+    Entre otras cosas, debería encontrar que el período orbital de la Tierra es de un año y el del 
+    cometa Halley es de unos 76 años.
+\end{enumerate}
+
+\item {\color{blue}(Opcional)} \textbf{Escalón de potencial cuántico:} 
+Un problema bien conocido de la mecánica cuántica involucra una partícula de masa $m$ que se 
+encuentra con un escalón de potencial unidimensional:
+
+\begin{center}
+\begin{tikzpicture}[scale=0.95, >=stealth]
+    % Eje horizontal y línea de potencial V(x)
+    \draw[line width=1.2pt] (-2.5,0) -- (0,0) -- (0,1.5) -- (2.5,1.5);
+    \node[right] at (2.5,1.5) {$V$};
+    
+    % Eje vertical de discontinuidad
+    \draw[dotted] (0,0) -- (0,3.);
+    \node[below] at (0,0) {$0$};
+    
+    % Nivel de energía E
+    \draw[dashed] (-2.5,2.5) -- (2.5,2.5);
+    \node[right] at (2.5,2.3) {$E$};
+    
+    % Flecha de onda incidente
+    \draw[->, line width=0.8pt] (-1.8,0.5) -- (-0.6,0.5);
+    \node[above] at (-1.2,0.5) {incidente};
+    
+    % Flecha de onda reflejada R
+    \draw[->, line width=0.8pt] (-0.6,1.8) -- (-1.8,1.8);
+    \node[above] at (-1.2,1.8) {$R$};
+    
+    % Flecha de onda transmitida T
+    \draw[->, line width=0.8pt] (0.6,1.8) -- (1.8,1.8);
+    \node[above] at (1.2,1.8) {$T$};
+\end{tikzpicture}
+\end{center}
+
+La partícula, con energía cinética inicial $E$ y vector de onda $k_1 = \sqrt{2mE}/\hbar$, 
+ingresa desde la izquierda y encuentra un salto repentino en la energía potencial de altura $V$ 
+en la posición $x = 0$. Al resolver la ecuación de Schrödinger, se puede demostrar que cuando $E > V$ la partícula puede: (a) pasar el escalón, en cuyo caso tiene una energía cinética menor dada por $E - V$ al otro lado y un vector de onda correspondientemente menor $k_2 = \sqrt{2m(E - V)}/\hbar$, o (b) reflejarse, conservando toda su energía cinética y un vector de onda inalterado, pero moviéndose en la dirección opuesta. Las probabilidades $T$ y $R$ de transmisión y reflexión están dadas por:
+\begin{equation*}
+    T = \frac{4k_1 k_2}{(k_1 + k_2)^2}, \qquad R = \left( \frac{k_1 - k_2}{k_1 + k_2} \right)^2.
+\end{equation*}
+
+Suponga que tenemos una partícula con masa igual a la masa del electrón 
+$m = 9.11 \times 10^{-31} \text{ kg}$ y energía $10 \text{ eV}$ 
+que se encuentra con un escalón de potencial de altura $9 \text{ eV}$. 
+Escriba un programa en Python para calcular e imprimir las probabilidades de transmisión y 
+reflexión utilizando las fórmulas anteriores. $\hbar = \dfrac{h}{2\pi}$ es la constante reducida 
+de Planck, cuyo valor es 
+$\hbar \approx 1.0545718 \times 10^{-34} \text{ J}\cdot\text{s} \approx 6.582119 \times 10^{-16} \text{ eV}\cdot\text{s}$.
+
+\end{enumerate}
+
+\end{problemas}
+
+
+
+\label{LastPage}
+\end{document}
+

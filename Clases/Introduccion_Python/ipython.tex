@@ -1,13 +1,13 @@
 \documentclass[12pt]{article}
 
 % ---------- IDIOMA ----------
-\usepackage{polyglossia}
-\setdefaultlanguage{spanish}
+% --- Paquetes para XeLaTeX y codificación moderna ---
+\usepackage{fontspec} 
+\usepackage[spanish, es-tabla]{babel} 
 % --- Cambiar "Cuadro" por "Tabla" ---
 \addto\captionsspanish{\renewcommand{\tablename}{Tabla}}
 
 % ---------- FUENTES ----------
-\usepackage{fontspec}
 \setmainfont{TeX Gyre Termes}
 
 % ---------- PAQUETES MATEMÁTICOS Y FÍSICOS ----------
@@ -165,7 +165,7 @@
     \renewcommand{\footrulewidth}{0.4pt} 
 }
 
-\fancyhead[L]{\textsf{\scriptsize \cabec\ -- \auth\ -- \email}}
+\fancyhead[L]{\textsf{\scriptsize \cabec\ -- \auth\ -- \email\ -- \emaill}}
 \fancyfoot[R]{\scriptsize Página \thepage~de \pageref{LastPage}}
 \renewcommand{\headrulewidth}{0.4pt} 
 \renewcommand{\footrulewidth}{0.4pt} 
@@ -478,12 +478,12 @@ al número. También puede hacerse con la función  \lstinline|z = complex(3, 5)
 como la parte imaginaria son tomadas como floats. 
 %
 \begin{lstlisting}
-In [8]: x = 2                       # Entero
+In [8]: x = 2                       # Entero (int)
 
 In [13]: type(x)
 Out[13]: int
 
-In [3]: y=2.                        # Flotante
+In [3]: y=2.                        # Flotante (float)
 
 In [20]: type(y)
 Out[20]: float
@@ -492,23 +492,74 @@ In [21]: w = x+y
 In [22]: type(w)
 Out[22]: float
 
-In [40]: z = 3 + 5j   b             # Complejo
+In [40]: z = 3 + 5j               # Complejo (complex)
 In [40]: type(z.real)
 Out[40]: float
 
 In [41]: type(z.imag)
 Out[41]: float
 
-In [17]: type(True)                 # booleano
+In [17]: type(True)                 # booleano (bool)
 Out[17]: bool
 
-In [42]: s= "Sociedad insociable"   # Cadena
+In [42]: s= "Sociedad insociable"   # Cadena (str)
 
 In [43]: type(s)
 Out[43]: str
 
 In [47]: 4*s
 Out[47]: 'Sociedad insociableSociedad insociableSociedad insociableSociedad insociable'
+
+In [1]: lista = [1,1,2,3,5,8,13,21] # Lista (list)
+
+In [2]: type(lista)
+Out[2]: list
+
+In [23]: sum(lista)
+Out[23]: 54
+
+In [24]: max(lista)
+Out[24]: 21
+
+In [25]: min(lista)
+Out[25]: 1
+
+In [6]: asistentes = ["Jennifer", "Jorge", "Saray", "Santiago", "Felipe", "David"]
+
+In [7]: type(asistentes) #lista de cadenas
+Out[7]: list
+
+In [8]: len(asistentes)
+Out[8]: 6
+
+In [9]: asistentes[0] #note que comienza a contar desde cero 
+Out[9]: 'Jennifer'
+
+In [12]: asistentes[5]
+Out[12]: 'David'
+
+In [14]: asistentes[-1] #ver última entrada
+Out[14]: 'David'
+
+In [15]: asistentes[-2] #ver penúltima entrada
+Out[15]: 'Felipe'
+
+In [13]: asistentes[6] #error no existe la entrada 6
+---------------------------------------------------------------------------
+IndexError                                Traceback (most recent call last)
+Cell In[13], line 1
+----> 1 asistentes[6]
+
+IndexError: list index out of range
+
+In [18]: asistentes[0:3]   #asistentes desde el cero al 3 (no incluye al 3)
+Out[18]: ['Jennifer', 'Jorge', 'Saray']
+
+In [19]: asistentes[:3] #desde inicio hasta el 3 (sin incluir al 3)
+Out[19]: ['Jennifer', 'Jorge', 'Saray']
+
+In [20]: asistentes[3:] #desde el 3 (incluido) hasta el final
+Out[20]: ['Santiago', 'Felipe', 'David']
 \end{lstlisting}
 
 
