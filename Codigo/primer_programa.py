@@ -1,4 +1,5 @@
-# Nuestro primer programa en Python. Pregunta algunos datos personales
+""" Nuestro primer programa en Python. 
+Pregunta algunos datos personales"""
 
 # con el comando print(""), imprimimos un mensaje en cosa \n salta la linea
 print("¡Hola, espero que te encuentres muy bien!")
