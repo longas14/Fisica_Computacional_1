@@ -1,0 +1,887 @@
+\documentclass[12pt]{article}
+
+% ---------- IDIOMA ----------
+% --- Paquetes para XeLaTeX y codificación moderna ---
+\usepackage{fontspec} 
+\usepackage[spanish, es-tabla]{babel} 
+% --- Cambiar "Cuadro" por "Tabla" ---
+\addto\captionsspanish{\renewcommand{\tablename}{Tabla}}
+
+% ---------- FUENTES ----------
+\setmainfont{TeX Gyre Termes}
+
+% ---------- PAQUETES MATEMÁTICOS Y FÍSICOS ----------
+\usepackage{amsmath,amssymb}
+\usepackage{amsfonts}
+\usepackage{physics}
+\usepackage{siunitx}
+
+% ---------- GRÁFICOS Y COLORES ----------
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{babel} % <- Agrega esta línea
+\usepackage{tikz-3dplot}
+\usetikzlibrary{shapes, arrows, positioning, calc}
+\usetikzlibrary{arrows.meta} 
+\usetikzlibrary{shapes.geometric} 
+\usetikzlibrary{decorations.markings}
+
+% ---------- CÓDIGO (LISTINGS) ----------
+\usepackage{listings}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.95,0.95,0.95}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.96,0.96,0.96}
+
+\lstdefinestyle{pythonstyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\small,          
+    breakatwhitespace=false,         
+    breaklines=true,                     
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                        
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4,
+    language=Python                      
+}
+\lstset{style=pythonstyle}
+
+% ---------- DISEÑO Y ESTILO ----------
+\usepackage{geometry}
+\geometry{letterpaper, margin=2cm, headheight=15pt}
+\usepackage{fancyhdr} 
+\usepackage{lastpage} 
+\usepackage{wrapfig}
+\usepackage{multicol}
+\usepackage{enumitem}
+\usepackage{framed}
+\usepackage{etoolbox}
+
+% ---------- TCOLORBOX ----------
+\usepackage[most,skins,theorems]{tcolorbox}
+
+% --- Caja para Definiciones Formales ---
+\newtcolorbox{definicion}[1][]{
+  enhanced,
+  breakable, 
+  colback=blue!5!white,
+  colframe=blue!75!black,
+  fonttitle=\bfseries,
+  title={Definición: #1},
+  arc=2mm,
+  boxrule=0.8pt,
+  drop shadow=black!10!white
+}
+
+% --- Caja para Tareas ---
+\newtcolorbox{problemas}[1][]{
+  enhanced,
+  breakable, 
+  colback=violet!6!white,       
+  colframe=violet!45!white,     
+  coltitle=violet!40!black,     
+  fonttitle=\bfseries,
+  title={Problemas: #1},
+  arc=2.5mm,                    
+  boxrule=0.8pt,
+  drop shadow=black!8!white     
+}
+
+% --- Caja Libre Verde Menta ---
+\newtcolorbox{cajaflex}[1][]{
+  enhanced,
+  colback=teal!5!white,       
+  colframe=teal!50!black,     
+  coltitle=teal!10!white,     
+  fonttitle=\bfseries,
+  code={\ifblank{#1}{}{\tcbset{title={#1}}}},
+  arc=2.5mm,                  
+  boxrule=0.8pt,
+  drop shadow=black!8!white   
+}
+
+% ---------- TABLAS Y ELEMENTOS EXTRA ----------
+\usepackage{booktabs}   
+\usepackage{pifont}     
+\usepackage{array}      
+\usepackage{caption}    
+
+\newcommand{\lapiz}{\ding{46}\ }
+
+% ---------- ENLACES Y PDF ----------
+\usepackage{hyperref}
+
+\definecolor{myblue}{RGB}{20, 20, 120}
+\definecolor{myred}{RGB}{220, 30, 30}
+\definecolor{mygreen}{RGB}{0, 130, 60}
+
+% Personalización de nombres para \autoref
+\def\tableautorefname{Tabla}
+\def\figureautorefname{Figura}
+\def\equationautorefname{Ecuación}
+\def\sectionautorefname{Sección}
+
+% ---------- CONFIGURACIÓN DE ENCABEZADOS (ITM) ----------
+\newcommand{\logo}{\includegraphics[height=3cm]{escudoitm}}
+\newcommand{\escola}{Facultad de Ciencias Exactas y Aplicadas}
+\newcommand{\disc}{Física Computacional 1}
+\newcommand{\auth}{Robinson Longas Bedoya}
+\newcommand{\emaill}{\url{robinsonlongas@itm.edu.co}}
+\newcommand{\email}{\url{robinsonlongas3586@correo.itm.edu.co}}
+\newcommand{\cabec}{Física Computacional 1}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    citecolor=blue,
+    pdftitle={\cabec\ -- \auth},
+    pdfauthor={\auth}
+}
+
+% Configuración de estilos de página
+\pagestyle{fancy}
+\fancyhf{} 
+
+\fancypagestyle{firstpage}{
+    \fancyhead[L]{\logo}
+    \fancyhead[R]{
+        \textsf{\escola \\} 
+        \textsf{\disc \\}
+        \textsf{\auth \\}
+        \textsf{\email \\} 
+        \textsf{\emaill}     
+    }
+    \fancyfoot[R]{\scriptsize Página \thepage~de \pageref{LastPage}}
+    \renewcommand{\headrulewidth}{0pt} 
+    \renewcommand{\footrulewidth}{0.4pt} 
+}
+
+\fancyhead[L]{\textsf{\scriptsize \cabec\ -- \auth\ -- \email\ -- \emaill}}
+\fancyfoot[R]{\scriptsize Página \thepage~de \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt} 
+\renewcommand{\footrulewidth}{0.4pt} 
+
+\setlength{\parskip}{0.3em}
+
+\begin{document}
+		\thispagestyle{firstpage}
+		\vspace*{1.5cm}
+	
+	\begin{center}
+		\rule{\textwidth}{0.4pt}
+	\end{center}
+	
+	\begin{itemize}[leftmargin=*,label=\textcolor{red}{\ensuremath{\blacktriangleright}}]
+		\item \textbf{Estructuras condicionales:} if-else-elif 
+		\item \textbf{Estructuras iterativas:} while, for-in
+        \item \textbf{Manejo de excepciones:} try-except
+	\end{itemize}
+	
+	\noindent
+	\textbf{\underline{Bibliografía}}
+	\begin{itemize}[leftmargin=*, label={\textcolor{blue}{$\bullet$}}]
+		\item \textit{Introducción a la programación con Python. Capítulo 4}, Andrés Marzal, Isabel Gracia y Pedro García.
+		\item \textit{Computational Physics, cap. 2}, Mark Newman.
+		\item \textit{Programming for computations- Python,  secciones: 3.3 y 3.4}, Evein Linge and 
+        Petter Langtangen.
+	\end{itemize}
+     
+    
+
+\section*{\textcolor{red}{\textit{Estructuras de control}}}
+	Los programas que hemos visto son lineales: piden información,
+    ejecutan ciertas órdenes y muestran una salida. Sin embargo, ¿qué pasaría
+    si en \lstinline|primer_programa.py| se ingresa una edad de -3. Claramente, 
+    no tiene sentido físico y, aún así, el programa seguirá corriendo entregando
+    resultados erróneos. Peor aún, si la persona ingresa una letra en la edad, 
+    el programa colapsa.  Una característica que todo programa en 
+    Física computacional debe tener es la habilidad de romper rsa linealidad:
+    decidir qué líneas ejecutar y cuáles saltarse, o tomar decisiones sobre la marcha
+    basándose en un criterio previo. De esto se encargan las estructuras de control.
+
+    Existen dos tipos fundamentales de estructuras de control:
+\begin{itemize}
+    \item \textbf{Estructuras condicionales:} \lstinline|if|, \lstinline|elif| y \lstinline|else|.
+    \item \textbf{Estructuras iterativas (o bucles):} \lstinline|while| y \lstinline|for|.
+\end{itemize}
+
+\subsection*{\textcolor{blue}{\textit{Los condicionales if-elif-else}}}
+
+La estructura de un condicional en Python consta de la palabra clave \lstinline|if-else|, 
+seguida de la condición a evaluar y de dos puntos (\lstinline|:|). 
+Los dos puntos indican al intérprete que a continuación viene el bloque de
+instrucciones que deben ejecutarse únicamente si la condición es verdadera.
+La sintaxis es la siguiente:
+\begin{lstlisting}[language=Python]
+if condición:
+    # Bloque de código si la condición se cumple
+else:
+    # Bloque de código si la condición NO se cumple
+\end{lstlisting}
+\lstinline|if|: \guillemotleft al llegar a aquí evalúa estas acciones solo si esta condición 
+es cierta\guillemotright. \lstinline|else|: \guillemotleft en caso contrario, entonces evalúa 
+esta otra acción  \guillemotright 
+
+En la mayoría de los lenguajes de programación (como C++ o Fortran), 
+se utilizan llaves \lstinline|{}| o palabras reservadas para delimitar dónde empieza y 
+termina una condición. En Python no es así: los espacios al inicio de la línea
+(sangría o \textit{indentation}) definen la estructura del programa.
+
+\begin{itemize}
+    \item \textbf{¿Cómo sabe Python qué está dentro del \texttt{if}?}\\
+    Todas las líneas que estén desplazadas hacia la derecha pertenecen al
+    bloque del \lstinline|if| (o del \lstinline|else|). En cuanto escribimos una línea
+    pegada al margen izquierdo, esa instrucción queda por fuera del condicional y se 
+    ejecutará de forma lineal, sin importar si la condición fue verdadera o falsa.
+    
+    \item \textbf{Espacios vs. Tabuladores:}\\
+    Aunque Python acepta cualquier cantidad de espacios para definir un bloque, 
+    la regla estándar en la comunidad (PEP 8) es utilizar exactamente 4 espacios
+    por cada nivel de sangría. La mayoría de los editores como VS Code insertan estos 
+    4 espacios automáticamente al presionar \texttt{Enter} después de los dos puntos 
+    (\lstinline|:|).
+\end{itemize}
+
+Volviendo a nuestro ejemplo de la edad, podemos reorganizar la lógica usando un 
+bloque \lstinline|if-else| para que el cálculo solo se realice con edades válidas:
+%
+\begin{lstlisting}[language=Python, captionpos=t, title=\texttt{primer\_programa\_v2.py}]
+""" Nuestro primer programa en Python. 
+Modificado con el condicional if"""
+
+# con el comando print(""), imprimimos un mensaje en cosa \n salta la linea
+print("¡Hola, espero que te encuentres muy bien!")
+
+#El comando input se utiliza para ingresar información. 
+#Por defecto la variable asigada es un string
+nombre = input("¿Cuál es tu nombre?\n")
+
+print(f"-------------------------------")
+# Uso de f-strings para la salida
+print(f"¡Mucho gusto, {nombre}!")
+
+# Conversión de datos. 
+# int() convierte la entrada a un entero
+print(f"-------------------------------")
+edad= int(input("¿Cuántos años tienes?\n"))
+if edad < 0:
+    print("Tu edad debe ser positiva, suerte llave")
+else:
+    print(f"-------------------------------")
+    # Hacemos operaciones con ese entero 
+    edad_segundos = edad * 365 * 24 * 3600 #calcula edad en segundos
+    edad_minutos = edad * 365 * 24 * 60 #calcula edad en minutos
+    futura_edad = edad + 5 # edad dentro de 5 años
+    print(f"Tu edad en minutos es {edad_minutos}. En notación científica es {edad_minutos:.2e} minutos")
+    print(f"Tu edad en segundos es {edad_segundos}. En notación científica es {edad_segundos:.2e} segundos")
+    print(f"Si todo sale bien, te graduarías de Física a los {futura_edad} años.")
+    print("-----------------------------------------")
+\end{lstlisting}
+
+Diferentes condiciones pueden ser usadas en el \lstinline|if| por ejemplo, $x==a$ compara 
+la igualdad y $x! = a$ compara la diferencia. Note el uso del doble signo igual.
+
+Cuando un problema requiere evaluar más de dos alternativas mutuamente excluyentes, 
+la combinación básica de \lstinline|if| y \lstinline|else| se queda corta. 
+Para evitar anidar múltiples bloques (lo que vuelve el código más largo e ilegible), 
+Python ofrece la instrucción \lstinline|elif| (abreviación de \textit{else if}).
+
+La estructura \lstinline|elif| nos permite encadenar tantas condiciones como sean 
+necesarias. El programa evaluará cada condición de arriba hacia abajo de forma secuencial:
+ en cuanto una de ellas resulte verdadera,
+ ejecutará su bloque de código y saltará inmediatamente todo el resto del 
+ condicional.
+Consideremos el siguiente ejemplo (cabe resaltar que el mismo código puede ser escrito 
+sin usar \lstinline|elif|, solo anidando varios \lstinline|if-else|), 
+%
+\begin{lstlisting}[language=Python, captionpos=t, title=\texttt{piscina.py}]
+""" Programa que ilustra el uso de los condicionales"""
+T = float(input("¿Cómo está la temperatura del agua?\n Entregame el valor en Celsius\n"))
+if T > 20 and T < 27:
+    print('te puedes meter a la piscina')
+elif 15 <= T <= 20:
+    print('El agua está medio fría, usted verá')
+else:
+    print('No se meta a la piscina')
+\end{lstlisting}
+%
+Si se ingresa por ejemplo una temperatura de $22.3~^\circ\text{C}$, 
+la primera condición del \lstinline|if| se evalúa como verdadera, 
+el programa imprime su mensaje y se salta todo el resto del bloque. 
+Para temperaturas intermedias, como $T = 16~^\circ\text{C}$, 
+la primera condición resulta falsa, lo que le indica al intérprete que debe avanzar
+hacia la línea del \lstinline|elif|. En este punto la segunda condición resulta verdadera, 
+por lo que imprime su mensaje y omite el resto del código, sin llegar a revisar el 
+\lstinline|else|. Si ninguna de las condiciones anteriores se cumple, como en temperaturas 
+menores a $15~^\circ\text{C}$, el programa cae directamente en el \lstinline|else| final. 
+Si quisiéramos refinar aún más nuestras recomendaciones para clasificar el agua en más 
+rangos, bastaría con añadir más cláusulas \lstinline|elif| intermedias.
+
+\paragraph{\textcolor{blue}{Ejemplo:}}Para terminar el estudio de los condicionales, 
+considere el siguiente ejemplo
+%
+\begin{lstlisting}[language=Python, captionpos=t, title=\texttt{menu.py}]
+""" Programa que ilustra el uso de los condicionales. Pide el radio
+y calcula el diampetro, perímetro y área de un círculo"""    
+from math import pi
+
+radio = float(input('Entrégame el radio de un círculo en metros: '))
+
+print('####################################')
+print('Escoge una opción del siguiente menú:')
+print('a) Calcular el diámetro del círculo.')
+print('b) Calcular el perímetro del círculo.')
+print('c) Calcular el área del círculo.')
+option= input('Escoge a, b o c y pulsa enter: ')
+
+if option == 'a':  # Cálculo del diámetro.
+    diametro = 2 * radio
+    print(f'El diámetro es {diametro:.2f} metros')
+elif option == 'b':  # Cálculo del perímetro.
+    perimetro = 2 * pi * radio
+    print(f'El perímetro es {perimetro:.2f} metros')
+elif option == 'c':  # Cálculo del área.
+    area = pi * radio ** 2
+    print(f'El área es {area:.2f} metros cuadrados')
+else:
+    print(f'Solo hay tres opciones: a, b o c.')
+\end{lstlisting}
+%
+
+\begin{problemas}[]
+\begin{enumerate}[leftmargin=*]
+
+\item Escriba un programa que lea un número entero y que muestre si es par o impar. 
+Sugerencia: use la operación módulo y recuerde que un número es par si al dividirlo por 2
+su residuo es cero y es impar en caso contrario.
+\item Escriba un programa que lea los números reales $a,b,c$ y entregue la solución 
+de la ecuación cuadrática $ax^2 + bx + c = 0$.
+\item Escriba un programa que solicite un número real. 
+y que imprima si el número es estrictamente positivo, 
+estrictamente negativo o si es exactamente cero.
+\item Escriba un programa equivalente a piscina.py, pero solo usando \lstinline|if-else|.
+\item A presión atmosférica estándar ($1\text{ atm}$), el agua cambia de fase según su temperatura en grados Celsius ($T$):
+\begin{itemize}
+    \item $T \le 0\ ^\circ\text{C}$: Estado sólido (hielo).
+    \item $0 < T < 100\ ^\circ\text{C}$: Estado líquido.
+    \item $T \ge 100\ ^\circ\text{C}$: Estado gaseoso (vapor).
+\end{itemize}
+Cree un programa que reciba la temperatura y despliegue la fase correspondiente.
+\item La luz visible se clasifica según su longitud de onda ($\lambda$) en nanómetros ($\text{nm}$). 
+Consulte el espectro electromagnético y escriba un programa que lea $\lambda$ y determine el color aproximado dentro del rango 
+visible ($380\text{ nm}$ a $750\text{ nm}$). 
+Si la longitud de onda está fuera de este rango, 
+debe indicar si pertenece al ultravioleta o al infrarrojo.
+
+
+\end{enumerate}
+
+\end{problemas}
+
+\subsection*{\textcolor{blue}{\textit{La sentencia \texttt{while}}}}
+
+En inglés \guillemotleft while\guillemotright ~ significa \guillemotleft mientras\guillemotright.
+Lo que convierte a esta estructura de control en una iterativa, que se ejecuta miesntras alguna condición sea cierta.
+Su sintaxis y apariencia son muy 
+similares a las del \lstinline|if|, pero su comportamiento introduce una 
+repetición controlada. La instrucción \lstinline|while| se usa así:
+\begin{lstlisting}[language=Python]
+while condición:
+    acción 
+    acción
+\end{lstlisting}
+Significa que \guillemotleft mientras se cumpla esta condición, repita estas 
+acciones\guillemotright.
+
+\begin{lstlisting}[language=Python, captionpos=t, title=\texttt{piscina\_while.py}]
+""" Programa que ilustra el uso del while"""
+T = float(input("¿Cómo está temperatura del agua?\n Entregame el valor en Celsius\n"))
+while T<= 15 or T>= 27:
+    print('No se meta a la piscina')
+    break
+print('Te puedes meter a la piscina')   
+\end{lstlisting}
+
+Al igual que ocurre con el \lstinline|if|, la instrucción \lstinline|while| 
+evalúa si la condición dada se cumple (en este caso, si $T <= 15~^\circ\text{C}$ 
+o $T >= 27~^\circ\text{C}$). Si la condición es verdadera, ejecuta inmediatamente el 
+bloque de código identado que le sigue. En este caso, avisa que no se meta a la 
+piscina y luego se rompe el ciclo con la instrucción \lstinline|break|; 
+de lo contrario, se salta dicho bloque. 
+
+Note que si el programa muestra que no ingrese a la piscina, entonces ya no puede ingresar
+otra temperatura, se rompe. Esto puede cambiar si agregamos \lstinline|continue|.
+Podemos reescribir el programa de la piscina utilizando un bucle interactivo 
+\lstinline|while True| combinado con \lstinline|continue| y \lstinline|break|. 
+En este esquema, el bucle solicita continuamente la temperatura hasta que se ingrese 
+un valor dentro del rango adecuado.
+%
+\begin{lstlisting}[language=Python, captionpos=t, title=\texttt{piscina\_while\_v2.py}]
+""" Programa que ilustra el uso del while, break y continue"""
+while True:  
+T = float(input("¿Cómo está la temperatura del agua?\nEntrégame el valor en Celsius:\n"))
+    
+if T <= 15 or T >= 27:
+    print('No se meta a la piscina.\n')
+    continue  
+    
+print('Te puedes meter a la piscina.')
+break  
+\end{lstlisting}
+%
+Para entender esta línea, debemos recordar que la instrucción \lstinline|while| 
+evalúa siempre una expresión que dé como resultado un valor booleano: 
+verdadero (\lstinline|True|) o falso (\lstinline|False|).
+
+Al escribir directamente \lstinline|while True:|, estamos pasando la constante 
+\lstinline|True| como condición. Dado que el valor \lstinline|True| nunca cambia, 
+la condición siempre evalúa como verdadera. Esto crea lo que en programación se 
+conoce como un bucle infinito explícito o bucle de ejecución continua.
+
+En términos sencillos, le estamos diciendo al intérprete: 
+\textit{«Ejecuta este bloque de código indefinidamente, 
+repítelo una y otra vez sin parar»}. 
+\textbf{Si la temperatura es inválida ($T \le 15$ o $T \ge 27$):} El condicional 
+resulta verdadero, imprime el mensaje de advertencia y ejecuta el \lstinline|continue|. 
+Esto hace que Python ignore por completo la instrucción \lstinline|print| de éxito y 
+el \lstinline|break|, regresando inmediatamente a solicitar una nueva temperatura en la primera línea del \lstinline|while|.
+\textbf{Si la temperatura es válida ($15 < T < 27$):} El condicional resulta falso y el bloque del \lstinline|if| se omite. El programa continúa hacia la confirmación de ingreso a la piscina y finaliza el ciclo ejecutando el \lstinline|break|.
+
+Las diferencia entre \lstinline|break| y \lstinline|continue| es que 
+\textbf{\texttt{break}:} Sale del bucle completamente. El programa continúa ejecutando 
+las líneas de código que están fuera del bloque.
+En su lugar, \textbf{\texttt{continue}:} Omite las líneas de código restantes 
+dentro del bloque en esa iteración específica y regresa al encabezado del bucle 
+para procesar el siguiente elemento o iteración.
+\begin{lstlisting}[language=Python, captionpos=t,]
+In [1]: x = 10
+
+In [2]: while x > 0:
+   ...:     x = x-2
+   ...:     if x == 4:
+   ...:         continue
+   ...:     print(x)
+   ...: 
+8
+6
+2
+0    
+\end{lstlisting}
+\begin{lstlisting}[language=Python, captionpos=t,]
+In [15]: y = 5
+
+In [16]: while y > 0:
+    ...:     print(y)
+    ...:     y = y -1
+    ...:     if y==3:
+    ...:         break
+    ...:     else:
+    ...:         print("hecho")
+    ...: 
+5
+hecho
+4
+\end{lstlisting}
+Pasemos a un segundo ejemplo (famosos) con el \lstinline|while|. 
+\textit{La suma de Gauss}. Cuenta la historia que un profesor para mantener 
+ocupados a sus estudiantes, les solicitó sumar los números enteros desde 1 hasta 100.
+Es decir, $ 1 + 2 + 3\dots 100$. Puede leer acerca de esta anécdota en el siguiente 
+\href{https://francis.naukas.com/2010/04/15/iii-carnaval-de-matematicas-toda-la-verdad-sobre-la-anecdota-de-gauss-el-nino-prodigio-su-profesor-y-la-suma-de-1-a-100/}{enlace}.
+Gauss presentó su célebre expresión 
+\begin{align}
+    \sum_{i=1}^{n} k = 1 +2 +3\dots +n =\frac{n(n+1)}{2}
+\end{align}
+Note que para $n=100$, la suma da 50*101=5050. Vamos a hacer lo mismo pero con 
+el uso del \lstinline|while|.
+%}
+\begin{lstlisting}[language=Python, captionpos=t, title=\texttt{gauss.py}]
+""" En este programa se comprueba la suma de Gauss"""    
+print("comprobación de la fórmula de Gauss:\n")
+print("1+2+3+....+100 =5050\n")
+
+k = 1     #iniciamos contador
+suma = 0  #inicaimos el acumulador de la suma
+
+while k <=  100:
+    suma = suma + k # recuerde que puede usar suma += k
+    k += 1 # k = k+1
+
+print(f"El valor de la suma es: {suma} ")
+\end{lstlisting}
+Este programa se ejecuta de la siguiente manera:
+\begin{itemize}
+    \item la variable \lstinline|suma| inicia en $0$ y el contador \lstinline|k| inicia en 1.
+    \item En la primera iteración, la condición $1 \le 100$ es verdadera, entonces
+    se suma $1$ al acumulador (\lstinline|suma| $= 1$) y se incrementa el contador (\lstinline|k| $= 2$).
+    \item El ciclo se repite actualizando las variables: $(1+2=3)$, luego $(3+3=6)$......
+    \item  Cuando \lstinline|k| alcanza el valor de $101$, la condición $101 \le 100$ 
+    resulta falsa, el bucle se rompe y la ejecución continúa fuera del bloque.
+\end{itemize}
+
+Para que quede más claro, acá se presenta el pseudocódigo
+
+\noindent \textbf{Pseudocódigo:}
+\begin{enumerate}[label=\arabic*)]
+    \item Inicio
+    \item $k = 1$
+    \item $S = 0$
+    \item Mientras $k <= 100$ haga:
+    \begin{enumerate}[label=\alph*)]
+        \item $S = S + k$
+        \item $k = k + 1$
+    \end{enumerate}
+    \item Muestre $S$
+    \item Terminar
+\end{enumerate}
+
+\begin{problemas}[]
+\begin{enumerate}[leftmargin=*]
+
+\item Modifique el programa \lstinline|gauss.py| para que pida el número entero $n$ y 
+entregue el resultado de la suma. Compare en la salida su resultado con la fórmula de Gauss.
+
+\item A lo largo de la historia, grandes mentes han desarrollado diferentes esquemas computacionales para calcular el número $\pi$. En este ejercicio consideraremos dos de estos esquemas: uno desarrollado por Leibniz (1646–1716) y otro por Euler (1707–1783).
+
+El esquema de Leibniz se puede escribir como:
+\[
+\pi = 8 \sum_{k=0}^{\infty} \frac{1}{(4k + 1)(4k + 3)}
+\]
+
+mientras que una de las formas del esquema de Euler se expresa como:
+\[
+\pi = \sqrt{6 \sum_{k=1}^{\infty} \frac{1}{k^2}}
+\]
+
+Si solo se utilizan los primeros $N$ términos de cada sumatoria como una aproximación a 
+$\pi$, cada esquema modificado calculará $\pi$ con un cierto error.
+
+Escriba un programa que reciba $N$ como entrada, calcule $\pi$ para cada esquema y 
+muestre los resultados y los compare con el valor de $\pi$ que viene por defecto en la
+librería \lstinline|math| de Python.
+
+\item  La cantidad de una sutancia radiactiva $N(t)$ después de $t$ años se modela mediante 
+$N(t) = N_0 \, e^{-\lambda t}$, donde $N_0$ es la masa inicial y $\lambda$ es la constante 
+de decaimiento. Escriba un programa que reciba $N_0$ y $\lambda$, 
+y utilice un bucle \lstinline|while| para calcular año a año ($t = 1, 2, 3 \dots$) 
+el valor de $N(t)$, deteniéndose cuando la sustancia se reduzca a menos del $10\%$ de su 
+masa inicial ($N(t) < 0.1 N_0$).
+
+\item Un vector en un espacio tridimensional es una tripleta de valores reales $(x, y, z)$. 
+Construya un programa que permita operar con dos vectores. 
+El usuario verá en pantalla un menú con las siguientes opciones:
+
+\begin{enumerate}[label=\arabic*)]
+    \item Introducir el primer vector
+    \item Introducir el segundo vector
+    \item Calcular la suma
+    \item Calcular la diferencia
+    \item Calcular el producto escalar
+    \item Calcular el producto vectorial
+    \item Calcular el ángulo (en grados) entre ellos
+    \item Calcular la longitud de cada vector
+    \item Finalizar
+\end{enumerate}
+\end{enumerate}
+
+\end{problemas}
+
+\subsection*{\textcolor{blue}{\textit{El bucle \texttt{for-in}}}}
+
+Existe otro tipo de bucle, el bucle \lstinline|for-in| que se lee como 
+\guillemetleft para todo elemento en ..., haga ... \guillemetright
+~A diferencia del bucle \lstinline|while|, se emplea idealmente cuando conocemos de 
+antemano el número de repeticiones a realizar o cuando recorremos colecciones de datos finitas.
+Un bucle \lstinline|for-in| se representa asi:
+\begin{lstlisting}[language=Python]
+for i in serie de valores:
+    acción 
+    acción
+\end{lstlisting}
+
+Para iterar podemos usar listas o podemos usar la herramienta fundamental para acompañar este bucle es la función 
+\lstinline|range(inicio, fin, paso)|, la cual genera una secuencia 
+discreta de valores enteros en el intervalo $[ \text{inicio}, \text{fin} )$.
+Note que no incluye al último valor y solo acepta números enteros. Veamos un ejemplo simple. 
+\begin{lstlisting}[language=Python, captionpos=t, title=\texttt{saludos.py}]
+""" ejemplo del uso del for"""    
+lista = ['David', 'Felipe', 'Jorge', 'Jennifer', 'Santiago', 'Saray']
+
+for i in lista: # podemos usar listas
+    print(f'Hola {i} ')
+print('-------------------')
+for i in range(1,5,1): # también podemos usar range
+    print(i)
+print('-------------------')
+for i in range(1,50,2): # también podemos usar range
+    print(i)
+\end{lstlisting}
+
+Podemos calcular la suma de Gauss usando el for:
+
+\begin{lstlisting}[language=Python, captionpos=t, title=\texttt{gauss\_v2.py}]
+""" En este programa se comprueba la suma de Gauss usando el for"""    
+print("comprobación de la fórmula de Gauss:\n")
+print("1+2+3+....+100 =5050\n")
+
+suma = 0  #inicaimos el acumulador de lasuma
+
+for i in range(1,101,1): #note que como el último número es 100, ponemos 101
+    suma = suma + i # recuerde que puede usar suma += i
+
+print(f"El valor de la suma es: {suma} ")    
+\end{lstlisting}
+
+\paragraph{\textcolor{blue}{Ejemplo: Tiempo de vuelo de una bola.}} 
+Un problema típico en mecánica básica es el de lanzar una bola hacia 
+arriba con cierta rapidez inicial $v_0$ desde una altura $y_0$. 
+Despreciando al medio en el cual se mueve la bola y asumiendo el modelo 
+de partícula, el cambio de la altura con respecto al tiempo para la bola está
+dado por $y(t) = y_0 + v_0 t -\dfrac{1}{2} gt^2$.  
+Note que existe un timpo $T = t$  en el momento que llega al piso, que satisface
+$y(T) = \implies  \dfrac{1}{2} gT^2  - v_0 T - y_0= 0 $ cuya solución es 
+$$ T_{1,2} = \dfrac{v_0 \pm \sqrt{v_0^2 + 2gy_0}}{g}$$
+Claramente la solución con signo negativo no tiene sentido físico.
+
+\begin{lstlisting}[language=Python, captionpos=t, title=\texttt{tiempo\_vuelo.py}]
+"""
+Programa que calcula en tiempo de vuelo de un partícula que es 
+lanzada verticalmente hacia arriba desde una altura unicial y_0 y con
+rapidedz v_0.
+
+El tiempo calculado se compara con el tiempo exacto para estudiar 
+el error de presición de la máquina.
+"""    
+import math 
+
+print('----------------------------------')
+y0 = float(input('Entre la altura de lanzamiento en metros\t'))
+v0 = float(input('Entre la rapidez con la que lo lanzas en m/s\t'))
+N = int(input("Entre el número de puntos para el paso del tiempo\t")) 
+g = 9.8 # aceleración gravitacional de la tierra en m/s^2
+print('----------------------------------')
+
+
+#--------- solucion exacta ------------
+T = (v0 + math.sqrt( v0**2 + 2*g*y0) )/g
+#------------------------
+
+t_i = 0.0 # tiempo inicial
+t_f = 10. #tiempo final
+dt = (t_f - t_i) / (N -1)
+
+t = [] #Lista vacía para el tiempo
+y = []  #lista vacía para la altura
+
+#con el for construimos los valores de la altura para cada tiempo
+for i in range(N):
+    ti = t_i + i * dt #voy incrementando el tiempo
+    yi = y0 + v0 * ti - 1/2. * g * ti**2
+    t.append(ti) # el .append va llenando la lista vacía
+    y.append(yi)
+
+# con el while buscamos que esa altura siempre sea positiva. 
+k = 0
+while k < len(y) and y[k]>=0:
+    k = k +1
+
+t_num=t[k]
+
+# calculo de errores
+
+err_abs = abs(t_num - T)
+err_rel = (err_abs / T) * 100    
+
+print(f"El tiempo que queda la bola en el aire: {t_num:.4f} segundos")
+print(f"El tiempo exacto en el que cae la bola es : {T:.4f} segundos")
+print("\n--- ANÁLISIS DE ERROR Y PRECISIÓN ---")
+print(f"Paso de discretización (dt)   : {dt:.6f} s")
+print(f"Error absoluto (|t_num - T|)  : {err_abs:.6f} s")
+print(f"Error relativo (%)            : {err_rel:.4f} %")
+print(f"La altura para ese tiempo es: {y[k]:.4e} metros")
+\end{lstlisting}
+Al ejecutar el programa notamos que al aumentar el número de puntos $N$. El error
+disminuye. La pregunta es, ¿podemos hacer el $N$ muy grande para que el error sea cero?
+La respuesta es no. Al hacer un $dt$ muy pequeño y luego sumarlo con el $t_i$ se debe 
+tener en cuenta la precisión de la máquina. Es decir, suponga que va a sumar 
+$10 +10^{-15}\sim 10$. Esto se conoce como la precisión de la máquina y se llama $\epsilon_{\text{m}}$
+Puede chequear de manera simple en consola, abra un IPython y ejecute
+\begin{lstlisting}
+In [1]: import sys
+
+In [2]: sys.float_info.epsilon
+
+Out[2]: 2.220446049250313e-16
+\end{lstlisting}
+Su salida debe ser algo como \lstinline|2.220446049250313e-16|. Eso significa que la diferencia mínima
+para distinguir entre dos números flotantes es $\sim 10^{-16}$. Por esa razón, al comparar 
+dos números flotantes se debe tener cuidado. 
+\begin{lstlisting}
+In [26]: a = 0.1
+
+In [27]: b = 0.2
+
+In [28]: a+ b
+Out[28]: 0.30000000000000004
+
+In [29]: a+b == 0.3
+Out[29]: False
+
+tolerancia = 1e-5
+
+In [33]: abs(a+b - 0.3) <= tolerancia
+Out[33]: True
+\end{lstlisting}
+Estos errores de redondeo ocurren porque la máquina tiene una memoria finita y los números 
+reales son infinitos. Si operamos muchas veces con los números redondeados, se propagará el 
+error.
+
+\begin{problemas}[]
+\begin{enumerate}[leftmargin=*]
+
+\item Modifique el programa \lstinline|tiempo_vuelo.py| para que pida el nombre de un planeta
+en el sistema solar, calcule el tiempo de caída en ese planeta y lo compare con la Tierra.
+
+\item Construya un programa usando la función \lstinline|range| que pida un número entero 
+e imprima el cuadrado y el cubo de la lista en ese range. Ejemplo si el número es 3, entonces
+debe imprimir cuadrado $= 0, 1, 4$ y cubo $= 0, 1, 8$.
+
+\item \textbf{Sumatoria discreta y la constante de Stefan-Boltzmann:} Escriba un programa que solicite al usuario un número entero $N$ y calcule la siguiente sumatoria utilizando un bucle \lstinline|for|:
+    \[
+    S_N = \sum_{k=1}^{N} \frac{1}{k^4}
+    \]
+    Compare el resultado obtenido para $N = 10, 100, 1000$ con el valor exacto del límite infinito $\sum_{k=1}^{\infty} \frac{1}{k^4} = \frac{\pi^4}{90}$.
+
+    \item \textbf{Producto escalar y trabajo mecánico:} El trabajo realizado por una fuerza $\vec{F}$ a lo largo de un desplazamiento $\vec{r}$ se define como $W = \vec{F} \cdot \vec{r} = \sum_{i=1}^{3} F_i r_i$. Dadas las listas:
+\begin{lstlisting}[language=Python]
+F = [12.5, -3.2, 5.0]  # Fuerza en N
+r = [2.0, 4.5, -1.0]   # Desplazamiento en m
+\end{lstlisting}
+Construya un programa que utilice un bucle \lstinline|for| para calcular el producto escalar e imprima el trabajo total en Joules.
+
+\item \textbf{Fórmula de Rydberg y Series Espectrales del Hidrógeno:} En 1888, Johannes Rydberg publicó su famosa fórmula para determinar las longitudes de onda $\lambda$ de las líneas de emisión del átomo de hidrógeno:
+\[
+\frac{1}{\lambda} = R \left( \frac{1}{m^2} - \frac{1}{n^2} \right)
+\]
+donde $R = 1.097 \times 10^{-2}\text{ nm}^{-1}$ es la constante de Rydberg y $m, n$ son números enteros positivos con $n > m$. Para un valor fijo de $m$, los distintos valores de $n$ generan una serie espectral (las tres primeras, $m=1, 2, 3$, corresponden a las series de Lyman, Balmer y Paschen, respectivamente).
+
+Construya un programa, utilizando bucles \lstinline|for| anidados, calcule e 
+imprima en pantalla la longitud de onda $\lambda$ (en nanómetros) 
+para las primeras 5 líneas ($n = m+1, \dots, m+5$) 
+de cada una de las tres primeras series ($m = 1, 2, 3$).
+\end{enumerate}
+
+\end{problemas}
+
+\subsection*{\textcolor{blue}{\textit{try - except}}}
+	Ya hemos visto que que en los programas pueden aparecer errores cuando los ejecutamos. Por jemplo, 
+    dividr por cero, calcular raíces negativas en los reales, sumar una cadena con un entero.
+    Normalmente, hemos usado el \lstinline|if| para ocntrolar dichos errores, sin embargo, este es
+    un poco pesado.
+
+    jay uns estructora de control ddedicada a la detección y el tratamiento de excepciones: 
+    \lstinline|try-except|. Su sintaxis básica es la siguiente
+    \begin{lstlisting}[language=Python]
+try:
+    # acción con posible error
+except:
+    # acción para tratar el error
+\end{lstlisting}
+La idea es algo como esto: \guillemotleft intenta ejecutar estas acciones, si hay un error, 
+entonces ejecuta esto otro \guillemotright 
+
+Podemos ver esto con un ejemplo simple. Suponga que queremos mostrar la solución de
+$ax + b = 0 \implies x = -b/a$
+%
+\begin{lstlisting}[language=Python, captionpos=t, title=\texttt{try\_except.py}]
+"""Uso básico del try-except"""
+a = float(input("Entre a\n"))
+b = float(input("Entre b\n"))
+
+solution = -b/a
+
+print(f"La soución es x = {solution: .3f}")
+\end{lstlisting}
+Al ejecuar el programa, si se engtra la variable $a = 0$, sale el error 
+\lstinline|ZeroDivisionError: division by zero|. Lo podemos resolver así:
+%
+\begin{lstlisting}[language=Python, captionpos=t, title=\texttt{try\_except\_v2.py}]
+"""Uso básico del try-except"""
+try:
+    a = float(input("Entre a\n"))
+    b = float(input("Entre b\n"))
+
+    solution = -b / a
+
+except ZeroDivisionError: # analiza si a =0 
+    print("Error: El coeficiente 'a' debe ser diferente de cero.")
+
+except ValueError: # analiza si alguna variable que entra no es un número
+    print("Error: Debe ingresar un valor numérico válido.")
+
+else:
+    # Este bloque solo se ejecuta si la división en try fue exitosa
+    print("Las variables ingresadas son correctas\n")
+    print(f"La solución es x = {solution:.3f}")
+\end{lstlisting}
+%
+Si todas las instrucciones en el interior del \lstinline|try| se ejecutan correctamente, 
+el programa salta hasta el \lstinline|else| y omite el resto de código. Por otro lado, si ocurre
+un error, el programa se interrumpe y busca en el bloque \lstinline|except| el error que 
+coincida con dicha falla. En nuestro ejemplo esto puede pasar por dos cosas, una división por cero
+o que no se ingrese un número.
+
+\begin{cajaflex}[Conceptos clave del manejo de excepciones]
+\begin{itemize}[leftmargin=*]
+    \item \textbf{\texttt{try}:} Delimita las instrucciones riesgosas (lectura de datos y operaciones algebraicas).
+    \item \textbf{\texttt{except}:} Intercepta errores específicos (\lstinline|ZeroDivisionError|, \lstinline|ValueError|) y ejecuta un protocolo de recuperación sin detener el programa.
+    \item \textbf{\texttt{else}:} Bloque opcional que se ejecuta únicamente cuando el \lstinline|try| concluye sin ningún error.
+\end{itemize}
+\end{cajaflex}
+\paragraph{\textcolor{blue}{Ejemplo:}}Para finalizar esta parte,  
+considere el siguiente ejemplo
+%
+\begin{lstlisting}[language=Python, captionpos=t, title=\texttt{ecuacion\_segundo\_grado.py}]
+"""Uso básico del try-except"""
+import math
+
+try:
+    a = float(input("Entre a\n"))
+    b = float(input("Entre b\n"))
+    c = float(input("Entre c\n"))
+
+    d = b**2 - 4 * a * c #discriminante
+
+    x1 = (-b - math.sqrt(d))/(2 * a)
+    x2 = (-b + math.sqrt(d))/(2 * a)
+
+except ZeroDivisionError: # analiza si a =0 
+    print("Error: El coeficiente 'a' debe ser diferente de cero.")
+
+except ValueError: # analiza si alguna variable que entra no es un número
+    print("Error: Puede que no haya ingresado un valor numérico\n o que no haya solucióon en los reales.")
+
+else:
+    # Este bloque solo se ejecuta si la división en try fue exitosa
+    print("Las variables ingresadas son correctas\n")
+    print(f"Lad soluciones son  x_1 = {x1:.3f} y x_2 = {x2:.3f} ")
+\end{lstlisting}
+%
+\begin{cajaflex}[Observación]
+Note cómo \lstinline|math.sqrt(d)| lanza un \lstinline|ValueError| cuando $d < 0$. Si quisiéramos admitir soluciones complejas sin caer en la excepción, deberíamos emplear la librería \lstinline|cmath| en lugar de \lstinline|math|.
+\end{cajaflex}
+
+
+
+\end{document}
+
