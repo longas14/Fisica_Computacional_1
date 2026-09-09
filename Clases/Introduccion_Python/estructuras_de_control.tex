@@ -410,7 +410,8 @@ T = float(input("¿Cómo está temperatura del agua?\n Entregame el valor en Cel
 while T<= 15 or T>= 27:
     print('No se meta a la piscina')
     break
-print('Te puedes meter a la piscina')   
+if 15 < T < 27:
+    print('Te puedes meter a la piscina')   
 \end{lstlisting}
 
 Al igual que ocurre con el \lstinline|if|, la instrucción \lstinline|while| 
@@ -430,14 +431,14 @@ un valor dentro del rango adecuado.
 \begin{lstlisting}[language=Python, captionpos=t, title=\texttt{piscina\_while\_v2.py}]
 """ Programa que ilustra el uso del while, break y continue"""
 while True:  
-T = float(input("¿Cómo está la temperatura del agua?\nEntrégame el valor en Celsius:\n"))
+    T = float(input("¿Cómo está la temperatura del agua?\nEntrégame el valor en Celsius:\n"))
     
-if T <= 15 or T >= 27:
-    print('No se meta a la piscina.\n')
-    continue  
+    if T <= 15 or T >= 27:
+        print('No se meta a la piscina.\n')
+        continue  
     
-print('Te puedes meter a la piscina.')
-break  
+    print('Te puedes meter a la piscina.')
+    break  
 \end{lstlisting}
 %
 Para entender esta línea, debemos recordar que la instrucción \lstinline|while| 
@@ -500,11 +501,11 @@ Es decir, $ 1 + 2 + 3\dots 100$. Puede leer acerca de esta anécdota en el sigui
 \href{https://francis.naukas.com/2010/04/15/iii-carnaval-de-matematicas-toda-la-verdad-sobre-la-anecdota-de-gauss-el-nino-prodigio-su-profesor-y-la-suma-de-1-a-100/}{enlace}.
 Gauss presentó su célebre expresión 
 \begin{align}
-    \sum_{i=1}^{n} k = 1 +2 +3\dots +n =\frac{n(n+1)}{2}
+    \sum_{k=1}^{n} k = 1 +2 +3\dots +n =\frac{n(n+1)}{2}
 \end{align}
 Note que para $n=100$, la suma da 50*101=5050. Vamos a hacer lo mismo pero con 
 el uso del \lstinline|while|.
-%}
+%
 \begin{lstlisting}[language=Python, captionpos=t, title=\texttt{gauss.py}]
 """ En este programa se comprueba la suma de Gauss"""    
 print("comprobación de la fórmula de Gauss:\n")
@@ -784,12 +785,12 @@ de cada una de las tres primeras series ($m = 1, 2, 3$).
 \end{problemas}
 
 \subsection*{\textcolor{blue}{\textit{try - except}}}
-	Ya hemos visto que que en los programas pueden aparecer errores cuando los ejecutamos. Por jemplo, 
-    dividr por cero, calcular raíces negativas en los reales, sumar una cadena con un entero.
-    Normalmente, hemos usado el \lstinline|if| para ocntrolar dichos errores, sin embargo, este es
+	Ya hemos visto que en los programas pueden aparecer errores cuando los ejecutamos. Por jemplo, 
+    dividir por cero, calcular raíces negativas en los reales, sumar una cadena con un entero.
+    Normalmente, hemos usado el \lstinline|if| para controlar dichos errores, sin embargo, este es
     un poco pesado.
 
-    jay uns estructora de control ddedicada a la detección y el tratamiento de excepciones: 
+    Hay una estructura de control dedicada a la detección y el tratamiento de excepciones: 
     \lstinline|try-except|. Su sintaxis básica es la siguiente
     \begin{lstlisting}[language=Python]
 try:
@@ -848,8 +849,47 @@ o que no se ingrese un número.
     \item \textbf{\texttt{else}:} Bloque opcional que se ejecuta únicamente cuando el \lstinline|try| concluye sin ningún error.
 \end{itemize}
 \end{cajaflex}
+
 \paragraph{\textcolor{blue}{Ejemplo:}}Para finalizar esta parte,  
-considere el siguiente ejemplo
+considere el programa de Gauss pero pidiendo el número de términos a sumar
+%
+\begin{lstlisting}[language=Python, captionpos=t, title=\texttt{gauss\_v3}]
+""" En este programa se comprueba la suma de Gauss usando el for
+Se pide ingresar el número de términos en la suma"""
+
+print("----------------------------------------")
+print("comprobación de la fórmula de Gauss:\n")
+print("1+2+3+....+n = n(n+1)/2\n")
+print("----------------------------------------")
+
+try:
+    N = int(input("Ingrese el número de términos N que desea sumar: "))
+    if N < 1:
+        # Le decimos que N<1 es un error también (yo genero la alarma)
+        raise ValueError("N debe ser mayor o igual que 1") 
+
+except ValueError: 
+    print(f"Error: No puede ingrdar letras ni números menores que 1")
+
+else:
+    k = 1 # inicamos el contador 
+    suma = 0  #inicaimos el acumulador de lasuma
+
+    for i in range(1,N+1,1):
+        suma = suma + i # recuerde que puede usar suma += i
+
+    teorico = int(N * (N + 1)/2)
+    print(f"El valor de la suma es: {suma} ")
+    print(f"El valor teórico de la suma es: {teorico} ")
+\end{lstlisting}
+
+\begin{cajaflex}[Observación]
+Note que podemos personalizar nuestra alarma de error con el comando \lstinline|raise|.
+
+Como tarea, consulte los tipos de errores más comunes que podemos usar en el \lstinline|try|.
+\end{cajaflex}
+
+\paragraph{\textcolor{blue}{Ejemplo:} ecuación cuadrática} $ax^2 + bx +c = 0$
 %
 \begin{lstlisting}[language=Python, captionpos=t, title=\texttt{ecuacion\_segundo\_grado.py}]
 """Uso básico del try-except"""
