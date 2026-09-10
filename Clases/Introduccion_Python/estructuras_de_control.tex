@@ -29,6 +29,7 @@
 
 % ---------- CÓDIGO (LISTINGS) ----------
 \usepackage{listings}
+\usepackage{lastpage}
 
 \definecolor{codegreen}{rgb}{0,0.6,0}
 \definecolor{codegray}{rgb}{0.95,0.95,0.95}
@@ -918,7 +919,8 @@ else:
 \end{lstlisting}
 %
 \begin{cajaflex}[Observación]
-Note cómo \lstinline|math.sqrt(d)| lanza un \lstinline|ValueError| cuando $d < 0$. Si quisiéramos admitir soluciones complejas sin caer en la excepción, deberíamos emplear la librería \lstinline|cmath| en lugar de \lstinline|math|.
+Note como \lstinline|math.sqrt(d)| lanza un \lstinline|ValueError| cuando $d < 0$. 
+Si quisiéramos admitir soluciones complejas sin caer en la excepción, deberíamos emplear la librería \lstinline|cmath| en lugar de \lstinline|math|.
 \end{cajaflex}
 
 
