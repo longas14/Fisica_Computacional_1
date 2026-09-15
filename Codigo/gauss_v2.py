@@ -1,4 +1,5 @@
 """ En este programa se comprueba la suma de Gauss usando el for"""
+
 print("comprobación de la fórmula de Gauss:\n")
 print("1+2+3+....+100 =5050\n")
 
